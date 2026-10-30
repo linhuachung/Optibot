@@ -124,3 +124,19 @@ document.querySelectorAll("[data-question]").forEach((button) => button.addEvent
 byId("switch-search").addEventListener("click", () => { document.querySelector('input[value="search"]').checked = true; updateControls(); input.focus(); });
 byId("clear").addEventListener("click", () => { byId("messages").replaceChildren(); byId("empty").hidden = false; byId("error").hidden = true; updateControls(); input.focus(); });
 checkHealth();
+
+const widget = byId("chat-widget");
+const launcher = byId("chat-launcher");
+function setChatOpen(open) {
+  widget.hidden = !open;
+  launcher.setAttribute("aria-expanded", String(open));
+  launcher.setAttribute("aria-label", open ? "Close support chat" : "Open support chat");
+  if (open) input.focus({ preventScroll: true });
+  else launcher.focus({ preventScroll: true });
+}
+launcher.addEventListener("click", () => setChatOpen(widget.hidden));
+byId("open-chat").addEventListener("click", () => setChatOpen(true));
+byId("close-chat").addEventListener("click", () => setChatOpen(false));
+widget.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") { event.preventDefault(); setChatOpen(false); }
+});

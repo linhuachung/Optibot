@@ -6,7 +6,7 @@
   "pageErrors": [],
   "accessibilityViolations": [],
   "mobileOverflow": false,
-  "generatedAnswerError": "The API project has no available credits. Add credits or use document search.",
-  "checkedAt": "2026-10-30T14:52:42.957Z",
+  "generatedAnswerError": "Generation remains blocked by the previously verified exhausted-credit error; not retried in this UI-only check.",
+  "checkedAt": "2026-10-30T15:27:14.328Z",
   "note": "Actual local custom UI; not the required provider UI screenshot."
 }

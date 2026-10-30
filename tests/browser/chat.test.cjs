@@ -30,6 +30,7 @@ async function pageFor(t) {
 }
 async function open(page) {
   await page.goto(base);
+  await page.getByRole("button", { name: "Open support chat", exact: true }).click();
   await page.waitForFunction(() => document.querySelector("#connection").textContent.includes("Connected"));
 }
 const source = { title: "YouTube guide", url: "https://support.optisigns.com/hc/en-us/articles/360051014713", excerpt: "Open Files/Assets, select Apps, and choose YouTube." };
@@ -120,7 +121,30 @@ test("missing backend disables sends and explains how to start it", async (t) =>
   await page.unroute("**/api/health");
   await page.route("**/api/health", (route) => route.abort("connectionrefused"));
   await page.goto(base);
+  await page.getByRole("button", { name: "Open support chat", exact: true }).click();
   await page.getByText("Backend unavailable", { exact: true }).waitFor();
   assert.match(await page.locator("#setup-message").innerText(), /server.py/);
   assert.equal(await page.locator("#send").isDisabled(), true);
+});
+
+test("floating widget opens, closes with Escape and preserves the draft", async (t) => {
+  const page = await pageFor(t);
+  await page.goto(base);
+  assert.equal(await page.locator("#chat-widget").isVisible(), false);
+  await page.getByRole("button", { name: "Chat with OptiBot" }).click();
+  assert.equal(await page.locator("#chat-launcher").getAttribute("aria-expanded"), "true");
+  for (const viewport of [{ width: 320, height: 568 }, { width: 768, height: 400 }]) {
+    await page.setViewportSize(viewport);
+    const box = await page.locator("#chat-widget").boundingBox();
+    assert.ok(box.x >= 0 && box.y >= 0 && box.x + box.width <= viewport.width && box.y + box.height <= viewport.height);
+    assert.equal(await page.locator("#send").isVisible(), true);
+  }
+  await page.locator("#question").fill("My draft question");
+  await page.locator("#question").press("Escape");
+  assert.equal(await page.locator("#chat-widget").isVisible(), false);
+  assert.equal(await page.locator("#chat-launcher").evaluate((el) => el === document.activeElement), true);
+  await page.getByRole("button", { name: "Open support chat", exact: true }).click();
+  assert.equal(await page.locator("#question").inputValue(), "My draft question");
+  await page.getByRole("button", { name: "Close chat", exact: true }).click();
+  assert.equal(await page.locator("#chat-widget").isVisible(), false);
 });

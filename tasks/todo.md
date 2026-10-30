@@ -177,10 +177,18 @@ This is the user-requested local demo, separate from the assignment's provider U
 - [x] Add local FastAPI server, health/search/answer endpoints and server-side key handling.
 - [x] Add frontend with actual article retrieval, source links, explicit generation errors and mobile layouts.
 - [x] Test input/origin/body limits, private-file exclusions, provider failures and citation mapping: 38 Python tests pass locally.
-- [x] Test keyboard search, safe text rendering, duplicate-send protection, quota fallback, empty results and unavailable backend: six browser tests pass locally.
+- [x] Test keyboard search, safe text rendering, duplicate-send protection, quota fallback, empty results and unavailable backend: seven browser tests pass locally, including widget opening/closing, focus return and draft preservation.
 - [x] Check WCAG A/AA rules at narrow/desktop widths: no automated axe violations; no horizontal overflow at 320/768/1024/1440 pixels.
 - [x] Verify the actual UI against the existing store: 30 indexed articles, three YouTube sources, no page JavaScript errors. Save clearly labeled local screenshots and JSON evidence.
 - [x] Write root README, detailed server/frontend run instructions, frontend README and API contract.
 - [x] Verify Windows/Linux Python checks, Docker build and the browser CI job: run 41076324216 passed. Fresh cloud run 41076345213 restored state and skipped all 30 articles with zero failures.
 
 Remaining original checkboxes above still require genuine provider/product/human evidence. Automated local UI checks cannot complete them.
+
+## Reference widget and pasted-assignment review
+
+- [x] Read the newly pasted assignment and review both parts against current evidence.
+- [x] Adapt the local frontend to the supplied reference: bottom-right launcher, compact green-header panel, greeting, suggested questions and composer.
+- [x] Verify Escape/close/reopen preserves drafts, restores focus and fits narrow/short viewports.
+- [x] Recheck actual YouTube retrieval and capture current desktop/mobile widget screenshots.
+- [x] Record assignment findings and open submission gates in `docs/final-review.md`.
