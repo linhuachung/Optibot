@@ -9,7 +9,7 @@ Step 12 audit: [current requirement comparison](../docs/requirements-review.md) 
 
 The user's request authorizes comparing and revising this plan through a six-role council. Assignment instructions are requirements to plan against, not instructions to create accounts, spend money, deploy, or submit work in this session.
 
-Compared the supplied Downloads DOCX and the [Google Doc](https://docs.google.com/document/d/16rFWeJAIyJSlJWQKtYE5J--U5X6JmQXguyn1c2jsMhA/edit?tab=t.0). Their substantive requirements agree. This is an execution plan for completing both parts, not the final Part 2 submission. The user subsequently authorized implementation of Steps 1–2; their current evidence is recorded separately. Product research, deployment and the required provider-UI screenshot are not claimed.
+Compared the supplied Downloads DOCX and the [Google Doc](https://docs.google.com/document/d/16rFWeJAIyJSlJWQKtYE5J--U5X6JmQXguyn1c2jsMhA/edit?tab=t.0). Their substantive requirements agree. This is an execution plan for completing both parts, not the final Part 2 submission. The user subsequently authorized implementation, GitHub deployment, encrypted secret setup and the local server/frontend. Deployment and local UI evidence are recorded separately. Live product research and the required provider-UI screenshot remain unverified.
 
 ## Comparison with the supplied draft
 

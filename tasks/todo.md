@@ -181,6 +181,6 @@ This is the user-requested local demo, separate from the assignment's provider U
 - [x] Check WCAG A/AA rules at narrow/desktop widths: no automated axe violations; no horizontal overflow at 320/768/1024/1440 pixels.
 - [x] Verify the actual UI against the existing store: 30 indexed articles, three YouTube sources, no page JavaScript errors. Save clearly labeled local screenshots and JSON evidence.
 - [x] Write root README, detailed server/frontend run instructions, frontend README and API contract.
-- [ ] Verify the new browser CI job after pushing this change.
+- [x] Verify Windows/Linux Python checks, Docker build and the browser CI job: run 41076324216 passed. Fresh cloud run 41076345213 restored state and skipped all 30 articles with zero failures.
 
 Remaining original checkboxes above still require genuine provider/product/human evidence. Automated local UI checks cannot complete them.

@@ -60,3 +60,7 @@ For Part 2, review the business acceptance section in the plan and [interview pr
 ## Step 12 completion boundary
 
 Requirement comparison, document handoff review, estimate arithmetic and interview preparation materials are complete. Live-product rehearsal, candidate acceptance of the assumptions/estimates and final combined submission checks remain open. Do not mark Step 12 fully complete or call the submission compliant until those remaining gates are resolved. No Part 2 code or custom Part 1 chat UI is required by this assignment.
+
+## Subsequent local demo request
+
+The user requested a runnable server/frontend and run instructions after this assignment review. The optional local FastAPI/static UI is now implemented and tested, with separate search and generation modes. It makes no new claim of assignment compliance: the provider-UI screenshot, real generated/refusal answer checks, exact chunk totals, live SCIO study and candidate rehearsal remain open. The daily deployment still runs the Docker ingestion job only. See [run guide](run.md), [API contract](api.md) and [live local UI evidence](evidence/local-web-check.json).
