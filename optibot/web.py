@@ -41,6 +41,29 @@ def public_source(item):
     return {key: item[key] for key in ("title", "url", "excerpt") if key in item}
 
 
+class InvalidStateError(ValueError):
+    """Saved corpus is not safe/usable for the read-only API."""
+
+
+def read_corpus(directory):
+    try:
+        state = read_json(directory / "ingestion-state.json", None)
+        if state is None:
+            return None
+        if not isinstance(state, dict) or not isinstance(state.get("articles"), dict):
+            raise ValueError("Invalid corpus shape")
+        if state["articles"] and (not isinstance(state.get("vector_store_id"), str) or not state["vector_store_id"].strip()):
+            raise ValueError("Missing store ID")
+        for record in state["articles"].values():
+            if not isinstance(record, dict) or any(not isinstance(record.get(key), str) or not record[key].strip()
+                                                    for key in ("file_id", "title", "url")):
+                raise ValueError("Invalid article record")
+            public_source(record)
+        return state
+    except (ValueError, RuntimeError, KeyError, TypeError, OSError) as error:
+        raise InvalidStateError from error
+
+
 def create_app(*, data_dir=None, client_factory=api_client):
     load_dotenv(ROOT / ".env")
     directory = Path(data_dir) if data_dir is not None else Path(os.getenv("STATE_DIR") or os.getenv("DATA_DIR", str(ROOT / "data")))
@@ -80,7 +103,7 @@ def create_app(*, data_dir=None, client_factory=api_client):
     @app.get("/api/health")
     def health():
         try:
-            state = read_json(directory / "ingestion-state.json", None)
+            state = read_corpus(directory)
             count = len(state["articles"]) if state else 0
         except (ValueError, KeyError, TypeError, OSError):
             return problem(503, "state_invalid", "Document state could not be read. Check the server setup.")
@@ -93,7 +116,7 @@ def create_app(*, data_dir=None, client_factory=api_client):
         if not slots.acquire(blocking=False):
             return problem(429, "server_busy", "Two requests are already running. Please try again shortly.")
         try:
-            state = read_json(directory / "ingestion-state.json", None)
+            state = read_corpus(directory)
             if not state or not state.get("articles"):
                 return problem(503, "corpus_missing", "No documents are indexed yet. Run python main.py first.")
             with client_factory().with_options(max_retries=0) as client:
@@ -115,6 +138,8 @@ def create_app(*, data_dir=None, client_factory=api_client):
             if getattr(error, "status_code", None) == 429:
                 return problem(503, "provider_busy", "The AI service is busy. Please try again shortly.")
             return problem(502, "provider_unavailable", "The AI service could not complete this request. Please retry.")
+        except InvalidStateError:
+            return problem(503, "state_invalid", "Document state could not be read. Check the server setup.")
         except ValueError:
             return problem(503, "setup_required", "Check the server API key and document state, then retry.")
         except (RuntimeError, KeyError, TypeError, OSError):

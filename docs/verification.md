@@ -68,3 +68,7 @@ An actual browser search against the existing remote index returned three source
 ## Reference widget update
 
 The frontend now follows the assignment screenshot's floating-widget pattern, with a bottom-right launcher, green header, greeting, suggested questions and composer. Seven browser tests and all 38 Python tests pass locally. Launcher/close/Escape, focus return, draft preservation and narrow/short viewport fit are covered. Refreshed live retrieval evidence and desktop/mobile screenshots were inspected; zero automated axe violations or page errors were observed. See [complete assignment review](final-review.md). No provider answer screenshot or live SCIO study is claimed.
+
+## Independent BA/QA review loop
+
+BA reviewed requirements and Brief A business coverage; QA independently reran tests and exercised failure cases. Fixed malformed-corpus health/chat responses and new-reply scrolling, including completion while the widget is closed. Each scenario was reproduced with a failing regression before its fix. Final independent results: **39 Python tests and nine browser tests pass**. BA and QA approve the tested implementation, not final submission readiness. The repository's non-cryptic name and unknown actual hours are now explicit open risks. [Review record](ba-qa-review.md).

@@ -6,6 +6,7 @@ const form = byId("chat-form");
 const input = byId("question");
 let busy = false;
 let ready = false;
+let pendingReply = null;
 
 function mode() { return document.querySelector('input[name="mode"]:checked').value; }
 function updateControls() {
@@ -57,6 +58,13 @@ function addResult(result) {
   if (!sources.children.length) sources.append(element("p", "no-results", result.mode === "search" ? "No matching passages found. Try a more specific question." : "No source citations were returned. The documentation may not support this question."));
   item.append(sources);
   byId("messages").append(item);
+  revealReply(item);
+}
+function revealReply(item) {
+  if (widget.hidden) { pendingReply = item; return; }
+  const conversation = document.querySelector(".conversation-area");
+  conversation.scrollTop += item.getBoundingClientRect().top - conversation.getBoundingClientRect().top - 12;
+  pendingReply = null;
 }
 async function checkHealth() {
   try {
@@ -131,7 +139,10 @@ function setChatOpen(open) {
   widget.hidden = !open;
   launcher.setAttribute("aria-expanded", String(open));
   launcher.setAttribute("aria-label", open ? "Close support chat" : "Open support chat");
-  if (open) input.focus({ preventScroll: true });
+  if (open) {
+    if (pendingReply) revealReply(pendingReply);
+    input.focus({ preventScroll: true });
+  }
   else launcher.focus({ preventScroll: true });
 }
 launcher.addEventListener("click", () => setChatOpen(widget.hidden));

@@ -97,7 +97,8 @@ Dependencies: 2, 4, 5. Likely files: README, `.env.sample`, optional `CUTS.md` (
 - [x] Prepare concise setup/local/Docker README, deployment guide and explicit `CUTS.md`.
 
 - [ ] Keep README at most one page: setup, local/Docker invocation, chunking explanation, job evidence link and screenshot.
-- [x] Check repository name, clear commits, secret exclusions and sample environment variables; verify existing evidence paths and explicitly identify missing screenshot/cloud evidence.
+- [x] Check clear commits, secret exclusions and sample environment variables; verify existing evidence paths and explicitly identify missing screenshot/cloud evidence.
+- [ ] Resolve repository naming risk: user-selected `Optibot` avoids the literal company name but directly identifies the mini-clone and is not cryptic. Do not claim full compliance or silently rename the remote.
 - [ ] Record actual cuts/unmet requirements and prepare both parts for submission together after Step 12.
 
 Verification: follow documented commands in a clean environment; inspect tracked files for secrets and missing deliverables. Do not claim a successful run that was not observed.
@@ -176,8 +177,8 @@ This is the user-requested local demo, separate from the assignment's provider U
 
 - [x] Add local FastAPI server, health/search/answer endpoints and server-side key handling.
 - [x] Add frontend with actual article retrieval, source links, explicit generation errors and mobile layouts.
-- [x] Test input/origin/body limits, private-file exclusions, provider failures and citation mapping: 38 Python tests pass locally.
-- [x] Test keyboard search, safe text rendering, duplicate-send protection, quota fallback, empty results and unavailable backend: seven browser tests pass locally, including widget opening/closing, focus return and draft preservation.
+- [x] Test input/origin/body limits, private-file exclusions, provider failures and citation mapping: 39 Python tests pass locally.
+- [x] Test keyboard search, safe text rendering, duplicate-send protection, quota fallback, empty results and unavailable backend: nine browser tests pass locally, including widget lifecycle, response visibility while open/closed, focus return and draft preservation.
 - [x] Check WCAG A/AA rules at narrow/desktop widths: no automated axe violations; no horizontal overflow at 320/768/1024/1440 pixels.
 - [x] Verify the actual UI against the existing store: 30 indexed articles, three YouTube sources, no page JavaScript errors. Save clearly labeled local screenshots and JSON evidence.
 - [x] Write root README, detailed server/frontend run instructions, frontend README and API contract.
@@ -192,3 +193,12 @@ Remaining original checkboxes above still require genuine provider/product/human
 - [x] Verify Escape/close/reopen preserves drafts, restores focus and fits narrow/short viewports.
 - [x] Recheck actual YouTube retrieval and capture current desktop/mobile widget screenshots.
 - [x] Record assignment findings and open submission gates in `docs/final-review.md`.
+
+## BA/QA independent review loop
+
+- [x] Obtain independent BA requirements/business review and QA test/failure review.
+- [x] Reproduce both QA issues with failing tests, then fix new-reply scrolling and malformed-corpus API handling.
+- [x] Run 39 Python tests and nine browser tests successfully after all fixes.
+- [x] Correct the repository-name compliance claim and distinguish planned budgets from actual time spent.
+- [x] Obtain BA round-2 and QA final follow-up approval for the tested implementation; submission gates remain open.
+- [ ] Record candidate-reported actual Part 1 and Part 2 hours; current actual time is unknown, not the planned 8h/10h allocations.

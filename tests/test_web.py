@@ -96,6 +96,21 @@ class WebTests(unittest.TestCase):
         self.assertNotIn("response_private", result.text)
         self.assertNotIn("vs_test", result.text)
 
+    def test_malformed_saved_corpus_is_a_sanitized_setup_failure(self):
+        cases = [[1], {"vector_store_id": "vs_test", "articles": ["bad-record"]},
+                 {"vector_store_id": "vs_test", "articles": {"1": {"title": "Guide"}}},
+                 {"vector_store_id": "vs_test", "articles": {"1": {
+                     "file_id": "file_test", "title": "Guide", "url": "https://example.com/private"}}}]
+        for state in cases:
+            with self.subTest(state=state):
+                write_json(self.root / "ingestion-state.json", state)
+                client = TestClient(self.app, raise_server_exceptions=False)
+                for response in (client.get("/api/health"), client.post("/api/chat", json={"question": "YouTube?"})):
+                    self.assertEqual(response.status_code, 503)
+                    self.assertEqual(response.json()["error"]["code"], "state_invalid")
+                    self.assertNotIn("private", response.text)
+        self.api.with_options.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()

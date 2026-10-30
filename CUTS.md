@@ -5,3 +5,5 @@
 - A cited generated answer needs API credits. The last generation check returned exhausted credits; no provider-UI screenshot is claimed.
 - GitHub Actions replaced Railway at the user's request. Docker build passed CI; two manually triggered cloud containers and persisted-state restoration passed. The first automatic cron trigger is not yet observed.
 - Part 2 Brief A now has a proposed scope, architecture, milestones, acceptance criteria and an eight-week staffing-based estimate. Live trial observations and candidate review remain outstanding; the draft is not submission-ready.
+
+- Repository naming remains a risk: `Optibot` was selected by the user and is not cryptic. Actual take-home hours are not recorded; planned budgets must not be presented as measured time spent.

@@ -148,3 +148,45 @@ test("floating widget opens, closes with Escape and preserves the draft", async 
   await page.getByRole("button", { name: "Close chat", exact: true }).click();
   assert.equal(await page.locator("#chat-widget").isVisible(), false);
 });
+
+test("a new response is visible after a long previous reply", async (t) => {
+  const page = await pageFor(t);
+  const longSources = Array.from({ length: 3 }, (_, index) => ({ ...source, title: `Guide ${index}`, excerpt: "Documentation line.\n".repeat(40) }));
+  await page.route("**/api/chat", (route) => route.fulfill({ json: { ...result, sources: longSources } }));
+  await open(page);
+  for (const question of ["First question", "Second question"]) {
+    await page.locator("#question").fill(question);
+    await page.locator("#question").press("Enter");
+    await page.waitForFunction((count) => document.querySelectorAll(".assistant-message").length === count, question === "First question" ? 1 : 2);
+  }
+  const viewport = await page.locator(".conversation-area").boundingBox();
+  const reply = await page.locator(".assistant-message").last().locator(".source a").first().boundingBox();
+  assert.ok(reply.y >= viewport.y && reply.y + reply.height <= viewport.y + viewport.height,
+    "The newest response's first source should be visible without manual scrolling");
+});
+
+test("a reply arriving while closed is visible when the widget reopens", async (t) => {
+  const page = await pageFor(t);
+  let release, count = 0;
+  const gate = new Promise((resolve) => { release = resolve; });
+  const longSources = Array.from({ length: 3 }, () => ({ ...source, excerpt: "Documentation line.\n".repeat(40) }));
+  await page.route("**/api/chat", async (route) => {
+    if (++count === 2) await gate;
+    await route.fulfill({ json: { ...result, sources: longSources } });
+  });
+  await open(page);
+  await page.locator("#question").fill("First question");
+  await page.locator("#question").press("Enter");
+  await page.locator(".assistant-message").waitFor();
+  await page.locator("#question").fill("Second question");
+  await page.locator("#question").press("Enter");
+  await page.locator("#loading").waitFor();
+  await page.getByRole("button", { name: "Close chat", exact: true }).click();
+  release();
+  await page.waitForFunction(() => document.querySelectorAll(".assistant-message").length === 2);
+  await page.getByRole("button", { name: "Open support chat", exact: true }).click();
+  const viewport = await page.locator(".conversation-area").boundingBox();
+  const reply = await page.locator(".assistant-message").last().locator(".source a").first().boundingBox();
+  assert.ok(reply.y >= viewport.y && reply.y + reply.height <= viewport.y + viewport.height,
+    "The reply received while closed should be visible after reopening");
+});
