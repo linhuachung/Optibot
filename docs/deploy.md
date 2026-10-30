@@ -11,7 +11,7 @@ In the repository's Settings ? Secrets and variables ? Actions, configure:
 - Secret `OPTIBOT_BOOTSTRAP_STATE`: complete contents of `data/ingestion-state.json`.
 - Variable `OPENAI_VECTOR_STORE_ID`: the store ID in that state file.
 
-The two bootstrap JSON payloads contain public source metadata, hashes and remote IDs, not the API key. They preserve the already indexed corpus for the first cloud run. Secrets are encrypted by GitHub and must never be committed to the repository or pasted into workflow YAML. Automated transfer is currently awaiting explicit authorization; automatic approval review rejected the initial attempt. You may instead enter the values directly through GitHub's secret settings.
+The two bootstrap JSON payloads contain public source metadata, hashes and remote IDs, not the API key. They preserve the already indexed corpus for the first cloud run. Secrets are encrypted by GitHub and must never be committed to the repository or pasted into workflow YAML. After explicit user authorization, these encrypted secrets and the store variable were configured. Future key rotation can be performed directly in GitHub secret settings without changing source code.
 
 ## Verify deployment
 
@@ -29,7 +29,7 @@ Artifacts have 90-day requested retention, subject to repository limits. Keep an
 
 ## Local Docker verification
 
-Use the build/run commands in README, retain the same `data` bind mount for repeated containers, and never put a key in build arguments. The Docker image build and entry-point smoke check passed GitHub CI; full authenticated container runs are still pending until the daily workflow is configured.
+Use the build/run commands in README, retain the same `data` bind mount for repeated containers, and never put a key in build arguments. Docker builds passed CI, and two full authenticated cloud containers completed successfully. The second restored the first run's state and performed zero uploads. [First run](https://github.com/linhuachung/Optibot/actions/runs/41067930209), [second run](https://github.com/linhuachung/Optibot/actions/runs/41068135936). The first automatic cron trigger remains pending.
 
 ## Recovery and rollback
 
@@ -39,7 +39,7 @@ If a file-upload response is lost, its intent contains an exact store-specific f
 
 Failed runs exit nonzero and save a sanitized error class/status, counts, timestamps and duration. `failed` counts the failed operation; unattempted articles are not counted as skipped. Counts include successfully recovered versions. Snapshot the persistent state before a deployment or manual repair; rollback app code without discarding its volume. Source deletion/unpublishing currently fails visibly if it affects the selected corpus; automatic index deletion is out of scope.
 
-References: [Railway config fields](https://docs.railway.com/config-as-code/reference), [cron execution](https://docs.railway.com/cron-jobs), [persistent volumes](https://docs.railway.com/volumes), [Docker build practices](https://docs.docker.com/build/building/best-practices/).
+Reference: [Docker build practices](https://docs.docker.com/build/building/best-practices/).
 
 
 References: [GitHub schedules](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule), [workflow artifacts](https://docs.github.com/en/actions/tutorials/store-and-share-data).

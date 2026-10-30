@@ -1,7 +1,7 @@
 # Take-home checklist
 
 Plan: [plan.md](plan.md). Council: [council.md](council.md).
-Steps 1, 3 and 5 are verified locally. Step 2 ingestion works but generation/UI/chunk evidence remains incomplete. Step 4 Docker/Railway files are prepared; real container/cloud execution is unverified. Step 6 packaging is prepared with remaining submission evidence unchecked. Source is connected to `linhuachung/Optibot`. See [verification](../docs/verification.md).
+Steps 1, 3 and 5 are verified locally. Step 2 ingestion works but generation/UI/chunk evidence remains incomplete. Step 4 Docker and two authenticated GitHub Actions runs are verified, including persisted-state restoration; only the first automatic cron trigger remains pending. Step 6 packaging is prepared with remaining submission evidence unchecked. Source is connected to `linhuachung/Optibot`. See [verification](../docs/verification.md).
 
 ## Council preparation — completed
 
@@ -66,9 +66,9 @@ Dependencies: 3. Likely files: `Dockerfile`, deployment config, run artifact (me
 - [x] Prepare Dockerfile, secret/data exclusions, GitHub Actions schedule, trusted state artifacts and bootstrap instructions. User explicitly replaced Railway.
 - [x] Verify Windows/Linux tests and Docker build/entry-point smoke check in GitHub CI: run 41066391124 succeeded.
 
-- [ ] Run the Docker entry point once with `API_KEY`, a reused store and durable `/data`; document the optional provider-key alias.
-- [ ] Configure encrypted GitHub Actions secrets, daily UTC schedule and persistent state artifacts; verify a real authenticated cloud run terminates.
-- [ ] Repeat in a fresh container using the same state; retain reviewer-accessible logs or a redacted last-run artifact.
+- [x] Run the Docker entry point once with the API key, reused store and durable `/data`; document both key aliases. The cloud uses `OPENAI_API_KEY`.
+- [x] Configure encrypted GitHub Actions secrets, daily UTC schedule and persistent state artifacts; verify a real authenticated cloud run terminates.
+- [x] Repeat in a fresh container using the same state; retain reviewer-accessible logs and redacted last-run artifacts.
 - [ ] Observe the first real cron-triggered run, separately from manual dispatch verification.
 
 Verification: successful exit 0; second cloud/container run skips unchanged articles; durable IDs/hashes survive container replacement; evidence links work for the intended reviewer.
@@ -82,11 +82,11 @@ Dependencies: 3; may be developed alongside it. Likely files: delta/recovery tes
 
 Verification: demonstrate zero uploads on unchanged data and no false committed success after failure. Avoid broad coverage work.
 
-Command: `python -m unittest discover -s tests -v` — 27 tests passed locally, including trusted artifact restoration tests. The preceding 23-test Windows/Linux CI and Docker image build succeeded in run 41066391124; latest workflow checks will be read after push.
+Command: `python -m unittest discover -s tests -v` — 27 tests passed locally, including trusted artifact restoration tests. The 27-test Windows/Linux CI and Docker image build succeeded in run 41067614734. Daily cloud runs 41067930209 and 41068135936 both succeeded; the second restored the prior artifact, with identical state hashes and 30 skips.
 
 ## Checkpoint — Runnable daily job
 
-- [ ] Delta behavior, persistent state, replacement recovery, focused tests and real deployment evidence match the plan.
+- [x] Delta behavior, persistent state, replacement recovery, focused tests and real deployment evidence match the plan. Automatic cron-trigger observation is tracked separately above.
 
 ## Step 6 — Submission pack (1h)
 

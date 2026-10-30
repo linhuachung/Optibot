@@ -1,6 +1,6 @@
 # OptiBot take-home execution plan
 
-Status: Steps 1, 3 and 5 verified locally; Step 2 ingestion verified with remaining evidence blocked. Step 4 container/hosting configuration and Step 6 packaging prepared. Updated 2026-10-30. See [verification](../docs/verification.md) and [checklist](todo.md).
+Status: Steps 1, 3 and 5 verified locally; Step 2 ingestion verified with remaining evidence blocked. Step 4 Docker/cloud runs and state restoration verified; first automatic cron observation remains open. Step 6 packaging prepared. Updated 2026-10-30. See [verification](../docs/verification.md) and [checklist](todo.md).
 Part 2 choice: **Brief A — Assets, Playlists, Schedules and Screens.**
 
 ## Authority and evidence
@@ -40,9 +40,9 @@ Budget the first Part 1 hour for warm-up and a narrow feasibility spike:
 - Confirm available credentials, billing access, Python/Docker and hosting prerequisites. Pin the SDK version that actually passes the smoke test; do not invent a tested version now.
 - Prove one Markdown file can be ingested through Python, indexed, and used with the exact prompt in the current provider UI. Capture the required cited answer through that UI; a terminal or custom chat screenshot is not an automatic substitute.
 - Establish a documented way to report actual embedded chunk counts. The parsed-content endpoint documents text entries, not indexed chunk semantics. File counts, retrieval result counts and local estimates are not interchangeable.
-- Confirm the Railway cron/volume combination and persistence with two isolated runs.
+- Confirm the selected GitHub Actions schedule/artifact setup and persistence with two isolated containers.
 
-Update after the user's Steps 1–2 implementation request: Python, API authentication, programmatic indexing and vector retrieval have now been demonstrated. Generation is blocked by exhausted API credits, the browser-control runtime cannot start, and the inspected file metadata does not expose exact chunk totals. Hosting gates remain deferred. Suggested question to send manually: “The specified Assistants API is retired. May I use Responses with the current provider UI and the same programmatically loaded vector store? If managed chunk totals are unavailable, what chunk-count evidence will you accept?” Do not send this message automatically. Gemini is explicitly allowed by the assignment, but its complete API-to-AI-Studio evidence path must also be proven before switching. A council majority cannot waive assignment requirements.
+Update after the user's Steps 1–2 implementation request: Python, API authentication, programmatic indexing and vector retrieval have now been demonstrated. Generation is blocked by exhausted API credits, the browser-control runtime cannot start, and the inspected file metadata does not expose exact chunk totals. Two cloud containers and artifact state restoration have since passed; observing the first actual cron trigger remains open. Suggested question to send manually: “The specified Assistants API is retired. May I use Responses with the current provider UI and the same programmatically loaded vector store? If managed chunk totals are unavailable, what chunk-count evidence will you accept?” Do not send this message automatically. Gemini is explicitly allowed by the assignment, but its complete API-to-AI-Studio evidence path must also be proven before switching. A council majority cannot waive assignment requirements.
 
 ## Part 1 architecture and contracts
 
@@ -84,7 +84,7 @@ Print `added=N updated=N skipped=N failed=N` with a run timestamp and duration. 
 
 Docker uses Python slim and `CMD ["python", "main.py"]`. Configuration includes `API_KEY`, optional `OPENAI_API_KEY`, `OPENAI_VECTOR_STORE_ID`, selected model and `STATE_DIR=/data`; no Assistant ID. Document precedence if both key variables are set. Use a mounted directory/volume in local Docker commands so repeated invocations share state.
 
-Railway schedule proposal: `0 2 * * *` UTC, approximately 09:00 Asia/Bangkok daily. Prove an actual cloud run, then a separate run showing unchanged articles skipped without uploads. Save redacted last-run evidence if the dashboard requires login. A private console link alone is insufficient for reviewer access.
+User-selected GitHub Actions schedule: `17 2 * * *` UTC, approximately 09:17 Asia/Bangkok daily. Prove an actual cloud run, then a separate run showing unchanged articles skipped without uploads. Save redacted last-run evidence if the dashboard requires login. A private console link alone is insufficient for reviewer access.
 
 Repository name must be cryptic and omit the company name. Ignore secrets, environment folders and runtime data. Keep source/test fixtures and final evidence available. README stays at most one page and includes setup, local and Docker commands, chunking explanation, log/artifact link and screenshot. Optional `CUTS.md` records actual omissions. Submit both parts together; submission itself is outside this planning session.
 
@@ -96,7 +96,7 @@ Part 1, total 8h:
 - Step 1: one article to clean Markdown, then 30 selected articles — 1.5h.
 - Step 2: programmatic ingestion and citation evidence — 1.5h.
 - Step 3: durable delta and recovery behavior — 1.5h.
-- Step 4: Docker, Railway schedule and run evidence — 1h.
+- Step 4: Docker, GitHub Actions schedule and run evidence — 1h.
 - Step 5: focused tests — 0.5h.
 - Step 6: README, screenshot and submission pack — 1h.
 

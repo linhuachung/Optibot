@@ -23,7 +23,7 @@ Bootstrap selects 30 articles including YouTube. Daily runs discover newly publi
 
 GitHub Actions runs the Docker job daily at `02:17 UTC` (09:17 Bangkok), with versioned workflow artifacts preserving state. Configure the encrypted secrets and follow [deployment and recovery](docs/deploy.md). Railway is no longer required.
 
-Evidence: [local last run](docs/evidence/local-daily-rerun.json), [remote index status](docs/evidence/index-status.json), [retrieval](docs/evidence/youtube-retrieval.json), [verification](docs/verification.md). Local reruns show `added=0 updated=0 skipped=30 failed=0`. [Windows/Linux tests and Docker build passed](https://github.com/linhuachung/Optibot/actions/runs/41066391124). Authenticated cloud runs and the first actual cron trigger remain unverified pending secret configuration.
+Evidence: [local last run](docs/evidence/local-daily-rerun.json), [remote index status](docs/evidence/index-status.json), [retrieval](docs/evidence/youtube-retrieval.json), [verification](docs/verification.md). Local reruns show `added=0 updated=0 skipped=30 failed=0`. [Windows/Linux tests and Docker build passed](https://github.com/linhuachung/Optibot/actions/runs/41067614734). [Cloud job logs](https://github.com/linhuachung/Optibot/actions/runs/41068135936) show a second successful container restoring prior state and skipping all 30 articles. The first automatic cron trigger is still pending.
 
 Chunking uses the managed default, documented as 800 tokens with 400 overlap. Inspected metadata exposes no exact embedded-chunk total; reports say `null`, never substitute file counts. This requirement remains unresolved.
 
