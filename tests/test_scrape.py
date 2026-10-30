@@ -61,6 +61,30 @@ class ScrapeTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 scrape(Path(tmp), client=client, limit=1)
 
+    def test_daily_discovery_retains_seed_and_adds_new_public_articles(self):
+        items = [article(1, "YouTube Guide"), article(2)]
+        def respond(request):
+            return httpx.Response(200, json={"articles": items, "next_page": None})
+        with tempfile.TemporaryDirectory() as tmp, httpx.Client(transport=httpx.MockTransport(respond)) as client:
+            root = Path(tmp)
+            self.assertEqual(scrape(root, client=client, limit=1)["article_ids"], [1])
+            items.append(article(3, "New public guide"))
+            # A manual refresh must not consume discovery work meant for the daily job.
+            self.assertEqual(scrape(root, client=client, limit=1)["article_ids"], [1])
+            self.assertEqual(scrape(root, client=client, limit=1, discover_new=True)["article_ids"], [1, 3])
+
+    def test_failed_pagination_does_not_advance_manifest(self):
+        from optibot.storage import write_json, read_json
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            original = {"article_ids": [1], "discovery_watermark": "old"}
+            write_json(root / "manifest.json", original)
+            with httpx.Client(transport=httpx.MockTransport(lambda request: httpx.Response(503))) as client:
+                from unittest.mock import patch
+                with patch("optibot.scrape.time.sleep"), self.assertRaises(httpx.HTTPStatusError):
+                    scrape(root, client=client, limit=1, discover_new=True)
+            self.assertEqual(read_json(root / "manifest.json", None), original)
+
 
 if __name__ == "__main__":
     unittest.main()

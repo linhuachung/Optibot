@@ -2,6 +2,7 @@
 
 import hashlib
 import re
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
@@ -31,7 +32,11 @@ def fetch_articles(client: httpx.Client):
         if url in seen or len(seen) >= 100:
             raise ValueError("Repeated or excessive Zendesk pagination")
         seen.add(url)
-        response = client.get(url)
+        for attempt in range(3):
+            response = client.get(url)
+            if response.status_code not in (429, 500, 502, 503, 504) or attempt == 2:
+                break
+            time.sleep(2 ** attempt)
         response.raise_for_status()
         page = response.json()
         for item in page["articles"]:
@@ -100,16 +105,24 @@ def select_ids(articles: dict, limit: int):
     return (preferred + [key for key in sorted(articles) if key not in preferred])[:limit]
 
 
-def scrape(data_dir: Path, *, client=None, limit=30):
+def scrape(data_dir: Path, *, client=None, limit=30, discover_new=False):
     if limit < 1:
         raise ValueError("Article limit must be positive")
     if client is None:
         with httpx.Client(timeout=30, follow_redirects=False, transport=httpx.HTTPTransport(retries=2)) as owned:
-            return scrape(data_dir, client=owned, limit=limit)
+            return scrape(data_dir, client=owned, limit=limit, discover_new=discover_new)
     articles, pages = fetch_articles(client)
     manifest_path = data_dir / "manifest.json"
     previous = read_json(manifest_path, None)
-    ids = previous["article_ids"] if previous else select_ids(articles, limit)
+    ids = list(previous["article_ids"]) if previous else select_ids(articles, limit)
+    if previous and discover_new:
+        if previous.get("seen_article_ids") is not None:
+            new_ids = articles.keys() - set(previous["seen_article_ids"])
+        else:
+            # Migrate the Step 1 manifest without ingesting all historical articles.
+            new_ids = {key for key, item in articles.items()
+                       if item.get("created_at", "") > previous.get("discovery_watermark", "")}
+        ids.extend(sorted(new_ids - set(ids)))
     if len(ids) < limit:
         raise ValueError(f"Only {len(ids)} selected articles; need {limit}")
     missing = set(ids) - articles.keys()
@@ -122,11 +135,16 @@ def scrape(data_dir: Path, *, client=None, limit=30):
         (output / f"{key}.md").write_text(text, encoding="utf-8", newline="\n")
     # Save selected raw source bodies for reproducible quality inspection, not upload.
     write_json(data_dir / "source-articles.json", [articles[key] for key in ids])
+    watermark = (previous or {}).get("discovery_watermark", "")
+    seen_ids = (previous or {}).get("seen_article_ids")
+    if discover_new or previous is None:
+        watermark = max([watermark] + [item.get("created_at", "") for item in articles.values()])
+        seen_ids = sorted(set(seen_ids or []) | articles.keys())
     manifest = {
         "article_ids": ids,
-        "discovery_watermark": previous["discovery_watermark"] if previous else max(
-            (item.get("created_at", "") for item in articles.values()), default=""),
-        "selection_policy": "Stable 30-article seed including YouTube and formatting examples; daily new-article discovery deferred to Step 3.",
+        "discovery_watermark": watermark,
+        "seen_article_ids": seen_ids,
+        "selection_policy": "Stable seed plus newly discovered public English articles on daily runs; no rotation of historical seed.",
         "articles": {str(key): {"title": articles[key]["title"], "url": articles[key]["html_url"],
                                "hash": content_hash(rendered[key]), "updated_at": articles[key].get("updated_at")}
                      for key in ids},

@@ -1,6 +1,6 @@
 # OptiBot take-home execution plan
 
-Status: Step 1 implemented and verified; Step 2 ingestion implemented, remaining evidence blocked. Updated 2026-10-30. See [verification](../docs/verification.md).
+Status: Steps 1, 3 and 5 verified locally; Step 2 ingestion verified with remaining evidence blocked. Step 4 container/hosting configuration and Step 6 packaging prepared. Updated 2026-10-30. See [verification](../docs/verification.md) and [checklist](todo.md).
 Part 2 choice: **Brief A — Assets, Playlists, Schedules and Screens.**
 
 ## Authority and evidence

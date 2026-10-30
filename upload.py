@@ -11,6 +11,7 @@ from openai import APIError
 
 from optibot.config import api_client
 from optibot.ingest import ingest
+from optibot.lock import job_lock
 
 
 def main():
@@ -20,7 +21,7 @@ def main():
     parser.add_argument("--limit", type=int, help="Use 1 for a narrow initial smoke test")
     args = parser.parse_args()
     try:
-        with api_client() as client:
+        with job_lock(args.data_dir), api_client() as client:
             report = ingest(args.data_dir, client=client, store_id=os.getenv("OPENAI_VECTOR_STORE_ID") or None, limit=args.limit)
         print(json.dumps(report, indent=2))
     except APIError as error:

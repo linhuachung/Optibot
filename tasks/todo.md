@@ -1,7 +1,7 @@
 # Take-home checklist
 
 Plan: [plan.md](plan.md). Council: [council.md](council.md).
-Planning is complete. Step 1 is verified; Step 2 ingestion is verified while generation, provider UI evidence and exact chunk telemetry remain incomplete. See [verification](../docs/verification.md).
+Steps 1, 3 and 5 are verified locally. Step 2 ingestion works but generation/UI/chunk evidence remains incomplete. Step 4 Docker/Railway files are prepared; real container/cloud execution is unverified. Step 6 packaging is prepared with remaining submission evidence unchecked. Source is connected to `linhuachung/Optibot`. See [verification](../docs/verification.md).
 
 ## Council preparation — completed
 
@@ -51,15 +51,19 @@ Implementation note (2026-10-30): 30 files indexed; live retrieval returns the Y
 
 Dependencies: 2. Likely files: `main.py`, state module, ingestion module (medium).
 
-- [ ] Re-scrape selected/new eligible articles; compare hashes, upload additions/changes only, and print added/updated/skipped/failed counts.
-- [ ] Persist committed hashes, active IDs and pending operations atomically; recover interrupted uploads and retire superseded indexed versions.
-- [ ] Keep failed items retryable, use bounded timeouts/retries, exit nonzero on failure and 0 on success.
+- [x] Re-scrape selected/new eligible articles; compare hashes, upload additions/changes only, and print added/updated/skipped/failed counts.
+- [x] Persist committed hashes, active IDs and pending operations atomically; recover interrupted uploads and retire superseded indexed versions.
+- [x] Keep failed items retryable, use bounded timeouts/retries, exit nonzero on failure and 0 on success.
 
 Verification: unchanged rerun performs zero uploads; one changed fixture replaces its old indexed version; failed upload/index does not advance committed state. A retry completes pending work without a redundant replacement.
+
+Evidence: two real local processes each completed with `added=0 updated=0 skipped=30 failed=0`. Tests cover updated fixtures, cleanup retry, pending-source changes, failed indexing, lost-upload response reconciliation and OS locking. Ambiguous uploads with no unique remote match fail visibly for manual reconciliation; they are never blindly repeated. See `docs/evidence/local-daily-run.json` and `local-daily-rerun.json`.
 
 ## Step 4 — Docker and daily hosting (1h)
 
 Dependencies: 3. Likely files: `Dockerfile`, deployment config, run artifact (medium).
+
+- [x] Prepare Dockerfile, secret/data exclusions, Railway cron configuration and volume/bootstrap instructions.
 
 - [ ] Run the Docker entry point once with `API_KEY`, a reused store and durable `/data`; document the optional provider-key alias.
 - [ ] Configure Railway cron and persistent volume; use an explicit UTC schedule and verify a real cloud run terminates.
@@ -71,10 +75,12 @@ Verification: successful exit 0; second cloud/container run skips unchanged arti
 
 Dependencies: 3; may be developed alongside it. Likely files: delta/recovery tests and fixture (small).
 
-- [ ] Test unchanged-content skipping and failed-update state/retry behavior with mocked provider calls.
-- [ ] Run the focused test command and record it. Add a Markdown fixture only if budget remains.
+- [x] Test unchanged-content skipping and failed-update state/retry behavior with mocked provider calls.
+- [x] Run the focused test command and record it. Add a Markdown fixture only if budget remains.
 
 Verification: demonstrate zero uploads on unchanged data and no false committed success after failure. Avoid broad coverage work.
+
+Command: `python -m unittest discover -s tests -v` — 23 tests passed locally. GitHub Actions is configured to check Windows/Linux and build the container; a workflow run is not claimed until its status is observed.
 
 ## Checkpoint — Runnable daily job
 
@@ -83,6 +89,8 @@ Verification: demonstrate zero uploads on unchanged data and no false committed 
 ## Step 6 — Submission pack (1h)
 
 Dependencies: 2, 4, 5. Likely files: README, `.env.sample`, optional `CUTS.md` (medium).
+
+- [x] Prepare concise setup/local/Docker README, deployment guide and explicit `CUTS.md`.
 
 - [ ] Keep README at most one page: setup, local/Docker invocation, chunking explanation, job evidence link and screenshot.
 - [ ] Check repository name, clear commits, secret exclusions and sample environment variables; verify all evidence paths.
