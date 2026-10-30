@@ -59,15 +59,17 @@ Verification: unchanged rerun performs zero uploads; one changed fixture replace
 
 Evidence: two real local processes each completed with `added=0 updated=0 skipped=30 failed=0`. Tests cover updated fixtures, cleanup retry, pending-source changes, failed indexing, lost-upload response reconciliation and OS locking. Ambiguous uploads with no unique remote match fail visibly for manual reconciliation; they are never blindly repeated. See `docs/evidence/local-daily-run.json` and `local-daily-rerun.json`.
 
-## Step 4 — Docker and daily hosting (1h)
+## Step 4 — Docker and daily GitHub Actions hosting (1h)
 
 Dependencies: 3. Likely files: `Dockerfile`, deployment config, run artifact (medium).
 
-- [x] Prepare Dockerfile, secret/data exclusions, Railway cron configuration and volume/bootstrap instructions.
+- [x] Prepare Dockerfile, secret/data exclusions, GitHub Actions schedule, trusted state artifacts and bootstrap instructions. User explicitly replaced Railway.
+- [x] Verify Windows/Linux tests and Docker build/entry-point smoke check in GitHub CI: run 41066391124 succeeded.
 
 - [ ] Run the Docker entry point once with `API_KEY`, a reused store and durable `/data`; document the optional provider-key alias.
-- [ ] Configure Railway cron and persistent volume; use an explicit UTC schedule and verify a real cloud run terminates.
+- [ ] Configure encrypted GitHub Actions secrets, daily UTC schedule and persistent state artifacts; verify a real authenticated cloud run terminates.
 - [ ] Repeat in a fresh container using the same state; retain reviewer-accessible logs or a redacted last-run artifact.
+- [ ] Observe the first real cron-triggered run, separately from manual dispatch verification.
 
 Verification: successful exit 0; second cloud/container run skips unchanged articles; durable IDs/hashes survive container replacement; evidence links work for the intended reviewer.
 
@@ -80,7 +82,7 @@ Dependencies: 3; may be developed alongside it. Likely files: delta/recovery tes
 
 Verification: demonstrate zero uploads on unchanged data and no false committed success after failure. Avoid broad coverage work.
 
-Command: `python -m unittest discover -s tests -v` — 23 tests passed locally. GitHub Actions is configured to check Windows/Linux and build the container; a workflow run is not claimed until its status is observed.
+Command: `python -m unittest discover -s tests -v` — 27 tests passed locally, including trusted artifact restoration tests. The preceding 23-test Windows/Linux CI and Docker image build succeeded in run 41066391124; latest workflow checks will be read after push.
 
 ## Checkpoint — Runnable daily job
 
@@ -93,7 +95,7 @@ Dependencies: 2, 4, 5. Likely files: README, `.env.sample`, optional `CUTS.md` (
 - [x] Prepare concise setup/local/Docker README, deployment guide and explicit `CUTS.md`.
 
 - [ ] Keep README at most one page: setup, local/Docker invocation, chunking explanation, job evidence link and screenshot.
-- [ ] Check repository name, clear commits, secret exclusions and sample environment variables; verify all evidence paths.
+- [x] Check repository name, clear commits, secret exclusions and sample environment variables; verify existing evidence paths and explicitly identify missing screenshot/cloud evidence.
 - [ ] Record actual cuts/unmet requirements and prepare both parts for submission together after Step 12.
 
 Verification: follow documented commands in a clean environment; inspect tracked files for secrets and missing deliverables. Do not claim a successful run that was not observed.

@@ -1,26 +1,35 @@
-# Daily Railway job
+# Daily GitHub Actions job
 
-The repository contains `Dockerfile` and `railway.json`; deployment is not yet verified. Docker and Railway CLI/authentication were unavailable in the working shell. Use the existing Railway project rather than creating a second project.
+GitHub Actions replaces Railway at the user's request. It runs Docker on an Ubuntu runner at `17 2 * * *` UTC (09:17 Bangkok) and supports manual runs. No additional hosting account is needed. The workflow is `.github/workflows/daily.yml`.
+
+## One-time configuration
+
+In the repository's Settings ? Secrets and variables ? Actions, configure:
+
+- Secret `OPENAI_API_KEY`: the API key from the ignored local `.env`.
+- Secret `OPTIBOT_BOOTSTRAP_MANIFEST`: complete contents of `data/manifest.json`.
+- Secret `OPTIBOT_BOOTSTRAP_STATE`: complete contents of `data/ingestion-state.json`.
+- Variable `OPENAI_VECTOR_STORE_ID`: the store ID in that state file.
+
+The two bootstrap JSON payloads contain public source metadata, hashes and remote IDs, not the API key. They preserve the already indexed corpus for the first cloud run. Secrets are encrypted by GitHub and must never be committed to the repository or pasted into workflow YAML. Automated transfer is currently awaiting explicit authorization; automatic approval review rejected the initial attempt. You may instead enter the values directly through GitHub's secret settings.
+
+## Verify deployment
+
+1. In Actions, select **Daily scraper** and **Run workflow** on `main`.
+2. Check the Docker step exits 0 and reports `added=0 updated=0 skipped=30 failed=0` for unchanged sources.
+3. Confirm the run uploaded its `optibot-state-<run-id>-<attempt>` artifact.
+4. Trigger a second run. It must download the prior run's state artifact and skip unchanged articles in a new container. Preserve the real run links and a redacted `last-run.json` as cloud evidence.
+5. Verify an actual `schedule`-triggered run after the next daily interval; a manual run does not prove cron fired. Update `tasks/todo.md` only for checks actually observed.
+
+## Persistence and limitations
+
+Only `manifest.json`, `ingestion-state.json` and `last-run.json` are archived. Keys and `.env` are excluded. The workflow serializes daily executions and saves state after failed container steps when restored state is available. Restore accepts artifacts only from this repository's trusted daily workflow on `main`, triggered manually or by schedule. It excludes pull-request artifacts. Missing/expired state after previous daily runs stops the workflow rather than silently recreating the corpus.
+
+Artifacts have 90-day requested retention, subject to repository limits. Keep an offline state backup. GitHub schedules are best effort and can be delayed or dropped during load; public-repository schedules may be disabled after 60 days without repository activity. Avoid claiming continuous production scheduling guarantees. A hard runner termination before artifact upload can lose its newest local journal; provider metadata and store-specific filenames assist reconciliation, but inspect pending operations before retrying ambiguous failures.
 
 ## Local Docker verification
 
-```powershell
-docker build -t harbor-ledger .
-docker run --rm --env-file .env --mount "type=bind,source=$((Get-Location).Path)/data,target=/data" harbor-ledger
-docker run --rm --env-file .env --mount "type=bind,source=$((Get-Location).Path)/data,target=/data" harbor-ledger
-```
-
-Both runs should exit 0. For unchanged sources, the second run must show `added=0 updated=0 skipped=30 failed=0` (or the current corpus size). Retain the same mounted directory between containers. Never place a key in the Dockerfile or build arguments. `API_KEY` takes precedence over `OPENAI_API_KEY`; `STATE_DIR` takes precedence over `DATA_DIR`.
-
-## Configure the existing Railway project
-
-1. Connect a new cron service in the existing project to `linhuachung/Optibot`, branch `main`. Keep unrelated existing services unchanged. Railway builds the checked-in Dockerfile.
-2. Attach a persistent volume to **that service** at `/data`. The mount and credentials are Railway settings; the JSON config does not create them. Set `STATE_DIR=/data` and the API key as a service secret. No web port/domain is needed.
-3. To reuse the already indexed store, securely copy the local `manifest.json` and `ingestion-state.json` into the volume before the first run, and set `OPENAI_VECTOR_STORE_ID` to the matching saved ID. The job reconstructs article files during scraping. If pending operations exist, copy the associated source/state files too, or finish recovery locally first. Verify the copied JSON before enabling cron. Do not commit runtime state or keys to GitHub.
-4. The config runs `python main.py` at `0 2 * * *` **UTC**, approximately 09:00 Bangkok daily, with no automatic restart. Run it manually once, then again in a separate container execution. Verify successful termination, unchanged-source skipping and state persistence. Confirm the first actual scheduled run later; a manual trigger alone does not prove the schedule executed.
-5. Inspect service logs and `/data/last-run.json`. Export a redacted, real cloud last-run artifact to `docs/evidence/cloud-last-run.json`, or provide a log link the reviewer can access. Do not relabel the existing local artifact as cloud evidence. Update README and `tasks/todo.md` only after those checks pass.
-
-If starting with a completely empty volume, leave the store ID unset so one store is created and saved. If pointing an empty state directory at an existing store, the uploader reconciles attached files by article/hash attributes before uploading. Retaining both state files is the preferred path because it also preserves corpus selection and discovery history.
+Use the build/run commands in README, retain the same `data` bind mount for repeated containers, and never put a key in build arguments. The Docker image build and entry-point smoke check passed GitHub CI; full authenticated container runs are still pending until the daily workflow is configured.
 
 ## Recovery and rollback
 
@@ -31,3 +40,6 @@ If a file-upload response is lost, its intent contains an exact store-specific f
 Failed runs exit nonzero and save a sanitized error class/status, counts, timestamps and duration. `failed` counts the failed operation; unattempted articles are not counted as skipped. Counts include successfully recovered versions. Snapshot the persistent state before a deployment or manual repair; rollback app code without discarding its volume. Source deletion/unpublishing currently fails visibly if it affects the selected corpus; automatic index deletion is out of scope.
 
 References: [Railway config fields](https://docs.railway.com/config-as-code/reference), [cron execution](https://docs.railway.com/cron-jobs), [persistent volumes](https://docs.railway.com/volumes), [Docker build practices](https://docs.docker.com/build/building/best-practices/).
+
+
+References: [GitHub schedules](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule), [workflow artifacts](https://docs.github.com/en/actions/tutorials/store-and-share-data).

@@ -1,4 +1,4 @@
-﻿# Harbor support notes
+# Harbor support notes
 
 One-shot Zendesk scraper to clean Markdown to OpenAI vector store. Source: [GitHub](https://github.com/linhuachung/Optibot).
 
@@ -21,9 +21,9 @@ The ignored workspace runtime is `.\.runtime\python\python.exe` if Python is not
 
 Bootstrap selects 30 articles including YouTube. Daily runs discover newly public English articles, refresh the existing corpus, hash semantic Markdown and upload additions/changes only. Pending versions finish before re-scraping; old indexed entries retire only after successful replacement. An OS lock prevents overlapping state writes. Failures exit nonzero and retain retry state; counts and timestamps go to `last-run.json`.
 
-`railway.json` sets daily `02:00 UTC` (09:00 Bangkok), using the Dockerfile. Attach a persistent volume at `/data` and configure secrets in the existing Railway project. See [deployment and recovery](docs/deploy.md).
+GitHub Actions runs the Docker job daily at `02:17 UTC` (09:17 Bangkok), with versioned workflow artifacts preserving state. Configure the encrypted secrets and follow [deployment and recovery](docs/deploy.md). Railway is no longer required.
 
-Evidence: [local last run](docs/evidence/local-daily-rerun.json), [remote index status](docs/evidence/index-status.json), [retrieval](docs/evidence/youtube-retrieval.json), [verification](docs/verification.md). Local reruns show `added=0 updated=0 skipped=30 failed=0`. Real cloud logs/schedule and full Docker execution remain unverified. GitHub checks run tests on Windows/Linux and build the image.
+Evidence: [local last run](docs/evidence/local-daily-rerun.json), [remote index status](docs/evidence/index-status.json), [retrieval](docs/evidence/youtube-retrieval.json), [verification](docs/verification.md). Local reruns show `added=0 updated=0 skipped=30 failed=0`. [Windows/Linux tests and Docker build passed](https://github.com/linhuachung/Optibot/actions/runs/41066391124). Authenticated cloud runs and the first actual cron trigger remain unverified pending secret configuration.
 
 Chunking uses the managed default, documented as 800 tokens with 400 overlap. Inspected metadata exposes no exact embedded-chunk total; reports say `null`, never substitute file counts. This requirement remains unresolved.
 
