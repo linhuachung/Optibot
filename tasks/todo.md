@@ -1,6 +1,8 @@
 # Take-home checklist
 
 Plan: [plan.md](plan.md). Council: [council.md](council.md).
+
+Part 2 update: proposed scope, architecture, sequencing and estimates are drafted in `docs/scio-slice-plan.md`. The user confirmed no live SCIO exploration yet; Step 7 and final validation in Step 12 remain open. Draft completion is not submission readiness.
 Steps 1, 3 and 5 are verified locally. Step 2 ingestion works but generation/UI/chunk evidence remains incomplete. Step 4 Docker and two authenticated GitHub Actions runs are verified, including persisted-state restoration; only the first automatic cron trigger remains pending. Step 6 packaging is prepared with remaining submission evidence unchecked. Source is connected to `linhuachung/Optibot`. See [verification](../docs/verification.md).
 
 ## Council preparation — completed
@@ -112,10 +114,12 @@ Verification: each claimed current behavior has an observation or source; distin
 
 ## Step 8 — Scope and assumptions (1h)
 
+Proposed scope is drafted in `docs/scio-slice-plan.md`; live-product validation remains pending under Step 7.
+
 Dependencies: 7. Likely file: `docs/scio-slice-plan.md` (small).
 
-- [ ] Put Brief A at the top and define goals, depth, non-goals, team size and platform assumptions.
-- [ ] Cover Assets, Playlists, Schedules and Screens, with one explicit player platform and a file-to-paired-screen acceptance path.
+- [x] Put Brief A at the top and define goals, depth, non-goals, team size and platform assumptions.
+- [x] Cover Assets, Playlists, Schedules and Screens, with one explicit player platform and a file-to-paired-screen acceptance path.
 - [ ] Explain scope choices using product observations; identify cuts without removing an entire required domain.
 
 Verification: scope maps to the brief; proposed behavior is separate from current SCIO behavior. No Brief B expansion.
@@ -124,9 +128,9 @@ Verification: scope maps to the brief; proposed behavior is separate from curren
 
 Dependencies: 8. Likely artifact: architecture/model/flow sections in the Part 2 document (small).
 
-- [ ] Define portal/backend/storage/player boundaries and core asset, playlist, schedule and screen models.
-- [ ] Trace upload → playlist/schedule → screen assignment → paired-device playback, including content replacement and failure handling.
-- [ ] State decisions on player scope, scheduling/timezones and operational limits, with rationale and unresolved questions.
+- [x] Define portal/backend/storage/player boundaries and core asset, playlist, schedule and screen models.
+- [x] Trace upload → playlist/schedule → screen assignment → paired-device playback, including content replacement and failure handling.
+- [x] State decisions on player scope, scheduling/timezones and operational limits, with rationale and unresolved questions.
 
 Verification: walk an example through every boundary; explain how each design choice supports the scoped user flow. No application code.
 
@@ -134,8 +138,8 @@ Verification: walk an example through every boundary; explain how each design ch
 
 Dependencies: 9. Likely artifact: ordered implementation slices in the Part 2 document (small).
 
-- [ ] Define small vertical slices, prerequisites and checkpoints, starting with risky integration assumptions.
-- [ ] Explain why each slice comes in that order and what usable outcome it delivers.
+- [x] Define small vertical slices, prerequisites and checkpoints, starting with risky integration assumptions.
+- [x] Explain why each slice comes in that order and what usable outcome it delivers.
 
 Verification: no circular dependencies, unsupported screen endpoint or unowned work; every slice has a testable outcome.
 
@@ -143,13 +147,15 @@ Verification: no circular dependencies, unsupported screen endpoint or unowned w
 
 Dependencies: 10. Likely artifact: estimates/acceptance/risk sections in the Part 2 document (small).
 
-- [ ] Estimate implementation effort per slice with units, staffing assumptions, uncertainty and rationale; derive a credible delivery duration.
-- [ ] Define acceptance criteria across all four domains and the end-to-end path; identify dependencies and major failure risks.
-- [ ] Explain cut order and milestone tradeoffs. Separate system implementation duration from the 10h spent authoring this plan.
+- [x] Estimate implementation effort per slice with units, staffing assumptions, uncertainty and rationale; derive a credible delivery duration.
+- [x] Define acceptance criteria across all four domains and the end-to-end path; identify dependencies and major failure risks.
+- [x] Explain cut order and milestone tradeoffs. Separate system implementation duration from the 10h spent authoring this plan.
 
 Verification: check arithmetic, staffing capacity and dependency effects; be able to defend each number without citing an unexplained AI estimate.
 
 ## Step 12 — Review and interview preparation (1.5h)
+
+The proposed document passes section/coverage and estimate-arithmetic checks. Final review awaits live product observations and the candidate's review of assumptions/estimates. This is not yet a final submission.
 
 Dependencies: 7–11; submission also depends on 6. Likely artifacts: revised Part 2 document and private defense notes (small).
 

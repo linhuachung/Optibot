@@ -43,8 +43,12 @@ python ask.py "What is tomorrow's weather in Bangkok?" --output docs/evidence/un
 
 Check factual correctness, at most five bullets, at most three article URLs and refusal when the corpus cannot answer. In the current provider UI, apply `system_prompt.txt`, configure file search for the store ID in `data/ingestion-state.json`, ask the YouTube question and capture the correct cited answer at `docs/screenshot-youtube.png`. API JSON does not replace that screenshot. Never paste the API key into the UI's prompt.
 
-All mutating commands use an OS-backed state-directory lock. Retain `manifest.json` and `ingestion-state.json`. Daily discovery, pending recovery and serialization are implemented. An upload intent with no unique filename match stops for manual reconciliation rather than blindly duplicating files; see [recovery instructions](deploy.md). Source deletion/unpublishing is not automatically propagated. Product trial research and Part 2 remain unchanged.
+All mutating commands use an OS-backed state-directory lock. Retain `manifest.json` and `ingestion-state.json`. Daily discovery, pending recovery and serialization are implemented. An upload intent with no unique filename match stops for manual reconciliation rather than blindly duplicating files; see [recovery instructions](deploy.md). Source deletion/unpublishing is not automatically propagated. A proposed Brief A plan is now drafted; product-trial research and candidate validation remain incomplete.
 
 ## Cloud persistence evidence
 
 [First cloud run](https://github.com/linhuachung/Optibot/actions/runs/41067930209) and [second cloud run](https://github.com/linhuachung/Optibot/actions/runs/41068135936) both completed successfully with `added=0 updated=0 skipped=30 failed=0`. The second skipped bootstrap and successfully restored the prior artifact. Both artifacts contain 30 committed articles, zero pending operations and identical state SHA-256 digests. [First artifact summary](evidence/cloud-run-41067930209.json), [second artifact summary](evidence/cloud-run-41068135936.json). No API key is present in the archived state or evidence.
+
+## Part 2 draft checks
+
+`scio-slice-plan.md` starts with Brief A, covers all four selected domains, defines team/platform/depth assumptions and contains ordered delivery milestones, rationale, acceptance criteria, failure behavior and risks. Estimate arithmetic was checked: 48 baseline engineering-days + 12 contingency = 60; two engineers at 80% planned capacity provide eight days/week, giving 7.5 weeks rounded to an eight-week delivery window. This is a proposal, not a measured estimate or approved deadline. No live trial observations are claimed.

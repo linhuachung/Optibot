@@ -28,3 +28,5 @@ Evidence: [local last run](docs/evidence/local-daily-rerun.json), [remote index 
 Chunking uses the managed default, documented as 800 tokens with 400 overlap. Inspected metadata exposes no exact embedded-chunk total; reports say `null`, never substitute file counts. This requirement remains unresolved.
 
 Provider-UI screenshot is pending: apply [the exact prompt](system_prompt.txt), connect file search to the saved store, ask the YouTube question and save `docs/screenshot-youtube.png`. API JSON does not replace it. Generated-answer checks were blocked by exhausted API credits. See [cuts and incomplete work](CUTS.md); submit both take-home parts together after completing their checklist.
+
+Part 2: [proposed Brief A plan](docs/scio-slice-plan.md). [Live product observations](docs/scio-product-observations.md) and candidate review are required before submission.
