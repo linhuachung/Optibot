@@ -84,7 +84,7 @@ Dependencies: 3; may be developed alongside it. Likely files: delta/recovery tes
 
 Verification: demonstrate zero uploads on unchanged data and no false committed success after failure. Avoid broad coverage work.
 
-Command: `python -m unittest discover -s tests -v` — 27 tests passed locally, including trusted artifact restoration tests. The 27-test Windows/Linux CI and Docker image build succeeded in run 41067614734. Daily cloud runs 41067930209 and 41068135936 both succeeded; the second restored the prior artifact, with identical state hashes and 30 skips.
+Command: `python -m unittest discover -s tests -v` — 29 tests passed locally, including trusted artifact restoration and lost-journal orphan recovery tests. The 29-test Windows/Linux CI and Docker image build succeeded in run 41072188291. Daily cloud runs 41067930209 and 41068135936 both succeeded; the second restored the prior artifact, with identical state hashes and 30 skips.
 
 ## Checkpoint — Runnable daily job
 
@@ -156,6 +156,11 @@ Verification: check arithmetic, staffing capacity and dependency effects; be abl
 ## Step 12 — Review and interview preparation (1.5h)
 
 The proposed document passes section/coverage and estimate-arithmetic checks. Final review awaits live product observations and the candidate's review of assumptions/estimates. This is not yet a final submission.
+
+- [x] Retrieve the current Google Doc and compare both parts with the implementation and Brief A draft; record evidence and open requirements in `docs/requirements-review.md`.
+- [x] Review business acceptance/failure policies and estimate units; clarify the from-scratch assumption and folder coverage across all four resource types.
+- [x] Reproduce and fix the orphan-upload case after loss of a cloud journal; verify the fix and duplicate-filename guard locally and in CI. Cloud run 41072188793 also succeeded with restored state and 30 skips.
+- [x] Prepare `docs/interview-prep.md` with business scenarios, estimate rationale and a candidate rehearsal checklist.
 
 Dependencies: 7–11; submission also depends on 6. Likely artifacts: revised Part 2 document and private defense notes (small).
 

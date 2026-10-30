@@ -25,13 +25,15 @@ The two bootstrap JSON payloads contain public source metadata, hashes and remot
 
 Only `manifest.json`, `ingestion-state.json` and `last-run.json` are archived. Keys and `.env` are excluded. The workflow serializes daily executions and saves state after failed container steps when restored state is available. Restore accepts artifacts only from this repository's trusted daily workflow on `main`, triggered manually or by schedule. It excludes pull-request artifacts. Missing/expired state after previous daily runs stops the workflow rather than silently recreating the corpus.
 
-Artifacts have 90-day requested retention, subject to repository limits. Keep an offline state backup. GitHub schedules are best effort and can be delayed or dropped during load; public-repository schedules may be disabled after 60 days without repository activity. Avoid claiming continuous production scheduling guarantees. A hard runner termination before artifact upload can lose its newest local journal; provider metadata and store-specific filenames assist reconciliation, but inspect pending operations before retrying ambiguous failures.
+Artifacts have 90-day requested retention, subject to repository limits. Keep an offline state backup. GitHub schedules are best effort and can be delayed or dropped during load; public-repository schedules may be disabled after 60 days without repository activity. Avoid claiming continuous production scheduling guarantees. A hard runner termination before artifact upload can lose its newest local journal; the uploader now also searches the exact store/article/hash filename even if the newest journal is lost. It reuses a unique orphan and stops on duplicates; inspect ambiguous cases before manual repair.
 
 ## Local Docker verification
 
 Use the build/run commands in README, retain the same `data` bind mount for repeated containers, and never put a key in build arguments. Docker builds passed CI, and two full authenticated cloud containers completed successfully. The second restored the first run's state and performed zero uploads. [First run](https://github.com/linhuachung/Optibot/actions/runs/41067930209), [second run](https://github.com/linhuachung/Optibot/actions/runs/41068135936). The first automatic cron trigger remains pending.
 
 ## Recovery and rollback
+
+Use one writer per vector store, including local scripts and cloud jobs. The OS lock protects one state directory and workflow concurrency protects this scheduled workflow; neither is a distributed lease across unrelated machines/state directories. Use a separate test store or avoid local uploads while the cloud job is running. Read-only queries do not mutate ingestion state.
 
 The job takes an OS-backed lock for its state directory, recovers pending versions before re-scraping, and writes hashes only after indexing and old-version retirement succeed. Retries keep the pending remote ID and complete cleanup without a new upload.
 

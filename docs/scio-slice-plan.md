@@ -35,7 +35,7 @@ These are Help Center findings, not claims of having used the live product. Befo
 
 **Screens:** expiring pairing code, name, folder, direct asset/playlist/schedule assignment, timezone, orientation/fit, fallback selection, online/last-seen status, unpairing and one Linux Chromium kiosk player. Include real playback on the paired device. Android/Fire TV/iOS/Windows-native apps, remote OS management and fleet software updates are excluded from this first release.
 
-Use an existing managed identity service for portal sign-in and enforce workspace boundaries in every server operation. This is the minimum security foundation for Brief A, not a separate custom-role/folder-sharing project from Brief B. Billing, app content, web pages, templates, social feeds and complex multi-zone screen layouts are excluded.
+Integrate a managed identity provider for portal sign-in and enforce workspace boundaries in every server operation. This assumes a third-party identity product, not an existing SCIO backend: the selected slice is still built from scratch. This is the minimum security foundation for Brief A, not a separate custom-role/folder-sharing project from Brief B. Billing, app content, web pages, templates, social feeds and complex multi-zone screen layouts are excluded.
 
 ## Architecture and ownership
 
@@ -88,6 +88,23 @@ These choices are for the new implementation and must be compared with trial obs
 - Without an active event, use configured fallback content; without fallback, show a blank screen. Show the chosen fallback and timezone in schedule preview.
 - A player with an inaccurate clock reports that condition; tests cover timezone changes and lost connectivity. Offline operation is bounded by a seven-day cached horizon in this first release.
 
+### Business acceptance and failure policies
+
+These are explicit requirements for the proposed implementation, not verified current SCIO behavior. Reconcile them with the trial findings before final scope approval.
+
+- **All four resource types:** Assets, Playlists, Schedules and Screens each support creating a folder, renaming it, moving a resource, reparenting a folder and deleting an empty folder. Reject cycles, nonempty-folder deletion and cross-workspace moves. Each resource editor exposes its declared settings; folder support is not limited to Assets.
+- **Upload and quota races:** reserve storage during upload initiation, enforce the actual received size/type, and reconcile reservations after failure or expiry. Duplicate completion notifications must create one asset version and charge quota once. Concurrent pairing attempts must enforce the screen limit transactionally.
+- **Failed processing:** a failed scan/conversion never becomes a publishable asset. Draft playlists may display pending items with warnings; publishing an assignment requires ready versions of every dependency. Show the failed item and a retry/remove action instead of showing a successful publish.
+- **Replacement and duplication:** a failed replacement leaves existing playback and references intact. Independent duplicates must survive deletion/replacement of the other copy even when storage blobs are shared. Preserve explicit playlist durations on replacement; use the new native video duration only when the item is configured to follow native duration. The initial player loops a shorter video or truncates a longer one to an explicitly selected duration; this is a proposed rule requiring product validation.
+- **Concurrent editing:** a stale save receives a conflict response with a refresh/reapply path. Publish uses one complete authoring revision, never a mixture of reordered playlist items or half-edited events. A retried publish request creates one logical publication.
+- **Schedule boundaries:** use start-inclusive/end-exclusive intervals. Reject end-before-start and nonpositive durations. Test events crossing midnight, weekly boundaries, overlaps, daylight-saving gaps/repeated hours and screen-timezone changes. The preview must show the same winning event and fallback as the player at a supplied test time.
+- **Device and manifest ordering:** stale downloads or responses cannot overwrite a newer applied revision. Distinguish saved, published, downloaded, applied and actually playing states in the portal. A heartbeat alone does not establish that the requested content is playing; include the applied revision, current item and playback progress/error.
+- **Expired URLs and interrupted downloads:** refresh authorized download URLs when they expire and verify checksums before applying a manifest. A missing or corrupt file keeps the last complete allowed manifest/fallback active, with a visible error. Never bypass an explicit content expiry merely to keep a screen nonblank.
+- **Pairing and revocation:** reject expired/replayed codes and allow only one successful redemption of a code. Unpairing revokes future API/download access; an offline device cannot be guaranteed to erase cached bytes immediately. Record that limitation and require local reset/wipe where appropriate. On reconnect, the revoked player must not resume synchronization as an authorized screen.
+- **Version retention and rollback:** garbage collection must preserve blobs referenced by any live asset copy, retained publication or rollback version. Keep the agreed retention compatible with the seven-day offline horizon. Removing one database reference must not break another screen or duplicate asset.
+
+Demonstrate acceptance using at least one image, one supported video and one multipage document through the complete upload → playlist → schedule → paired physical player path. Also assign each target type directly to the screen. Check actual rendered output and transitions between scheduled targets, not only API acknowledgements. A simulated browser is useful during development but is not evidence that a physical player was tested.
+
 ## Delivery sequence and estimates
 
 Each estimate includes its implementation, focused automated tests and integration with the previous slice. QA effort is budgeted separately. Engineering work can overlap only after the shared model/API contract is agreed.
@@ -136,7 +153,7 @@ Acceptance: the full flow passes on a real Linux player; no cross-workspace data
 
 ### Calendar and contingency
 
-Baseline: `3 + 10 + 8 + 7 + 8 + 7 + 5 = 48 engineering-days`. At eight planned days/week, this is six engineering-weeks of team capacity. Reserve twelve additional days, or approximately 1.5 weeks, for conversion, player, timezone and integration uncertainty. Round the delivery window to eight weeks rather than presenting a precise date before Milestone 0.
+Baseline: `3 + 10 + 8 + 7 + 8 + 7 + 5 = 48 engineering-days`. At eight planned days/week, this is six calendar weeks of the assumed two-engineer capacity. Reserve twelve additional days, or approximately 1.5 weeks, for conversion, player, timezone and integration uncertainty. Round the delivery window to eight weeks rather than presenting a precise date before Milestone 0. The 20% capacity reduction covers routine coordination/support; the separate 25% contingency covers delivery uncertainty. Including QA and design, the proposed effort budget is `60 + 16 + 4 = 80 person-days` across all roles, not 80 engineering-days.
 
 Illustrative capacity allocation: week 1 starts feasibility and the image path; week 2 completes the first end-to-end flow; weeks 3–4 cover media, maintenance and playlists; weeks 5–6 cover schedule integration and pilot readiness; weeks 7–8 hold contingency and rollout. Dependency and staffing review can move these boundaries. A developer cannot spend the same day on two milestones, and “parallel” is not a justification for halving every estimate.
 

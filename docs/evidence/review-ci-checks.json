@@ -1,0 +1,18 @@
+{
+  "url": "https://github.com/linhuachung/Optibot/actions/runs/41072188291",
+  "commit": "ca54fdb0aec28528582d92f5b42bd0086a18f9a7",
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "verify (ubuntu-latest)",
+      "conclusion": "success",
+      "status": "completed"
+    },
+    {
+      "name": "verify (windows-latest)",
+      "conclusion": "success",
+      "status": "completed"
+    }
+  ]
+}

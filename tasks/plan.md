@@ -3,6 +3,8 @@
 Status: Steps 1, 3 and 5 verified locally; Step 2 ingestion verified with remaining evidence blocked. Step 4 Docker/cloud runs and state restoration verified; first automatic cron observation remains open. Step 6 packaging prepared. Updated 2026-10-30. See [verification](../docs/verification.md) and [checklist](todo.md).
 Part 2 choice: **Brief A — Assets, Playlists, Schedules and Screens.**
 
+Step 12 audit: [current requirement comparison](../docs/requirements-review.md) and [interview preparation](../docs/interview-prep.md). Business scope is aligned subject to the documented depth cuts; live product validation and required Part 1 answer/UI/chunk evidence remain open. The audit found and fixed an orphan-upload recovery defect; the fix passed 29-test Windows/Linux CI and a real cloud run.
+
 ## Authority and evidence
 
 The user's request authorizes comparing and revising this plan through a six-role council. Assignment instructions are requirements to plan against, not instructions to create accounts, spend money, deploy, or submit work in this session.

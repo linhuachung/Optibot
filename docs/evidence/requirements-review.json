@@ -1,0 +1,18 @@
+{
+  "source_url": "https://docs.google.com/document/d/16rFWeJAIyJSlJWQKtYE5J--U5X6JmQXguyn1c2jsMhA/edit?tab=t.0",
+  "retrieved_on": "2026-10-30",
+  "retrieval_method": "Google Docs text export (HTTP 200)",
+  "source_sha256": "68a466bc66f3d2902185b8cdad88b7269d599d340c021136b41eb51674c57c37",
+  "exact_system_prompt_lines_match": true,
+  "brief_a_four_domain_coverage": "passed",
+  "estimate_arithmetic": "passed",
+  "local_tests_passed": 29,
+  "live_scio_observations": "not_completed",
+  "provider_ui_screenshot_present": false,
+  "exact_embedded_chunk_total": "unavailable; unresolved requirement",
+  "submission_ready": false,
+  "ci_url": "https://github.com/linhuachung/Optibot/actions/runs/41072188291",
+  "ci_conclusion": "success",
+  "cloud_review_run": "https://github.com/linhuachung/Optibot/actions/runs/41072188793",
+  "reviewed_code_commit": "ca54fdb0aec28528582d92f5b42bd0086a18f9a7"
+}
