@@ -202,3 +202,5 @@ Remaining original checkboxes above still require genuine provider/product/human
 - [x] Correct the repository-name compliance claim and distinguish planned budgets from actual time spent.
 - [x] Obtain BA round-2 and QA final follow-up approval for the tested implementation; submission gates remain open.
 - [ ] Record candidate-reported actual Part 1 and Part 2 hours; current actual time is unknown, not the planned 8h/10h allocations.
+
+- [x] Verify BA/QA fix commit on Windows/Linux, Docker build and browser CI: run 41083463882 passed. Reload the project-owned local API server and verify ready/30-article health.

@@ -25,3 +25,5 @@ Reviewed 2026-10-30. Separate BA and QA agents independently reviewed the assign
 **Final submission: not approved yet.** Remaining gates are funded live generated-answer/refusal checks, the required provider-UI screenshot, exact embedded-chunk reporting, actual OptiBot/SCIO use, candidate review/rehearsal, a cryptic-name decision and actual hours disclosure. The first automatic cron event remains an additional unobserved deployment-assurance check; authenticated manual cloud/container restoration and delta behavior have passed.
 
 [Full assignment review](final-review.md), [checklist](../tasks/todo.md), [verification](verification.md), [latest prior cloud evidence](evidence/cloud-run-41076345213.json).
+
+Final reviewed commit passed Windows/Linux tests, browser regressions and Docker build in [CI run 41083463882](https://github.com/linhuachung/Optibot/actions/runs/41083463882). [CI evidence](evidence/ba-qa-ci.json). The project-owned local server was reloaded with the validated API code; health reports ready with 30 indexed articles. Refresh the frontend to load the new response-positioning code.
