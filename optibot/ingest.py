@@ -11,6 +11,13 @@ def empty_counts():
     return {"added": 0, "updated": 0, "skipped": 0, "failed": 0}
 
 
+def uploaded_file_id(files, filename):
+    matches = [item.id for item in files if item.filename == filename]
+    if len(matches) > 1:
+        raise RuntimeError("Multiple uploads share the journal filename; manual reconciliation required")
+    return matches[0] if matches else None
+
+
 def finish_pending(data_dir, client, state, key, counts):
     pending = state["pending"][key]
     store_id = state["vector_store_id"]
@@ -20,10 +27,10 @@ def finish_pending(data_dir, client, state, key, counts):
         if metadata["hash"] != pending["hash"]:
             raise RuntimeError("Legacy pending upload differs from manifest; manual reconciliation required")
     if not pending.get("file_id"):
-        matches = [item for item in client.files.list(purpose="assistants") if item.filename == pending["filename"]]
-        if len(matches) != 1:
+        found_id = uploaded_file_id(client.files.list(purpose="assistants"), pending["filename"])
+        if found_id is None:
             raise RuntimeError("Ambiguous upload outcome; reconcile the journal filename with provider Files before retrying")
-        pending["file_id"] = matches[0].id
+        pending["file_id"] = found_id
         write_json(data_dir / "ingestion-state.json", state)
     file_id = pending["file_id"]
     try:
@@ -96,6 +103,7 @@ def ingest(data_dir: Path, *, client, store_id=None, limit=None, counts=None, co
         write_json(state_path, state)
     store_id = state["vector_store_id"]
     remote = list(client.vector_stores.files.list(vector_store_id=store_id))
+    uploaded_files = None
     for key, path in documents.items():
         metadata = manifest["articles"][key]
         active = state["articles"].get(key)
@@ -116,6 +124,14 @@ def ingest(data_dir: Path, *, client, store_id=None, limit=None, counts=None, co
         state["pending"][key] = pending
         write_json(state_path, state)
         if not matching:
+            # A terminated runner can lose its last local intent/artifact while
+            # leaving an uploaded File that has not yet been attached to a store.
+            if uploaded_files is None:
+                uploaded_files = list(client.files.list(purpose="assistants"))
+            pending["file_id"] = uploaded_file_id(uploaded_files, filename)
+            if pending["file_id"]:
+                write_json(state_path, state)
+        if pending["file_id"] is None:
             try:
                 with path.open("rb") as stream:
                     uploaded = client.with_options(max_retries=0).files.create(

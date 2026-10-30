@@ -166,6 +166,33 @@ class IngestTests(unittest.TestCase):
                 ingest(root, client=client)
             self.assertEqual(client.files.create.call_count, 1)
 
+    def test_remote_orphan_is_reused_after_cloud_journal_is_lost(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.prepare(root)
+            metadata = read_json(root / "manifest.json", None)["articles"]["1"]
+            write_json(root / "ingestion-state.json", {"vector_store_id": "vs_test", "articles": {}, "pending": {}})
+            client = self.client()
+            client.files.list.return_value = [SimpleNamespace(
+                id="file_orphan", filename=f"vs_test-1-{metadata['hash']}.md")]
+            ingest(root, client=client)
+            client.files.create.assert_not_called()
+            self.assertEqual(read_json(root / "ingestion-state.json", None)["articles"]["1"]["file_id"], "file_orphan")
+
+    def test_duplicate_owned_filenames_fail_without_another_upload(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.prepare(root)
+            metadata = read_json(root / "manifest.json", None)["articles"]["1"]
+            write_json(root / "ingestion-state.json", {"vector_store_id": "vs_test", "articles": {}, "pending": {}})
+            client = self.client()
+            filename = f"vs_test-1-{metadata['hash']}.md"
+            client.files.list.return_value = [SimpleNamespace(id="file_one", filename=filename),
+                                             SimpleNamespace(id="file_two", filename=filename)]
+            with self.assertRaises(RuntimeError):
+                ingest(root, client=client)
+            client.files.create.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()
