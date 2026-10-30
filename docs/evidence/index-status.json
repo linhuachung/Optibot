@@ -1,0 +1,20 @@
+{
+  "vector_store_id": "vs_6ae4995c1e508191a17e4657debcfeac",
+  "remote_files": 30,
+  "statuses": {
+    "completed": 30
+  },
+  "local_committed_articles": 30,
+  "pending_operations": 0,
+  "remote_file_fields": [
+    "attributes",
+    "chunking_strategy",
+    "created_at",
+    "id",
+    "last_error",
+    "object",
+    "status",
+    "usage_bytes",
+    "vector_store_id"
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "article_id": 360051014713,
+    "url": "https://support.optisigns.com/hc/en-us/articles/360051014713-How-to-Use-YouTube-with-OptiSigns",
+    "http_status": 200,
+    "live_title": "How to Use YouTube with OptiSigns",
+    "source_heading_count": 10,
+    "markdown_code_fences": 0,
+    "preserved_embedded_media_links": 0,
+    "source_url_present": true
+  },
+  {
+    "article_id": 360034379573,
+    "url": "https://support.optisigns.com/hc/en-us/articles/360034379573-Linux",
+    "http_status": 200,
+    "live_title": "Linux",
+    "source_heading_count": 11,
+    "markdown_code_fences": 10,
+    "preserved_embedded_media_links": 0,
+    "source_url_present": true
+  },
+  {
+    "article_id": 360016981853,
+    "url": "https://support.optisigns.com/hc/en-us/articles/360016981853-Creating-and-Using-Schedules-with-OptiSigns",
+    "http_status": 200,
+    "live_title": "Creating and Using Schedules with OptiSigns",
+    "source_heading_count": 10,
+    "markdown_code_fences": 0,
+    "preserved_embedded_media_links": 3,
+    "source_url_present": true
+  }
+]

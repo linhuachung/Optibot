@@ -1,0 +1,10 @@
+{
+  "vector_store_id": "vs_6ae4995c1e508191a17e4657debcfeac",
+  "uploaded": 29,
+  "skipped": 1,
+  "completed_files": 30,
+  "embedded_chunks": null,
+  "chunk_count_status": "unavailable: managed index API does not document an exact embedded chunk total",
+  "chunking_strategy": "auto (provider default; documented as 800 tokens with 400 overlap)",
+  "checked_at": "2026-10-30T13:28:22.781885+00:00"
+}

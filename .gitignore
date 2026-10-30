@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.sample
+.venv/
+.runtime/
+python-runtime.zip
+data/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/

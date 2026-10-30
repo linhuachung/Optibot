@@ -1,0 +1,9 @@
+{
+  "check": "OpenAI Responses generation",
+  "http_status": 429,
+  "code": "credit_balance_exhausted",
+  "type": "insufficient_quota",
+  "result": "blocked",
+  "model": "gpt-4.1-mini",
+  "note": "Credential authentication and one-file vector indexing succeeded. No generated answer or UI screenshot is claimed."
+}
