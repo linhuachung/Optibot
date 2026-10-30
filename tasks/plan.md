@@ -147,3 +147,7 @@ Step 1 and Step 2 ingestion are implemented. Outstanding gates are funded answer
 - [Railway cron](https://docs.railway.com/cron-jobs): one-shot scheduled execution and UTC schedules.
 - [Railway volumes](https://docs.railway.com/volumes): persistent storage.
 - [Gemini file search](https://ai.google.dev/gemini-api/docs/file-search): allowed alternative API path; UI feasibility not verified.
+
+## User-requested runnable local UI
+
+After the assignment review, the user requested server/frontend run instructions and a runnable project. Added a loopback-only FastAPI API (`server.py`, port 8000) and a static frontend (`frontend/public`, optional separate port 5173). Search uses the existing vector corpus; generation uses the existing exact prompt and reports credit failures honestly. Keys remain server-side. The daily Docker/Actions deployment remains the one-shot ingestion job. This optional local demo does not implement Part 2 or replace provider-UI evidence. See [run guide](../docs/run.md) and [API contract](../docs/api.md).

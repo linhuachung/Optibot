@@ -169,3 +169,18 @@ Dependencies: 7–11; submission also depends on 6. Likely artifacts: revised Pa
 - [ ] Check both submission parts together, actual cuts and links; stop at the approximately 18h budget and disclose incomplete work.
 
 Verification: Brief A appears on line 1; the final document covers all selected domains, team/platform decisions, order, estimates and rationale. The user can defend its decisions. No Part 2 code was produced.
+
+## Requested local server/frontend - verified
+
+This is the user-requested local demo, separate from the assignment's provider UI evidence and Part 2 planning.
+
+- [x] Add local FastAPI server, health/search/answer endpoints and server-side key handling.
+- [x] Add frontend with actual article retrieval, source links, explicit generation errors and mobile layouts.
+- [x] Test input/origin/body limits, private-file exclusions, provider failures and citation mapping: 38 Python tests pass locally.
+- [x] Test keyboard search, safe text rendering, duplicate-send protection, quota fallback, empty results and unavailable backend: six browser tests pass locally.
+- [x] Check WCAG A/AA rules at narrow/desktop widths: no automated axe violations; no horizontal overflow at 320/768/1024/1440 pixels.
+- [x] Verify the actual UI against the existing store: 30 indexed articles, three YouTube sources, no page JavaScript errors. Save clearly labeled local screenshots and JSON evidence.
+- [x] Write root README, detailed server/frontend run instructions, frontend README and API contract.
+- [ ] Verify the new browser CI job after pushing this change.
+
+Remaining original checkboxes above still require genuine provider/product/human evidence. Automated local UI checks cannot complete them.

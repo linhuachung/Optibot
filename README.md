@@ -1,32 +1,36 @@
 # Harbor support notes
 
-One-shot Zendesk scraper to clean Markdown to OpenAI vector store. Source: [GitHub](https://github.com/linhuachung/Optibot).
+Zendesk articles to Markdown to an OpenAI vector store, with a daily Docker job and a local support UI. [Source](https://github.com/linhuachung/Optibot).
 
-## Setup and run
+## Setup
 
-Use Python 3.11+: `python -m pip install -r requirements.txt`. Copy `.env.sample` to `.env` and set `API_KEY` or `OPENAI_API_KEY` (`API_KEY` wins). Keep keys private. The store ID is created once and saved with hashes/remote IDs in `data/ingestion-state.json`; retain the state directory between runs. `STATE_DIR` overrides `DATA_DIR`; locally the default is `data`.
+Use Python 3.11+: `python -m pip install -r requirements.txt`. Copy `.env.sample` to `.env` **only if it does not exist**, then set `API_KEY` or `OPENAI_API_KEY` (`API_KEY` wins). Keep keys on the server. Run `python main.py` to create the 30-article seed and index it; retain `data/manifest.json` and `data/ingestion-state.json`. `STATE_DIR` overrides `DATA_DIR` (default `data`). Do not run competing local/cloud uploaders against one store.
+
+## Run server and frontend
+
+From the repository root, Terminal 1:
+
+```powershell
+python server.py
+```
+
+Open **http://127.0.0.1:8000** to use the bundled frontend. To run the frontend separately, keep the backend running and use Terminal 2:
+
+```powershell
+python -m http.server 5173 --bind 127.0.0.1 --directory frontend/public
+```
+
+Open **http://127.0.0.1:5173**. No Node/build step is required. In this workspace, replace `python` with `.\.runtime\python\python.exe` if needed. Both servers are local only; stop with Ctrl+C. Search docs returns excerpts and links; Ask assistant generates a cited answer and needs API credits. [Full setup/troubleshooting](docs/run.md), [frontend](frontend/README.md), [API](docs/api.md).
+
+## Daily job and verification
 
 ```powershell
 python main.py
-python ask.py --retrieve-only
-python ask.py --require-citations --output docs/evidence/youtube-answer.json
 python -m unittest discover -s tests -v
 docker build -t harbor-ledger .
 docker run --rm --env-file .env --mount "type=bind,source=$((Get-Location).Path)/data,target=/data" harbor-ledger
 ```
 
-The ignored workspace runtime is `.\.runtime\python\python.exe` if Python is not installed. `scrape.py` and `upload.py` remain separate manual tools; `main.py` runs the complete daily pipeline once and exits. `OPENAI_MODEL` defaults to `gpt-4.1-mini` for queries.
+The Docker entry point runs once and exits; it does not host the UI. GitHub Actions schedules it at 02:17 UTC with durable state artifacts. [Deployment/recovery](docs/deploy.md), [successful cloud logs](https://github.com/linhuachung/Optibot/actions/runs/41072188793), [verification](docs/verification.md). Repeated cloud runs skipped all 30 unchanged articles. Managed chunking defaults to 800 tokens/400 overlap; exact embedded-chunk totals are unavailable and reported as `null`.
 
-## Daily job and evidence
-
-Bootstrap selects 30 articles including YouTube. Daily runs discover newly public English articles, refresh the existing corpus, hash semantic Markdown and upload additions/changes only. Pending versions finish before re-scraping; old indexed entries retire only after successful replacement. An OS lock prevents overlapping state writes. Failures exit nonzero and retain retry state; counts and timestamps go to `last-run.json`.
-
-GitHub Actions runs the Docker job daily at `02:17 UTC` (09:17 Bangkok), with versioned workflow artifacts preserving state. Configure the encrypted secrets and follow [deployment and recovery](docs/deploy.md). Railway is no longer required.
-
-Evidence: [local last run](docs/evidence/local-daily-rerun.json), [remote index status](docs/evidence/index-status.json), [retrieval](docs/evidence/youtube-retrieval.json), [verification](docs/verification.md). Local reruns show `added=0 updated=0 skipped=30 failed=0`. [Windows/Linux tests and Docker build passed](https://github.com/linhuachung/Optibot/actions/runs/41067614734). [Cloud job logs](https://github.com/linhuachung/Optibot/actions/runs/41068135936) show a second successful container restoring prior state and skipping all 30 articles. The first automatic cron trigger is still pending.
-
-Chunking uses the managed default, documented as 800 tokens with 400 overlap. Inspected metadata exposes no exact embedded-chunk total; reports say `null`, never substitute file counts. This requirement remains unresolved.
-
-Provider-UI screenshot is pending: apply [the exact prompt](system_prompt.txt), connect file search to the saved store, ask the YouTube question and save `docs/screenshot-youtube.png`. API JSON does not replace it. Generated-answer checks were blocked by exhausted API credits. See [cuts and incomplete work](CUTS.md); submit both take-home parts together after completing their checklist.
-
-Part 2: [proposed Brief A plan](docs/scio-slice-plan.md). [Live product observations](docs/scio-product-observations.md) and candidate review are required before submission.
+[Local UI screenshot](docs/evidence/local-chat-search.png) demonstrates actual retrieval. **Required provider-UI screenshot remains missing**, generated answers are blocked by exhausted API credits, and the first automatic cron trigger is unobserved. The custom UI does not replace provider evidence. [Checklist](tasks/todo.md), [cuts/open requirements](CUTS.md). Part 2: [Brief A proposal](docs/scio-slice-plan.md); live SCIO study and candidate review remain required. Submit both parts together after resolving these gates.

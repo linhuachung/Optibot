@@ -1,0 +1,12 @@
+{
+  "frontend": "http://127.0.0.1:5173",
+  "backend": "http://127.0.0.1:8000",
+  "searchSourceCount": 3,
+  "topSource": "How to Use YouTube with OptiSigns ↗",
+  "pageErrors": [],
+  "accessibilityViolations": [],
+  "mobileOverflow": false,
+  "generatedAnswerError": "The API project has no available credits. Add credits or use document search.",
+  "checkedAt": "2026-10-30T14:52:42.957Z",
+  "note": "Actual local custom UI; not the required provider UI screenshot."
+}

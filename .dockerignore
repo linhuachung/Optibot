@@ -2,6 +2,9 @@
 .env
 .env.*
 .runtime
+node_modules
+test-results
+.venv
 python-runtime.zip
 data
 __pycache__
