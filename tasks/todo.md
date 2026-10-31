@@ -273,3 +273,5 @@ Raw Gemini store/document metadata was checked directly in addition to SDK inspe
 - [x] Observe Custom Recurrence frequencies Daily/Weekly/Monthly/Yearly, Every interval and Never/On-date/After-count termination choices, plus Daily-for1-occurrence preview. Saved recurring instances/execution remain unverified.
 
 - [x] Observe future recurring-icon instances on Nov1 and Nov2 at10:48-11:18 in the Nov1-7 Week calendar after the daily recurrence exercise. No player-execution or timezone conclusion is inferred.
+
+- [x] Observe schedule Default Content intended to fill gaps: None, Use Account Default (currently selected), Asset and Playlist. Actual fallback playback/account target and timezone behavior remain unverified.

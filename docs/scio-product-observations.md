@@ -98,3 +98,7 @@ Two user screenshots show Custom Recurrence. The Repeat selector offers Daily, W
 ## Observed future recurrence instances - 2026-10-31
 
 After the guided daily/three-occurrence configuration, the candidate screenshot shows the Nov1-7,2026 Week view with blue recurring-icon events on SundayNov1 and MondayNov2. Both display10:48-11:18 Takehome Study Playlist. No corresponding event is visible in the TuesdayNov3 column at the displayed interval. This is consistent with the intended three-day series beginningOct31, but the final saved recurrence-detail dialog was not supplied; the screenshot directly proves only the shown future calendar instances. Recurrence expansion in the portal is observed, whereas scheduled execution on a paired player, timezone interpretation and series-edit scope remain untested.
+
+## Observed schedule default-content configuration - 2026-10-31
+
+The candidate screenshots show the study schedule's Default Content dialog with explanatory text Fill in the time gaps between events. Its selector currently uses Use Account Default and exposes None, Use Account Default, Asset and Playlist. Save and Cancel are visible. This is direct evidence of configurable schedule gap-filling choices and the displayed account-default selection. No default content was changed or executed in the evidence, the actual account-default target is unknown, and None is not interpreted as a particular black/blank/offline player behavior. No timezone control is visible in this dialog; timezone remains unverified.
