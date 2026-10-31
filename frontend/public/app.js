@@ -6,6 +6,7 @@ const form = byId("chat-form");
 const input = byId("question");
 let busy = false;
 let ready = false;
+let provider = "openai";
 let pendingReply = null;
 
 function mode() { return document.querySelector('input[name="mode"]:checked').value; }
@@ -15,7 +16,7 @@ function updateControls() {
   byId("clear").disabled = busy || !byId("messages").children.length;
   document.querySelectorAll('input[name="mode"]').forEach((item) => { item.disabled = busy; });
   byId("send").firstChild.textContent = mode() === "search" ? "Search " : "Ask ";
-  byId("mode-help").textContent = mode() === "search" ? "Find matching passages and their source articles." : "Get a concise answer with source citations. Available API credits are required.";
+  byId("mode-help").textContent = mode() === "search" ? (provider === "gemini" ? "Find source passages with Gemini File Search. Uses Gemini API quota." : "Find matching passages and their source articles.") : "Get a concise answer with source citations. Available API credits are required.";
   byId("character-count").textContent = `${input.value.length.toLocaleString()} / 2,000`;
   form.setAttribute("aria-busy", String(busy));
 }
@@ -71,6 +72,7 @@ async function checkHealth() {
     const response = await fetch(`${apiBase}/api/health`);
     if (!response.ok) throw new Error("Document state could not be loaded. Check the backend setup.");
     const health = await response.json();
+    provider = health.provider || "openai";
     ready = health.status === "ready";
     byId("article-count").textContent = health.articleCount;
     byId("connection").textContent = ready ? `${health.articleCount} articles · Connected` : "Setup needed";

@@ -29,7 +29,7 @@ Artifacts have 90-day requested retention, subject to repository limits. Keep an
 
 ## Local Docker verification
 
-Use the build/run commands in README, retain the same `data` bind mount for repeated containers, and never put a key in build arguments. Docker builds passed CI, and two full authenticated cloud containers completed successfully. The second restored the first run's state and performed zero uploads. [First run](https://github.com/linhuachung/Optibot/actions/runs/41067930209), [second run](https://github.com/linhuachung/Optibot/actions/runs/41068135936). The first automatic cron trigger remains pending.
+Use the build/run commands in README, retain the same `data` bind mount for repeated containers, and never put a key in build arguments. Docker builds passed CI, and two full authenticated cloud containers completed successfully. The second restored the first run's state and performed zero uploads. [First run](https://github.com/linhuachung/Optibot/actions/runs/41067930209), [second run](https://github.com/linhuachung/Optibot/actions/runs/41068135936). A real scheduled OpenAI event passed on 2026-10-31: [run 41184533900](https://github.com/linhuachung/Optibot/actions/runs/41184533900), with added=1, updated=2, skipped=28, failed=0.
 
 ## Recovery and rollback
 
@@ -45,3 +45,11 @@ Reference: [Docker build practices](https://docs.docker.com/build/building/best-
 
 
 References: [GitHub schedules](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule), [workflow artifacts](https://docs.github.com/en/actions/tutorials/store-and-share-data).
+
+## Gemini migration configuration
+
+After verified local indexing, configure encrypted `GEMINI_API_KEY` and `GEMINI_BOOTSTRAP_STATE` (complete `data/gemini-state.json`, with no pending work). Set repository variables `AI_PROVIDER=gemini`, `GEMINI_MODEL=gemini-3.5-flash-lite` and `GEMINI_FILE_SEARCH_STORE` to the saved Gemini store. Keep existing OpenAI secrets/state as rollback material; never put either key into YAML or frontend code.
+
+The same trusted artifact now retains `manifest.json`, both provider states, `gemini-migration.json` and `last-run.json`. On first Gemini execution the verified Gemini bootstrap is added to the restored artifact. Later runs must restore it; a migration marker plus missing Gemini state fails visibly rather than silently importing stale bootstrap. The one-shot Docker job selects provider from `AI_PROVIDER`. Verify two actual Gemini runs independently of historical OpenAI evidence.
+
+Gemini pending journals retain operation names, deterministic article/hash display names and committed hashes. On a lost upload response, only a unique matching document is reused; absent/duplicate matches stop for manual reconciliation. Never clear pending/committed state blindly. Successful replacement indexing and retirement precede committing the new hash. No claim is made that Gemini supports OpenAI's direct vector-search endpoint; source lookup uses model quota.

@@ -49,6 +49,28 @@ def bootstrap(data_dir, manifest_json, state_json, store_id):
         target.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def prepare_gemini(data_dir, state_json, store_id):
+    """One-time provider migration, then require trusted artifacts to retain state."""
+    from optibot.storage import read_json, write_json
+    target = data_dir / "gemini-state.json"
+    marker = data_dir / "gemini-migration.json"
+    if target.exists():
+        state = read_json(target, None)
+    else:
+        if marker.exists():
+            raise RuntimeError("Gemini state missing after migration; restore verified backup")
+        state = json.loads(state_json)
+        if state.get("pending"):
+            raise ValueError("Finish pending Gemini operations before cloud bootstrap")
+    if (state.get("provider") != "gemini" or state.get("vector_store_id") != store_id
+            or not isinstance(state.get("articles"), dict) or not state["articles"]
+            or not isinstance(state.get("pending"), dict)):
+        raise ValueError("Invalid Gemini bootstrap/state or configured store mismatch")
+    if not target.exists():
+        write_json(target, state)
+    write_json(marker, {"provider": "gemini", "vector_store_id": store_id})
+
+
 class NoRedirect(HTTPRedirectHandler):
     def redirect_request(self, request, fp, code, message, headers, new_url):
         raise RuntimeError("Refusing to redirect an authenticated GitHub API request")
@@ -56,8 +78,12 @@ class NoRedirect(HTTPRedirectHandler):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("mode", choices=["select", "bootstrap"])
+    parser.add_argument("mode", choices=["select", "bootstrap", "gemini"])
     args = parser.parse_args()
+    if args.mode == "gemini":
+        prepare_gemini(Path("data"), os.environ.get("GEMINI_BOOTSTRAP_STATE", ""), os.environ["GEMINI_FILE_SEARCH_STORE"])
+        print("Confirmed durable Gemini provider state")
+        return
     if args.mode == "bootstrap":
         bootstrap(Path("data"), os.environ["BOOTSTRAP_MANIFEST"], os.environ["BOOTSTRAP_STATE"],
                   os.environ["OPENAI_VECTOR_STORE_ID"])

@@ -9,6 +9,9 @@ permissions:
   contents: read
   actions: read
 
+env:
+  AI_PROVIDER: ${{ vars.AI_PROVIDER || 'openai' }}
+
 concurrency:
   group: optibot-daily-state
   cancel-in-progress: false
@@ -48,14 +51,23 @@ jobs:
         run: |
           test -s data/manifest.json
           test -s data/ingestion-state.json
+      - name: Prepare Gemini provider state
+        if: env.AI_PROVIDER == 'gemini'
+        env:
+          GEMINI_BOOTSTRAP_STATE: ${{ secrets.GEMINI_BOOTSTRAP_STATE }}
+          GEMINI_FILE_SEARCH_STORE: ${{ vars.GEMINI_FILE_SEARCH_STORE }}
+        run: python -m scripts.actions_state gemini
       - name: Build job container
         run: docker build -t harbor-ledger .
       - name: Run once and exit
         env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_FILE_SEARCH_STORE: ${{ vars.GEMINI_FILE_SEARCH_STORE }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_VECTOR_STORE_ID: ${{ vars.OPENAI_VECTOR_STORE_ID }}
         run: |
-          docker run --rm --env OPENAI_API_KEY --env OPENAI_VECTOR_STORE_ID --mount "type=bind,source=$PWD/data,target=/data" harbor-ledger
+          docker run --rm --env AI_PROVIDER --env GEMINI_API_KEY --env GEMINI_FILE_SEARCH_STORE --env GEMINI_MODEL --env OPENAI_API_KEY --env OPENAI_VECTOR_STORE_ID --mount "type=bind,source=$PWD/data,target=/data" harbor-ledger
       - name: Preserve state and last-run evidence even after failure
         if: always() && steps.restored.outcome == 'success'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -64,6 +76,8 @@ jobs:
           path: |
             data/manifest.json
             data/ingestion-state.json
+            data/gemini-state.json
+            data/gemini-migration.json
             data/last-run.json
           if-no-files-found: error
           retention-days: 90

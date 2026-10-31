@@ -39,7 +39,7 @@ class JobTests(unittest.TestCase):
     def test_main_exits_nonzero_with_failure_artifact_when_key_is_missing(self):
         with tempfile.TemporaryDirectory() as tmp:
             result = subprocess.run([sys.executable, "main.py", "--data-dir", tmp],
-                env={**os.environ, "API_KEY": "", "OPENAI_API_KEY": ""}, capture_output=True, text=True)
+                env={**os.environ, "API_KEY": "", "OPENAI_API_KEY": "", "AI_PROVIDER": "openai"}, capture_output=True, text=True)
             self.assertEqual(result.returncode, 1)
             self.assertIn("failed=1", result.stdout)
             self.assertTrue((Path(tmp) / "last-run.json").exists())

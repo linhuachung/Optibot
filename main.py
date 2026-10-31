@@ -15,10 +15,11 @@ def main():
     load_dotenv()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", type=Path, default=Path(os.getenv("STATE_DIR") or os.getenv("DATA_DIR", "data")))
+    parser.add_argument("--provider", choices=["openai", "gemini"], default=os.getenv("AI_PROVIDER", "openai"))
     parser.add_argument("--limit", type=int, default=30, help="Minimum seed size on bootstrap")
     args = parser.parse_args()
     try:
-        report = run_job(args.data_dir, limit=args.limit, store_id=os.getenv("OPENAI_VECTOR_STORE_ID") or None)
+        report = run_job(args.data_dir, limit=args.limit, store_id=os.getenv("OPENAI_VECTOR_STORE_ID") or None, provider=args.provider)
     except (RuntimeError, OSError) as error:
         print(json.dumps({"status": "failed", "error_type": type(error).__name__, "failed": 1}), file=sys.stderr)
         return 1

@@ -40,3 +40,16 @@ class ActionsStateTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 bootstrap(Path(tmp), json.dumps({"article_ids": [1]}),
                           json.dumps({"vector_store_id": "vs_one", "articles": {}, "pending": {}}), "vs_other")
+
+    def test_gemini_bootstrap_never_resets_a_lost_migrated_state(self):
+        import tempfile, json
+        from pathlib import Path
+        from scripts.actions_state import prepare_gemini
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            state = {"provider": "gemini", "vector_store_id": "fileSearchStores/test", "articles": {"1": {}}, "pending": {}}
+            prepare_gemini(root, json.dumps(state), state["vector_store_id"])
+            prepare_gemini(root, "", state["vector_store_id"])
+            (root / "gemini-state.json").unlink()
+            with self.assertRaises(RuntimeError):
+                prepare_gemini(root, json.dumps(state), state["vector_store_id"])

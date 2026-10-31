@@ -1,0 +1,101 @@
+{
+  "id": 41184533900,
+  "html_url": "https://github.com/linhuachung/Optibot/actions/runs/41184533900",
+  "status": "completed",
+  "conclusion": "success",
+  "event": "schedule",
+  "head_sha": "6bcb041b4a3020d36a05d189e323667739ef1391",
+  "jobs": [
+    {
+      "id": 124488612968,
+      "name": "daily",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Select prior trusted state",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Restore prior state artifact",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bootstrap first run",
+          "status": "completed",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Confirm usable restored state",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build job container",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run once and exit",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve state and last-run evidence even after failure",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "last_run": {
+    "started_at": "2026-10-31T08:25:33.134223+00:00",
+    "status": "success",
+    "added": 1,
+    "updated": 2,
+    "skipped": 28,
+    "failed": 0,
+    "finished_at": "2026-10-31T08:26:03.624815+00:00",
+    "duration_seconds": 30.491
+  },
+  "state_artifact": {
+    "id": 13036676653,
+    "name": "optibot-state-41184533900-1",
+    "committed_articles": 31,
+    "pending_operations": 0,
+    "vector_store_id": "vs_6ae4995c1e508191a17e4657debcfeac",
+    "state_sha256": "862db4d8981667ecf4e1fccddcd9e2f6684247be0ea1b356ea782d08f6aceb23"
+  }
+}

@@ -16,6 +16,6 @@ Open **http://127.0.0.1:5173**. No Node/npm install or frontend build is require
 
 On this workspace, replace `python` with `.\.runtime\python\python.exe` if Python is not installed. Full setup and troubleshooting: [run guide](../docs/run.md).
 
-The frontend contains no API key and renders provider text as text, not HTML. Search mode shows real document excerpts; Ask assistant requires funded API credits. This is a local demo and does not replace the assignment's provider-UI screenshot.
+The frontend contains no API key and renders provider text as text, not HTML. Search mode shows real document excerpts; Gemini lookup also uses model quota, with generated answer text hidden. Ask assistant needs available provider quota/credits. This is a local demo and does not replace the assignment's provider-UI screenshot.
 
 Design contract: a floating support widget following the reference in the assignment. A green header, bot greeting, suggested questions and bottom composer sit above a round bottom-right launcher. Open/close controls and Escape preserve the conversation and draft; focus returns to the launcher on close. It fits narrow and short viewports. Human support availability/contact details are not simulated. Search/answer modes remain explicit, and generated-answer quota errors are shown honestly.

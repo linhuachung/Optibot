@@ -3,7 +3,7 @@
 Plan: [plan.md](plan.md). Council: [council.md](council.md).
 
 Part 2 update: proposed scope, architecture, sequencing and estimates are drafted in `docs/scio-slice-plan.md`. The user confirmed no live SCIO exploration yet; Step 7 and final validation in Step 12 remain open. Draft completion is not submission readiness.
-Steps 1, 3 and 5 are verified locally. Step 2 ingestion works but generation/UI/chunk evidence remains incomplete. Step 4 Docker and two authenticated GitHub Actions runs are verified, including persisted-state restoration; only the first automatic cron trigger remains pending. Step 6 packaging is prepared with remaining submission evidence unchecked. Source is connected to `linhuachung/Optibot`. See [verification](../docs/verification.md).
+Steps 1, 3 and 5 are verified against the original OpenAI implementation. Step 2 OpenAI API ingestion works but provider-UI/chunk evidence remains incomplete; a Gemini model preflight does not establish full provider migration. Step 4 Docker, durable state restoration and a real scheduled cloud run are verified. Scheduled OpenAI run 41184533900 succeeded on 2026-10-31 with added=1, updated=2, skipped=28, failed=0 and 31 committed articles. Step 6 packaging is prepared with remaining submission evidence unchecked. Source is connected to `linhuachung/Optibot`. See [verification](../docs/verification.md).
 
 ## Council preparation — completed
 
@@ -18,8 +18,9 @@ Steps 1, 3 and 5 are verified locally. Step 2 ingestion works but generation/UI/
 Dependencies: none. Likely artifacts: private warm-up notes, feasibility notes, dependency lock, `.env.sample` (medium scope).
 
 - [ ] Use the trial's OptiBot; record real tone, citations and supported/unsupported question behavior. Check account/runtime prerequisites.
-- [ ] Prove Python upload → successful indexing → provider UI cited answer with the exact prompt; establish actual embedded chunk-count telemetry.
-- [ ] Validate the hosting persistence path; record the tested SDK/API/UI configuration and resolve any unmet mandatory requirement before expanding implementation.
+- [x] Prove Python API upload and successful indexing in the original OpenAI store; retain remote file IDs and separate uploaded-file counts.
+- [x] Validate durable hosting persistence through restored GitHub Actions artifacts and repeated cloud containers; a real scheduled OpenAI run also succeeded.
+- [ ] Complete provider-UI setup and a cited answer with the exact prompt; establish actual embedded chunk-count telemetry and record the tested provider API/UI configuration. Unmet mandatory requirements remain open.
 
 Verification: retain the tiny ingestion result, UI evidence and telemetry method. Escalate obsolete UI or inaccessible chunk counts; do not invent evidence. Include all time spent in the 18h total.
 
@@ -37,13 +38,14 @@ Verification: count actual generated files, inspect formatting and source URL ac
 
 Dependencies: 0–1. Likely files: ingestion module, prompt configuration, screenshot (medium).
 
-- [x] Upload through Python to one reused vector store and wait for all successful indexing statuses; save remote IDs.
+- [x] Upload through Python to one reused OpenAI vector store and wait for all successful indexing statuses; save remote IDs. This is original OpenAI evidence, not proof of Gemini migration.
 - [ ] Configure the supported provider UI with the exact prompt from the plan and the API-populated store. Capture the YouTube answer with correct article URLs.
-- [ ] Log completed file and actual embedded-chunk counts separately; explain chunking and count measurement.
+- [x] Log completed OpenAI file counts separately and explain the managed default chunking strategy in README; use `null` for an unavailable exact embedded-chunk total.
+- [ ] Obtain and log actual embedded-chunk counts with a supported measurement; unavailable counts remain an unmet requirement. Do not substitute file totals or retrieval hits.
 
 Verification: inspect the screenshot and citations against source content; check a second supported question and an unsupported one. File totals or retrieved snippets must not masquerade as chunk totals.
 
-Implementation note (2026-10-30): 30 files indexed; live retrieval returns the YouTube guide. Answer generation returns `credit_balance_exhausted` / `insufficient_quota`. Browser control fails to initialize, so no provider UI screenshot exists. Exact managed chunk totals are unavailable in inspected metadata and are reported as `null`. These unchecked requirements are not waived.
+Historical OpenAI implementation note (2026-10-30): 30 files indexed; live retrieval returns the YouTube guide. Answer generation returns `credit_balance_exhausted` / `insufficient_quota`. Browser control fails to initialize, so no provider UI screenshot exists. Exact managed chunk totals are unavailable in inspected metadata and are reported as `null`. These unchecked requirements are not waived.
 
 ## Checkpoint — Ingestion
 
@@ -71,7 +73,7 @@ Dependencies: 3. Likely files: `Dockerfile`, deployment config, run artifact (me
 - [x] Run the Docker entry point once with the API key, reused store and durable `/data`; document both key aliases. The cloud uses `OPENAI_API_KEY`.
 - [x] Configure encrypted GitHub Actions secrets, daily UTC schedule and persistent state artifacts; verify a real authenticated cloud run terminates.
 - [x] Repeat in a fresh container using the same state; retain reviewer-accessible logs and redacted last-run artifacts.
-- [ ] Observe the first real cron-triggered run, separately from manual dispatch verification.
+- [x] Observe a real cron-triggered OpenAI run, separately from manual dispatch: [run 41184533900](https://github.com/linhuachung/Optibot/actions/runs/41184533900), event=`schedule`, created 2026-10-31 at 08:25 UTC (15:25 Bangkok). It completed with added=1, updated=2, skipped=28, failed=0, 31 committed articles and zero pending operations. [Scheduled-run artifact](../docs/evidence/cloud-run-41184533900.json). The configured cron time and actual run creation time are distinct.
 
 Verification: successful exit 0; second cloud/container run skips unchanged articles; durable IDs/hashes survive container replacement; evidence links work for the intended reviewer.
 
@@ -88,7 +90,7 @@ Command: `python -m unittest discover -s tests -v` — 29 tests passed locally, 
 
 ## Checkpoint — Runnable daily job
 
-- [x] Delta behavior, persistent state, replacement recovery, focused tests and real deployment evidence match the plan. Automatic cron-trigger observation is tracked separately above.
+- [x] Delta behavior, persistent state, replacement recovery, focused tests and real deployment evidence match the plan. The actual scheduled OpenAI event is recorded separately above.
 
 ## Step 6 — Submission pack (1h)
 
@@ -99,7 +101,8 @@ Dependencies: 2, 4, 5. Likely files: README, `.env.sample`, optional `CUTS.md` (
 - [ ] Keep README at most one page: setup, local/Docker invocation, chunking explanation, job evidence link and screenshot.
 - [x] Check clear commits, secret exclusions and sample environment variables; verify existing evidence paths and explicitly identify missing screenshot/cloud evidence.
 - [ ] Resolve repository naming risk: user-selected `Optibot` avoids the literal company name but directly identifies the mini-clone and is not cryptic. Do not claim full compliance or silently rename the remote.
-- [ ] Record actual cuts/unmet requirements and prepare both parts for submission together after Step 12.
+- [x] Record current scope cuts and unmet requirements in `CUTS.md` and `docs/final-review.md`, including naming and unknown actual hours.
+- [ ] Complete the final combined submission pack after provider evidence and Step 12 candidate validation; submit both parts together with actual cuts and hours disclosed.
 
 Verification: follow documented commands in a clean environment; inspect tracked files for secrets and missing deliverables. Do not claim a successful run that was not observed.
 
@@ -121,7 +124,8 @@ Dependencies: 7. Likely file: `docs/scio-slice-plan.md` (small).
 
 - [x] Put Brief A at the top and define goals, depth, non-goals, team size and platform assumptions.
 - [x] Cover Assets, Playlists, Schedules and Screens, with one explicit player platform and a file-to-paired-screen acceptance path.
-- [ ] Explain scope choices using product observations; identify cuts without removing an entire required domain.
+- [x] Identify proposed platform/format/feature cuts without removing any of the four required Brief A domains; independent BA review confirms domain coverage.
+- [ ] Explain and reconcile scope choices using actual live-product observations; proposed policies are not observed SCIO behavior.
 
 Verification: scope maps to the brief; proposed behavior is separate from current SCIO behavior. No Brief B expansion.
 
@@ -165,9 +169,11 @@ The proposed document passes section/coverage and estimate-arithmetic checks. Fi
 
 Dependencies: 7–11; submission also depends on 6. Likely artifacts: revised Part 2 document and private defense notes (small).
 
-- [ ] Read the final plan as a team handoff: what, order, duration and why are explicit; assumptions and observed facts are distinguishable.
+- [x] Independently review the proposed team handoff: what, order, duration and rationale are explicit; assumption/observation labels, domain coverage and estimate arithmetic pass BA review.
+- [ ] Obtain candidate acceptance of the final handoff and ownership of its assumptions/estimates after live SCIO study; the candidate must be able to defend the plan.
 - [ ] Rehearse questions on current SCIO behavior, including settings/features outside the planned MVP and chosen player/platform cuts.
-- [ ] Check both submission parts together, actual cuts and links; stop at the approximately 18h budget and disclose incomplete work.
+- [x] Review both parts together against requirements and record implemented behavior, current cuts, missing evidence and candidate-dependent gates.
+- [ ] Complete final candidate submission checks after resolving remaining evidence/decisions; verify final links, disclose actual hours and any overrun against the approximately 18h budget, and send both parts together.
 
 Verification: Brief A appears on line 1; the final document covers all selected domains, team/platform decisions, order, estimates and rationale. The user can defend its decisions. No Part 2 code was produced.
 

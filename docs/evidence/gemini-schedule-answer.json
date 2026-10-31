@@ -1,0 +1,29 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "question": "How do I create a schedule?",
+  "answer": "To create a schedule in OptiSigns, follow these steps:\n\n* Click on the **Schedule** tab on the top navigation bar.\n* Click **Create Schedule** and rename it if desired.\n* Click **Add Event** (or drag and select a time slot on the calendar view).\n* Choose your assets or playlists, fine-tune the time, and set any recurrence rules (daily, weekly, custom, etc.).\n* Click **Save**.\n\nFor more details on managing overlaps, time zones, and assigning schedules to screens, check out the full guide here: [Creating and Using Schedules with OptiSigns](https://support.optisigns.com/hc/en-us/articles/360016981853-Creating-and-Using-Schedules-with-OptiSigns).",
+  "citations": [
+    {
+      "article_id": "360016981853",
+      "title": "Creating and Using Schedules with OptiSigns",
+      "url": "https://support.optisigns.com/hc/en-us/articles/360016981853-Creating-and-Using-Schedules-with-OptiSigns"
+    }
+  ],
+  "matches": [
+    {
+      "article_id": "360016981853",
+      "title": "Creating and Using Schedules with OptiSigns",
+      "url": "https://support.optisigns.com/hc/en-us/articles/360016981853-Creating-and-Using-Schedules-with-OptiSigns",
+      "excerpt": "# Creating and Using Schedules with OptiSigns\n\nArticle URL: https://support.optisigns.com/hc/en-us/articles/360016981853-Creating-and-Using-Schedules-with-OptiSigns\nArticle ID: 360016981853\nSource updated: 2026-03-31T22:14:33Z\n\n### OptiSigns offers flexible and powerful scheduling options, allowing you to schedule your content on a calendar. Schedule events to recur daily, on specific days and times, or any way you wish.\n\n**In this article, we will cover:**\n\n- [Creating a Schedule](#Create)\n- [Generating a Recurring Schedule](#Generate)\n- [Copying a Schedule](#Copy)\n- [Handling Overlapping Schedules](#Overlapping)\n- [Scheduling Around Time Zones](#Time)\n- [Setting Live-Expire for your Schedules](#Set)\n- [Assigning a Schedule to Your Screens](#Assign)\n- [Playlist Item Scheduling](#Playlist)\n- [Frequently Asked Questions About Schedules](#Common)\n\n[Embedded media](https://www.youtube.com/embed/L2W870T14jw?si=D_TJZ51T3-r3h0c3)\n\n---\n\n## Creating a Schedule\n\n- Click on the Schedule tab on the top navigation bar.\n- Click **Create Schedule**.\n- Rename the schedule by clicking on its name.\n- Add an event by clicking the **Add Event** button or by dragging and selecting the calendar view to create a schedule at your desired time.\n- Fill out the details of your schedule item:\n - Use assets or playlists in your schedules.\n - Fine-tune the time and set it to repeat daily, weekly, etc., or not at all.\n- Click **Save**.\n\n| |\n| --- |\n| **OptiSigns 1.0** |\n| [Embedded media](https://www.canva.com/design/DAGGvjv8umY/iXQ7YC_A92dF4mu--RYcwA/view?embed) |\n| **OptiSigns 2.0** |\n| [Embedded media](https://www.canva.com/design/DAG3ZAPx_T8/mPwhVNgOzYOmsvfqUzr-pQ/view?embed) |\n\nYour schedule item is created. You can edit the schedule item or add more schedule items as needed. It will look something like this:\n\n| | |\n| --- | --- |\n| **OptiSigns 1.0** | **OptiSigns 2.0** |\n| | |\n\n---\n\n## Generating a Recurring Schedule\n\nFollow the steps in the \"Create a Schedule\" section.\n\n- **Set Recurrence:"
+    },
+    {
+      "article_id": "360016981853",
+      "title": "Creating and Using Schedules with OptiSigns",
+      "url": "https://support.optisigns.com/hc/en-us/articles/360016981853-Creating-and-Using-Schedules-with-OptiSigns",
+      "excerpt": "**Save** to finalize the recurring schedule.\n\n| | |\n| --- | --- |\n| **OptiSigns 1.0** | **OptiSigns 2.0** |\n| | |\n\n---\n\n## Copying a Schedule\n\n- Navigate to Schedules: Click on **Schedules** from the menu.\n- Select a Schedule: Choose the schedule you want to copy from the list.\n- Copy Schedule: Click on the **Duplicate Schedule** button located at the top of the schedule.\n- A copy of the schedule will populate. You can modify the copied schedule as desired.\n\n| | |\n| --- | --- |\n| **OptiSigns 1.0** | **OptiSigns 2.0** |\n| | |\n\n---\n\n## Handling Overlapping Schedules\n\nWhen creating or editing schedules, OptiSigns will notify you of any overlaps.\n\n**Types of Overlaps:**\n\n- **Unintentional Overlaps:**\n - Adjust the start and end times of the schedules to ensure there are no conflicts.\n- **Intentional Overlaps:**\n - The last updated schedule will take priority during the conflicted time.\n\n| | |\n| --- | --- |\n| **OptiSigns 1.0** | **OptiSigns 2.0** |\n| | |\n\n---\n\n## Scheduling Around Time Zones\n\nThe screens/devices will play according to their local time zones.\n\n**Example:**\n\n- You (and your computer) are in the CST time zone (GMT - 6).\n- Device 1 is in the EST time zone (GMT - 5).\n- Device 2 is in the PST time zone (GMT - 8).\n\nYou set a schedule item to play from 10 AM to 11 AM on 1/1/20XX.\n\n- Device 1 will play the schedule item from 10 AM to 11 AM on 1/1/20XX in its local time (EST).\n- Device 2 will play the schedule item from 10 AM to 11 AM on 1/1/20XX in its local time (PST).\n\nDaylight saving time adjustments will be handled automatically.\n\n---\n\n## Setting Live-Expire for Your Schedules\n\nYou can use the [Set Asset to Live & Expire](https://support.optisigns.com/hc/en-us/articles/360042736794) feature to schedule content to go live or expire on specific dates.\n\n---\n\n## Assigning a Schedule to Your Screens\n\nThere are two ways to assign a schedule to your screens.\n\n**Method 1:**\n\n- Navigate to Screens: Click on the **Screens** tab.\n- Select Screen: Click **Edit** on the s"
+    }
+  ],
+  "vector_store_id": "fileSearchStores/harborgemininotes-8a71bwmdswjz",
+  "checked_at": "2026-10-31T15:02:46.547893+00:00"
+}

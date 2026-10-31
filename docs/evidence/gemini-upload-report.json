@@ -1,0 +1,13 @@
+{
+  "added": 31,
+  "updated": 0,
+  "skipped": 0,
+  "failed": 0,
+  "provider": "gemini",
+  "vector_store_id": "fileSearchStores/harborgemininotes-8a71bwmdswjz",
+  "completed_files": 31,
+  "embedded_chunks": null,
+  "chunking_strategy": "Gemini white-space chunking: 400 tokens, 80 overlap",
+  "chunk_count_status": "Exact embedded count not exposed by inspected document/store API",
+  "checked_at": "2026-10-31T15:01:27.101930+00:00"
+}

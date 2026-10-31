@@ -17,15 +17,15 @@ This particular workspace already has dependencies in an ignored portable runtim
 
 ## 2. Configure the backend
 
-For a fresh clone, copy `.env.sample` to `.env` without overwriting an existing configured file. Set `API_KEY` or `OPENAI_API_KEY`; `API_KEY` takes precedence. Never place a key in frontend files or browser input. `OPENAI_MODEL` can select an available Responses model with file search; the default is `gpt-4.1-mini`.
+For a fresh clone, copy `.env.sample` to `.env` without overwriting an existing configured file. Set `AI_PROVIDER=gemini`, `GEMINI_API_KEY` and optionally `GEMINI_MODEL=gemini-3.5-flash-lite`. For the retained OpenAI rollback path, use `AI_PROVIDER=openai` and `API_KEY` or `OPENAI_API_KEY` (`API_KEY` takes precedence). Never place a key in frontend files or browser input. `GEMINI_MODEL` selects the Gemini File Search model; OpenAI rollback uses `OPENAI_MODEL` (default `gpt-4.1-mini`).
 
-The backend needs `data/ingestion-state.json` with the API-loaded corpus. Runtime data is intentionally excluded from Git. On this workspace it already exists. On a new environment, run:
+The Gemini backend needs `data/gemini-state.json` (OpenAI rollback uses `data/ingestion-state.json`) with the API-loaded corpus. Runtime data is intentionally excluded from Git. On this workspace it already exists. On a new environment, run:
 
 ```powershell
 python main.py
 ```
 
-That creates the selected Markdown corpus, reuses/creates the configured vector store and records state. Retain both `manifest.json` and `ingestion-state.json` between daily runs. If reusing an existing store, configure its ID; do not run competing local/cloud writers against the same store. See [deployment and recovery](deploy.md).
+That creates the selected Markdown corpus, reuses/creates the configured vector store and records state. Retain `manifest.json`, `gemini-state.json` and any rollback `ingestion-state.json` between daily runs. If reusing an existing store, configure its ID; do not run competing local/cloud writers against the same store. See [deployment and recovery](deploy.md).
 
 ## 3. Run the backend server
 
@@ -47,7 +47,7 @@ python -m http.server 5173 --bind 127.0.0.1 --directory frontend/public
 
 Open **http://127.0.0.1:5173**. This frontend talks to the backend on port 8000. No Node/npm installation, bundler or frontend build is required to run it. Changes to HTML/CSS/JavaScript appear after refreshing the page.
 
-**Search docs** returns actual passages and source links without generating an answer. **Ask assistant** uses the exact support prompt and needs funded API credits. A successful document search does not prove a generated answer is correct. An exhausted-credit error is shown explicitly; it is not replaced with a fabricated answer.
+**Search docs** returns actual passages and source links. With Gemini this uses model-backed File Search and generation quota; generated answer text is hidden. OpenAI rollback uses a direct vector-search endpoint. **Ask assistant** uses the exact support prompt and needs available provider quota/credits. A successful document search does not prove a generated answer is correct. An exhausted-credit error is shown explicitly; it is not replaced with a fabricated answer.
 
 ## 5. Verify and stop
 
@@ -73,7 +73,7 @@ Both servers bind to loopback. They are for local use, with no user authenticati
 ## Troubleshooting
 
 - **Backend unavailable:** start `server.py` and check that port 8000 is free. The separate frontend uses port 5173; use the documented ports or update the explicit origin/API configuration together.
-- **Setup needed / no documents:** run `main.py` with the configured server key and correct data directory. `STATE_DIR` overrides `DATA_DIR`; changing it can point at an empty corpus.
+- **Setup needed / no documents:** run `main.py` with the configured provider key and correct data directory. `STATE_DIR` overrides `DATA_DIR`; changing it can point at an empty corpus.
 - **No API credits:** fund the API project or rotate the server's key to a funded project, then restart. Search and generation can have different provider availability; the app reports their errors separately.
 - **Key rejected:** update the backend `.env`, not the frontend, and restart the backend. Do not share the key in screenshots or chat.
 - **PowerShell cannot find Python:** use the explicit virtual-environment or workspace portable-runtime path above.

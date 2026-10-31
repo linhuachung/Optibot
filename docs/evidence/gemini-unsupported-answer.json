@@ -1,0 +1,10 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "question": "What is tomorrow's weather in Bangkok?",
+  "answer": "I am OptiBot, the customer-support bot for OptiSigns.com. I can only assist you with questions related to OptiSigns and its features using our documentation. I do not have access to weather information.",
+  "citations": [],
+  "matches": [],
+  "vector_store_id": "fileSearchStores/harborgemininotes-8a71bwmdswjz",
+  "checked_at": "2026-10-31T15:02:46.191044+00:00"
+}

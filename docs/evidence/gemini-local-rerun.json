@@ -1,0 +1,11 @@
+{
+  "started_at": "2026-10-31T15:02:39.173736+00:00",
+  "provider": "gemini",
+  "status": "success",
+  "added": 0,
+  "updated": 0,
+  "skipped": 31,
+  "failed": 0,
+  "finished_at": "2026-10-31T15:03:06.602929+00:00",
+  "duration_seconds": 27.438
+}

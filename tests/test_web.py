@@ -20,7 +20,7 @@ class WebTests(unittest.TestCase):
         self.api = MagicMock()
         self.api.__enter__.return_value = self.api
         self.api.with_options.return_value = self.api
-        self.app = create_app(data_dir=self.root, client_factory=lambda: self.api)
+        self.app = create_app(data_dir=self.root, client_factory=lambda: self.api, provider="openai")
         self.client = TestClient(self.app)
 
     def seed(self):
@@ -110,6 +110,45 @@ class WebTests(unittest.TestCase):
                     self.assertEqual(response.json()["error"]["code"], "state_invalid")
                     self.assertNotIn("private", response.text)
         self.api.with_options.assert_not_called()
+
+    def gemini_web_client(self):
+        write_json(self.root / "gemini-state.json", {"provider": "gemini", "vector_store_id": "fileSearchStores/test", "articles": {
+            "1": {"file_id": "fileSearchStores/test/documents/1", "display_name": "article-1-hash", "title": "Guide",
+                  "url": "https://support.optisigns.com/hc/en-us/articles/1"}}})
+        app = create_app(data_dir=self.root, client_factory=lambda: self.api, provider="gemini")
+        return TestClient(app, raise_server_exceptions=False)
+
+    def test_gemini_transport_failure_is_sanitized_json(self):
+        client = self.gemini_web_client()
+        self.api.models.generate_content.side_effect = httpx.ConnectError("private-provider-detail")
+        response = client.post("/api/chat", json={"question": "YouTube?"})
+        self.assertEqual(response.status_code, 502)
+        self.assertEqual(response.json()["error"]["code"], "provider_unavailable")
+        self.assertNotIn("private-provider-detail", response.text)
+
+    def test_gemini_search_returns_only_grounded_excerpts_and_discloses_quota(self):
+        client = self.gemini_web_client()
+        context = SimpleNamespace(title="article-1-hash", document_name=None,
+            file_search_store="fileSearchStores/test", text="Source instructions")
+        self.api.models.generate_content.return_value = SimpleNamespace(text="Generated but hidden", candidates=[
+            SimpleNamespace(grounding_metadata=SimpleNamespace(grounding_chunks=[SimpleNamespace(retrieved_context=context)]))])
+        response = client.post("/api/chat", json={"question": "YouTube?", "mode": "search"})
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNone(response.json()["answer"])
+        self.assertIn("quota", response.json()["notice"])
+        self.assertNotIn("Generated but hidden", response.text)
+        self.assertEqual(client.get("/api/health").json()["provider"], "gemini")
+
+    def test_gemini_missing_display_name_is_rejected_before_model_request(self):
+        client = self.gemini_web_client()
+        from optibot.storage import read_json
+        state = read_json(self.root / "gemini-state.json", None)
+        del state["articles"]["1"]["display_name"]
+        write_json(self.root / "gemini-state.json", state)
+        for response in (client.get("/api/health"), client.post("/api/chat", json={"question": "YouTube?"})):
+            self.assertEqual(response.status_code, 503)
+            self.assertEqual(response.json()["error"]["code"], "state_invalid")
+        self.api.models.generate_content.assert_not_called()
 
 
 if __name__ == "__main__":
