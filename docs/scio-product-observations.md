@@ -102,3 +102,19 @@ After the guided daily/three-occurrence configuration, the candidate screenshot 
 ## Observed schedule default-content configuration - 2026-10-31
 
 The candidate screenshots show the study schedule's Default Content dialog with explanatory text Fill in the time gaps between events. Its selector currently uses Use Account Default and exposes None, Use Account Default, Asset and Playlist. Save and Cancel are visible. This is direct evidence of configurable schedule gap-filling choices and the displayed account-default selection. No default content was changed or executed in the evidence, the actual account-default target is unknown, and None is not interpreted as a particular black/blank/offline player behavior. No timezone control is visible in this dialog; timezone remains unverified.
+
+## Observed Add Screen pairing form - 2026-10-31
+
+The candidate screenshot shows Add Screen with a required Pair code field, instruction to enter the6-digit pairing code shown on the screen, an optional Use lowercase pairing code checkbox, and Cancel/Pair controls. The explanatory text says to install the OptiSigns app on a player (Win,Mac,Android,etc.) and explicitly offers Windows/Mac app links to try on a laptop. The code field is empty and Pair is disabled. This establishes visible code-based pairing prerequisites and laptop-player guidance, not successful pairing or actual device playback. Pairing codes must not be recorded in shared notes/evidence.
+
+## Observed screen configuration form - 2026-10-31
+
+The candidate supplied Edit Screen Screen1 screenshots after the pairing exercise. A screen configuration record is visible; device online state, successful pairing acknowledgement and actual player rendering are not visible in these images. Device Name is Screen1, Content Type is still Select type and Orientation is Landscape. An onboarding explanation names Asset, Playlist and Schedule as content types and describes playlists as a loop and schedules as what-plays-when plans. This is visible UI guidance, not proof those assignments have executed.
+
+A separate Operational Schedule selector shows None; it is not conflated with content type Schedule, and its operating behavior is not yet tested. Advanced controls visibly include functional location, a blank location field, Background Type Default, Content Tag Rule, Sync Play unchecked, Show Downloading Status checked, Preload Assets in Playlist checked, Show Offline Indicator unchecked and Mute unchecked. These are displayed choices/states for this trial, not universal defaults or validated runtime behavior. Next: assign only the dedicated study playlist to the new study screen and observe the actual Player app, separately from portal Preview.
+
+## Candidate-confirmed actual Player rendering - 2026-10-31
+
+After the guided rename/content-type/playlist-save steps, the candidate reported completion. A separate explicit question distinguished the actual installed OptiSigns Player from portal Preview; the candidate selected that video, blue image and PDF were visible/playing in the Player. Record this as candidate-confirmed real Player rendering of the assigned study playlist. It is not an independent agent screenshot or a measured delivery-latency test.
+
+This verifies the exercised direct path from uploaded study files through a playlist to a screen/installed Player. It does not establish automatic PDF page advancement, a complete hands-off loop on the Player, schedule-driven execution, offline behavior or Linux-platform execution. The earlier manual-Next PDF observation applied to portal preview and is not generalized to the installed Player. The new screen's UI settings were observed, but folder operations and further setting effects remain untested.

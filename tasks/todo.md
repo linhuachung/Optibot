@@ -275,3 +275,9 @@ Raw Gemini store/document metadata was checked directly in addition to SDK inspe
 - [x] Observe future recurring-icon instances on Nov1 and Nov2 at10:48-11:18 in the Nov1-7 Week calendar after the daily recurrence exercise. No player-execution or timezone conclusion is inferred.
 
 - [x] Observe schedule Default Content intended to fill gaps: None, Use Account Default (currently selected), Asset and Playlist. Actual fallback playback/account target and timezone behavior remain unverified.
+
+- [x] Observe required code-based Add Screen form, optional lowercase-code setting, disabled Pair with empty code and Windows/Mac laptop-player links. Actual pairing, assignment, device settings and physical playback remain unverified.
+
+- [x] Observe Screen1 edit form, Content Type guidance for Asset/Playlist/Schedule, Landscape, separate Operational Schedule=None and advanced controls including preload/download/offline/sync/mute. Actual online/pairing acknowledgement, saved content assignment and Player rendering remain unverified.
+
+- [x] Obtain explicit candidate confirmation that video, blue image and PDF render in the installed OptiSigns Player, separately from portal Preview, after assigning the study playlist. The direct file->playlist->screen path is verified by candidate report; schedule execution, PDF auto-advance/loop, offline behavior and Linux playback remain unverified.
