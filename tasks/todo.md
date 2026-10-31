@@ -1,6 +1,6 @@
 # Take-home checklist
 
-Current verification (2026-10-31): Gemini is selected locally; 31 articles indexed via API, real unchanged rerun skips 31, supported YouTube/schedule answers and unsupported-question refusal verified. 53 Python and nine browser regressions pass; Windows/Linux CI and Docker build passed run 41213125085. The actual custom widget answers with Gemini and cited URLs. Cloud Gemini migration verification is tracked at the end. Required Google AI Studio screenshot, exact embedded chunks and candidate/product gates remain open.
+Current verification (2026-10-31): Gemini is selected locally; 31 articles indexed via API, real unchanged rerun skips 31, supported YouTube/schedule answers and unsupported-question refusal verified. 53 Python and nine browser regressions pass; Windows/Linux CI and Docker build passed run 41213997518. The actual custom widget answers with Gemini and cited URLs. Cloud Gemini migration verification is tracked at the end. Required Google AI Studio screenshot, exact embedded chunks and candidate/product gates remain open.
 
 
 Plan: [plan.md](plan.md). Council: [council.md](council.md).
@@ -222,7 +222,7 @@ Remaining original checkboxes above still require genuine provider/product/human
 - [x] Run a second real local job: added=0 updated=0 skipped=31 failed=0. Save `gemini-local-rerun.json`.
 - [x] Verify actual YouTube and schedule answers against their source instructions: five bullets/one support URL each; unsupported weather request refused. Save separate `gemini-*-answer.json` evidence.
 - [x] Verify exact prompt loading, known-corpus grounding, positive limits, connection errors, corrupt citation metadata, orphan recovery, failed indexing and retry/cleanup behavior in regressions.
-- [x] Run 52 Python tests and nine browser tests; dependency consistency, compilation and pinned dependency audit pass. Windows/Linux, browser and Docker CI run 41213125085 passed.
+- [x] Run 52 Python tests and nine browser tests; dependency consistency, compilation and pinned dependency audit pass. Windows/Linux, browser and Docker CI run 41213997518 passed.
 - [x] Verify actual Gemini widget generation/cited source links on desktop and 320px mobile: no page errors, no horizontal overflow and no automated axe violations. Screenshots are custom UI evidence, not AI Studio evidence.
 - [x] Update CLI/backend/frontend/docs and explicitly disclose that Gemini source lookup uses generation quota even when generated answer text is hidden.
 - [x] Obtain independent QA implementation approval after fixing newly reproduced invalid-limit, source-lookup, transport and metadata-validation failures.
@@ -240,3 +240,5 @@ Gemini runs [41213308045](https://github.com/linhuachung/Optibot/actions/runs/41
 Raw Gemini store/document metadata was checked directly in addition to SDK inspection: 31 active documents, no exposed exact chunk total. See `docs/evidence/gemini-store-metadata.json`. This is why the exact-chunk requirement stays unchecked.
 
 - [x] Preserve assignment-facing Gemini `API_KEY` alias (explicit `GEMINI_API_KEY` wins), with failing-then-passing regression; Docker defaults to the selected Gemini provider. Full Python suite now has 53 passing tests.
+
+- [x] Final API_KEY/Docker delta passed Windows/Linux, browser and Docker CI run 41213997518. Fresh npm/Python dependency audits report zero known vulnerabilities; credential-pattern and whitespace scans pass.

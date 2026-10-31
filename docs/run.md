@@ -35,7 +35,7 @@ Terminal 1:
 python server.py
 ```
 
-The backend listens on **http://127.0.0.1:8000**. Check **http://127.0.0.1:8000/api/health** for local document readiness. The health endpoint does not contact OpenAI or check credit balance. Open **http://127.0.0.1:8000** to use the bundled frontend from this server alone.
+The backend listens on **http://127.0.0.1:8000**. Check **http://127.0.0.1:8000/api/health** for local document readiness. The health endpoint does not contact the provider or check quota/credit balance. Open **http://127.0.0.1:8000** to use the bundled frontend from this server alone.
 
 ## 4. Run the frontend separately
 

@@ -1,6 +1,6 @@
 # Implementation verification
 
-Current update 2026-10-31: **53 Python/nine browser tests pass; Gemini indexes 31 articles and real generated/refusal checks plus local unchanged rerun pass. Windows/Linux/browser/Docker CI passed run41213125085. Required Google AI Studio screenshot, exact chunks and candidate/product gates remain open.** See the current Gemini section below. Earlier dated sections retain historical OpenAI evidence; exhausted-credit and pending-OpenAI-cron statements are superseded by the October31 verification.
+Current update 2026-10-31: **53 Python/nine browser tests pass; Gemini indexes 31 articles and real generated/refusal checks plus local unchanged rerun pass. Windows/Linux/browser/Docker CI passed run41213997518. Required Google AI Studio screenshot, exact chunks and candidate/product gates remain open.** See the current Gemini section below. Earlier dated sections retain historical OpenAI evidence; exhausted-credit and pending-OpenAI-cron statements are superseded by the October31 verification.
 
 
 ## Implemented
@@ -76,7 +76,7 @@ BA reviewed requirements and Brief A business coverage; QA independently reran t
 
 ## Current full retest and Gemini migration - 2026-10-31
 
-The native Gemini integration passed 52 Python tests and nine browser tests, independently rerun by QA. [CI run 41213125085](https://github.com/linhuachung/Optibot/actions/runs/41213125085) passed Windows/Linux, browser checks and Docker build with the new dependencies. The dependency audit found no known vulnerabilities; `pip check`, compilation and source credential-pattern/whitespace checks passed.
+The native Gemini integration passed 52 Python tests and nine browser tests, independently rerun by QA. [CI run 41213997518](https://github.com/linhuachung/Optibot/actions/runs/41213125085) passed Windows/Linux, browser checks and Docker build with the new dependencies. The dependency audit found no known vulnerabilities; `pip check`, compilation and source credential-pattern/whitespace checks passed.
 
 31 articles were API-indexed with zero pending operations. The separate actual rerun skipped all 31 with no uploads or failures. Gemini YouTube and schedule answers each contain five bullets and one correct support URL; unsupported weather is refused. These are API acceptance checks, not a Google AI Studio screenshot. [YouTube](evidence/gemini-youtube-answer.json), [schedule](evidence/gemini-schedule-answer.json), [refusal](evidence/gemini-unsupported-answer.json), [index status](evidence/gemini-index-status.json), [rerun](evidence/gemini-local-rerun.json).
 
@@ -88,4 +88,4 @@ Gemini cloud acceptance is now verified: runs [41213308045](https://github.com/l
 
 Local-demo limitation: cloud state updates do not automatically synchronize back to the local server. Restore the matching latest trusted provider state before local queries after remote replacements/additions; unknown mappings fail visibly. Current live local/cloud checks use matching 31-document state.
 
-Final API-key contract regression: Gemini now supports assignment-facing `API_KEY` as fallback to `GEMINI_API_KEY`; Docker defaults to Gemini. The new test failed before the fix and the full 53-test Python suite passes afterward. Original 52-test CI evidence is retained as historical; the final alias/Docker delta requires its own CI result.
+Final API-key contract regression: Gemini now supports assignment-facing `API_KEY` as fallback to `GEMINI_API_KEY`; Docker defaults to Gemini. The new test failed before the fix and the full 53-test Python suite passes afterward. Original 52-test CI evidence is retained as historical; the final alias/Docker delta passed run41213997518.

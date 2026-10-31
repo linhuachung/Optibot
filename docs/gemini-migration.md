@@ -26,3 +26,5 @@ Changing provider does not complete the live SCIO study, candidate review or exa
 [First Gemini cloud evidence](evidence/cloud-run-41213308045.json), [restored second container](evidence/cloud-run-41213474374.json), [CI](evidence/gemini-ci.json), [raw store metadata](evidence/gemini-store-metadata.json). The existing scheduled workflow now selects Gemini; a Gemini-specific automatic cron event remains to be observed at its next interval.
 
 Gemini accepts `GEMINI_API_KEY` with `API_KEY` as a fallback alias; an explicit Gemini key wins over a legacy OpenAI alias. The Docker image defaults to `AI_PROVIDER=gemini`; set `AI_PROVIDER=openai` explicitly for rollback.
+
+Final suite: 53 Python and nine browser tests pass. The API_KEY compatibility/Docker-default delta passed [CI run 41213997518](https://github.com/linhuachung/Optibot/actions/runs/41213997518). [Final evidence](evidence/gemini-final-ci.json).

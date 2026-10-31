@@ -1,0 +1,24 @@
+{
+  "id": 41213997518,
+  "head_sha": "bb125de0f5c7d445b14c24ececaee50c2fdad61f",
+  "html_url": "https://github.com/linhuachung/Optibot/actions/runs/41213997518",
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "browser",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "verify (windows-latest)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "verify (ubuntu-latest)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ]
+}
