@@ -118,7 +118,7 @@ def create_app(*, data_dir=None, client_factory=None, provider=None):
             count = len(state["articles"]) if state else 0
         except (ValueError, KeyError, TypeError, OSError):
             return problem(503, "state_invalid", "Document state could not be read. Check the server setup.")
-        configured = bool(os.getenv("GEMINI_API_KEY")) if provider == "gemini" else bool(os.getenv("API_KEY") or os.getenv("OPENAI_API_KEY"))
+        configured = bool(os.getenv("GEMINI_API_KEY") or os.getenv("API_KEY")) if provider == "gemini" else bool(os.getenv("API_KEY") or os.getenv("OPENAI_API_KEY"))
         return {"status": "ready" if count and configured else "setup_required", "articleCount": count,
                 "keyConfigured": configured, "provider": provider}
 

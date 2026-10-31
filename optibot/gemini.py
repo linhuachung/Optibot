@@ -15,9 +15,9 @@ from optibot.storage import read_json, write_json
 
 def gemini_client():
     load_dotenv()
-    key = os.getenv("GEMINI_API_KEY")
+    key = os.getenv("GEMINI_API_KEY") or os.getenv("API_KEY")
     if not key:
-        raise ValueError("Set GEMINI_API_KEY in the backend .env")
+        raise ValueError("Set GEMINI_API_KEY or API_KEY in the backend .env")
     return genai.Client(api_key=key, http_options={"timeout": 30000, "retry_options": {"attempts": 1}})
 
 

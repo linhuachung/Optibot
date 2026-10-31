@@ -27,3 +27,9 @@ Reviewed 2026-10-30. Separate BA and QA agents independently reviewed the assign
 [Full assignment review](final-review.md), [checklist](../tasks/todo.md), [verification](verification.md), [latest prior cloud evidence](evidence/cloud-run-41076345213.json).
 
 Final reviewed commit passed Windows/Linux tests, browser regressions and Docker build in [CI run 41083463882](https://github.com/linhuachung/Optibot/actions/runs/41083463882). [CI evidence](evidence/ba-qa-ci.json). The project-owned local server was reloaded with the validated API code; health reports ready with 30 indexed articles. Refresh the frontend to load the new response-positioning code.
+
+## Migration follow-up - 2026-10-31
+
+QA independently passes 52 Python/nine browser tests and approves the reviewed Gemini implementation after the new invalid-limit, source-lookup semantics, transport JSON and citation-metadata checks were corrected. A real 31-document upload/rerun and grounded answers are now observed. The former OpenAI generation failure and pending automatic cron statements are historical; actual scheduled OpenAI event41184533900 passed with added1/updated2/skipped28. Provider UI/chunk/live-product/candidate/naming/hours requirements still remain open. [Current verification](verification.md).
+
+Gemini cloud acceptance is now verified: runs [41213308045](https://github.com/linhuachung/Optibot/actions/runs/41213308045) and [41213474374](https://github.com/linhuachung/Optibot/actions/runs/41213474374) both pass with 31 skips, zero uploads/failures, zero pending work and identical Gemini-state digests. The second restores the first artifact, including its migration marker. Exact raw-store/document chunk telemetry is still unavailable; see [raw metadata evidence](evidence/gemini-store-metadata.json). The next Gemini-specific scheduled event remains unobserved, separate from already verified OpenAI cron execution.

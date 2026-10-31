@@ -4,7 +4,7 @@ Public Zendesk articles to Markdown to a Gemini File Search store, with a daily 
 
 ## Setup and run
 
-Use Python 3.11+: `python -m pip install -r requirements.txt`. Copy `.env.sample` to `.env` only if absent. Set `AI_PROVIDER=gemini`, `GEMINI_API_KEY` and optionally `GEMINI_MODEL` (default `gemini-3.5-flash-lite`). Keep keys server-side.
+Use Python 3.11+: `python -m pip install -r requirements.txt`. Copy `.env.sample` to `.env` only if absent. Set `AI_PROVIDER=gemini`, `GEMINI_API_KEY` and optionally `GEMINI_MODEL` (default `gemini-3.5-flash-lite`). Gemini also accepts the assignment-facing `API_KEY` alias. Keep keys server-side.
 
 ```powershell
 python main.py
@@ -29,6 +29,6 @@ docker run --rm --env-file .env --mount "type=bind,source=$((Get-Location).Path)
 
 `main.py` runs once and exits. Keep `data/manifest.json` and `data/gemini-state.json` between runs. `STATE_DIR` overrides `DATA_DIR` (default `data`). Avoid competing writers to one store. Gemini uses white-space chunking with 400 tokens/80 overlap; exact embedded-chunk totals are not exposed in inspected metadata and remain unresolved. Gemini source lookup also uses generation quota.
 
-31 Gemini articles indexed; a real rerun skipped all 31. [Answer evidence](docs/evidence/gemini-youtube-answer.json), [local widget screenshot](docs/evidence/local-chat-search.png), [checklist](tasks/todo.md), [deployment/recovery](docs/deploy.md). GitHub cron is 02:17 UTC; a real [scheduled OpenAI run](https://github.com/linhuachung/Optibot/actions/runs/41184533900) added one/updated two articles. Gemini cloud migration evidence is tracked separately.
+31 Gemini articles indexed; a real rerun skipped all 31. [Answer evidence](docs/evidence/gemini-youtube-answer.json), [local widget screenshot](docs/evidence/gemini-widget-desktop.png), [checklist](tasks/todo.md), [deployment/recovery](docs/deploy.md). GitHub cron is 02:17 UTC; a real [scheduled OpenAI run](https://github.com/linhuachung/Optibot/actions/runs/41184533900) added one/updated two articles. Two [Gemini cloud containers](https://github.com/linhuachung/Optibot/actions/runs/41213474374) also restored state and skipped all 31.
 
 **Submission gates:** required provider-UI screenshot, exact chunk totals, live OptiBot/SCIO observations, candidate rehearsal, cryptic repository naming and actual hours. Custom-widget screenshots do not replace AI Studio evidence. [Cuts](CUTS.md), [verification](docs/verification.md), [Brief A plan](docs/scio-slice-plan.md). Submit both parts together.

@@ -1,5 +1,8 @@
 # Take-home checklist
 
+Current verification (2026-10-31): Gemini is selected locally; 31 articles indexed via API, real unchanged rerun skips 31, supported YouTube/schedule answers and unsupported-question refusal verified. 53 Python and nine browser regressions pass; Windows/Linux CI and Docker build passed run 41213125085. The actual custom widget answers with Gemini and cited URLs. Cloud Gemini migration verification is tracked at the end. Required Google AI Studio screenshot, exact embedded chunks and candidate/product gates remain open.
+
+
 Plan: [plan.md](plan.md). Council: [council.md](council.md).
 
 Part 2 update: proposed scope, architecture, sequencing and estimates are drafted in `docs/scio-slice-plan.md`. The user confirmed no live SCIO exploration yet; Step 7 and final validation in Step 12 remain open. Draft completion is not submission readiness.
@@ -45,7 +48,7 @@ Dependencies: 0–1. Likely files: ingestion module, prompt configuration, scree
 
 Verification: inspect the screenshot and citations against source content; check a second supported question and an unsupported one. File totals or retrieved snippets must not masquerade as chunk totals.
 
-Historical OpenAI implementation note (2026-10-30): 30 files indexed; live retrieval returns the YouTube guide. Answer generation returns `credit_balance_exhausted` / `insufficient_quota`. Browser control fails to initialize, so no provider UI screenshot exists. Exact managed chunk totals are unavailable in inspected metadata and are reported as `null`. These unchecked requirements are not waived.
+Historical OpenAI implementation note (2026-10-30): 30 files indexed; live retrieval returns the YouTube guide. Answer generation returns `credit_balance_exhausted` / `insufficient_quota`. Browser control fails to initialize, so no provider UI screenshot exists. Exact managed chunk totals are unavailable in inspected metadata and are reported as `null`. These unchecked requirements are not waived. Gemini now resolves API generation availability with separate provider evidence below; it does not replace provider-UI/chunk requirements.
 
 ## Checkpoint — Ingestion
 
@@ -210,3 +213,30 @@ Remaining original checkboxes above still require genuine provider/product/human
 - [ ] Record candidate-reported actual Part 1 and Part 2 hours; current actual time is unknown, not the planned 8h/10h allocations.
 
 - [x] Verify BA/QA fix commit on Windows/Linux, Docker build and browser CI: run 41083463882 passed. Reload the project-owned local API server and verify ready/30-article health.
+
+## Gemini completion and full retest - 2026-10-31
+
+- [x] Configure the user-authorized trial key privately; verify authentication, File Search access and working model `gemini-3.5-flash-lite`. No billing settings changed.
+- [x] Implement native API upload, bounded operation polling, provider-isolated state, semantic delta hashes, replacement cleanup and pending-operation recovery.
+- [x] Index 31 real articles into Gemini File Search, with zero pending operations. Save `docs/evidence/gemini-upload-report.json` and `gemini-index-status.json`.
+- [x] Run a second real local job: added=0 updated=0 skipped=31 failed=0. Save `gemini-local-rerun.json`.
+- [x] Verify actual YouTube and schedule answers against their source instructions: five bullets/one support URL each; unsupported weather request refused. Save separate `gemini-*-answer.json` evidence.
+- [x] Verify exact prompt loading, known-corpus grounding, positive limits, connection errors, corrupt citation metadata, orphan recovery, failed indexing and retry/cleanup behavior in regressions.
+- [x] Run 52 Python tests and nine browser tests; dependency consistency, compilation and pinned dependency audit pass. Windows/Linux, browser and Docker CI run 41213125085 passed.
+- [x] Verify actual Gemini widget generation/cited source links on desktop and 320px mobile: no page errors, no horizontal overflow and no automated axe violations. Screenshots are custom UI evidence, not AI Studio evidence.
+- [x] Update CLI/backend/frontend/docs and explicitly disclose that Gemini source lookup uses generation quota even when generated answer text is hidden.
+- [x] Obtain independent QA implementation approval after fixing newly reproduced invalid-limit, source-lookup, transport and metadata-validation failures.
+- [x] Configure Gemini encrypted GitHub Actions secrets and provider variables after explicit separate user approval. Key values were not printed or committed.
+- [x] Verify two real Gemini cloud container runs: 41213308045 and 41213474374 passed. Both use Gemini, skip all 31 with zero uploads/failures, retain zero pending operations and the migration marker, and have identical provider-state digests.
+- [ ] Capture real Google AI Studio provider setup/YouTube-answer screenshot. Native computer-use initialization still fails with sandbox-helper startup error; custom screenshots do not replace this.
+- [ ] Resolve actual embedded-chunk totals. Gemini uses 400-token/80-overlap white-space chunking; inspected store/document metadata does not expose exact total.
+
+The remaining live OptiBot/SCIO study, candidate acceptance/rehearsal, cryptic naming and actual-hours checkboxes above remain required. Do not claim all steps or the combined submission are complete.
+
+### Current cloud acceptance evidence
+
+Gemini runs [41213308045](https://github.com/linhuachung/Optibot/actions/runs/41213308045) and [41213474374](https://github.com/linhuachung/Optibot/actions/runs/41213474374) are separate successful containers; the second restores the first's trusted artifact. Evidence files explicitly select `gemini-state.json`, not retained OpenAI rollback state. The existing cron schedule remains active with Gemini selected; the next Gemini-specific automatic event has not yet occurred. The earlier automatic OpenAI event is verified separately.
+
+Raw Gemini store/document metadata was checked directly in addition to SDK inspection: 31 active documents, no exposed exact chunk total. See `docs/evidence/gemini-store-metadata.json`. This is why the exact-chunk requirement stays unchecked.
+
+- [x] Preserve assignment-facing Gemini `API_KEY` alias (explicit `GEMINI_API_KEY` wins), with failing-then-passing regression; Docker defaults to the selected Gemini provider. Full Python suite now has 53 passing tests.

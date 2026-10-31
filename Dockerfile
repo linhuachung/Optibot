@@ -2,7 +2,8 @@ FROM python:3.12-slim-bookworm
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    STATE_DIR=/data
+    STATE_DIR=/data \
+    AI_PROVIDER=gemini
 WORKDIR /app
 
 COPY requirements.txt ./

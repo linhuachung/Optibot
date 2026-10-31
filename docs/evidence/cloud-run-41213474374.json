@@ -1,0 +1,109 @@
+{
+  "id": 41213474374,
+  "html_url": "https://github.com/linhuachung/Optibot/actions/runs/41213474374",
+  "status": "completed",
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_sha": "b54b2d581c8c957c200d886a6262bdc886c46231",
+  "jobs": [
+    {
+      "id": 124573090596,
+      "name": "daily",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Select prior trusted state",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Restore prior state artifact",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bootstrap first run",
+          "status": "completed",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Confirm usable restored state",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Prepare Gemini provider state",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build job container",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run once and exit",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve state and last-run evidence even after failure",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "last_run": {
+    "started_at": "2026-10-31T15:09:42.927522+00:00",
+    "provider": "gemini",
+    "status": "success",
+    "added": 0,
+    "updated": 0,
+    "skipped": 31,
+    "failed": 0,
+    "finished_at": "2026-10-31T15:09:50.915114+00:00",
+    "duration_seconds": 7.988
+  },
+  "state_artifact": {
+    "id": 13046643015,
+    "name": "optibot-state-41213474374-1",
+    "committed_articles": 31,
+    "pending_operations": 0,
+    "vector_store_id": "fileSearchStores/harborgemininotes-8a71bwmdswjz",
+    "provider": "gemini",
+    "gemini_migration_marker_retained": true,
+    "state_sha256": "e6cc3f42fef98fec73d5dff35b084547c7adb5ab895d76238963f7122bb8e4cd"
+  }
+}

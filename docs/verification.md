@@ -1,6 +1,7 @@
 # Implementation verification
 
-Verified on 2026-10-30. **Steps 1, 3 and 5 pass local checks. Step 2 API ingestion/retrieval work; generated-answer/UI evidence and exact chunk reporting remain incomplete. Docker build, two authenticated GitHub Actions containers and cross-run state restoration passed. The first automatic cron trigger remains unobserved.**
+Current update 2026-10-31: **53 Python/nine browser tests pass; Gemini indexes 31 articles and real generated/refusal checks plus local unchanged rerun pass. Windows/Linux/browser/Docker CI passed run41213125085. Required Google AI Studio screenshot, exact chunks and candidate/product gates remain open.** See the current Gemini section below. Earlier dated sections retain historical OpenAI evidence; exhausted-credit and pending-OpenAI-cron statements are superseded by the October31 verification.
+
 
 ## Implemented
 
@@ -72,3 +73,19 @@ The frontend now follows the assignment screenshot's floating-widget pattern, wi
 ## Independent BA/QA review loop
 
 BA reviewed requirements and Brief A business coverage; QA independently reran tests and exercised failure cases. Fixed malformed-corpus health/chat responses and new-reply scrolling, including completion while the widget is closed. Each scenario was reproduced with a failing regression before its fix. Final independent results: **39 Python tests and nine browser tests pass**. BA and QA approve the tested implementation, not final submission readiness. The repository's non-cryptic name and unknown actual hours are now explicit open risks. [Review record](ba-qa-review.md).
+
+## Current full retest and Gemini migration - 2026-10-31
+
+The native Gemini integration passed 52 Python tests and nine browser tests, independently rerun by QA. [CI run 41213125085](https://github.com/linhuachung/Optibot/actions/runs/41213125085) passed Windows/Linux, browser checks and Docker build with the new dependencies. The dependency audit found no known vulnerabilities; `pip check`, compilation and source credential-pattern/whitespace checks passed.
+
+31 articles were API-indexed with zero pending operations. The separate actual rerun skipped all 31 with no uploads or failures. Gemini YouTube and schedule answers each contain five bullets and one correct support URL; unsupported weather is refused. These are API acceptance checks, not a Google AI Studio screenshot. [YouTube](evidence/gemini-youtube-answer.json), [schedule](evidence/gemini-schedule-answer.json), [refusal](evidence/gemini-unsupported-answer.json), [index status](evidence/gemini-index-status.json), [rerun](evidence/gemini-local-rerun.json).
+
+The actual floating widget now generates via Gemini and shows the correct cited article. Desktop/mobile visual inspection, axe checks and JavaScript-error checks pass. [Actual widget](evidence/gemini-widget-check.json), [desktop](evidence/gemini-widget-desktop.png), [mobile](evidence/gemini-widget-mobile.png). Gemini source lookup itself invokes a model and uses generation quota, although generated answer text is hidden in search mode.
+
+The first real **OpenAI** scheduled event is now observed: [run 41184533900](https://github.com/linhuachung/Optibot/actions/runs/41184533900), actual start 2026-10-31 08:25 UTC / 15:25 Bangkok, added=1 updated=2 skipped=28 failed=0, 31 committed and zero pending. This supersedes earlier pending-cron statements for the deployed OpenAI workflow. Gemini manual-cloud verification is separate. Exact embedded chunks, required provider UI, live SCIO study, candidate review, naming and actual hours remain open.
+
+Gemini cloud acceptance is now verified: runs [41213308045](https://github.com/linhuachung/Optibot/actions/runs/41213308045) and [41213474374](https://github.com/linhuachung/Optibot/actions/runs/41213474374) both pass with 31 skips, zero uploads/failures, zero pending work and identical Gemini-state digests. The second restores the first artifact, including its migration marker. Exact raw-store/document chunk telemetry is still unavailable; see [raw metadata evidence](evidence/gemini-store-metadata.json). The next Gemini-specific scheduled event remains unobserved, separate from already verified OpenAI cron execution.
+
+Local-demo limitation: cloud state updates do not automatically synchronize back to the local server. Restore the matching latest trusted provider state before local queries after remote replacements/additions; unknown mappings fail visibly. Current live local/cloud checks use matching 31-document state.
+
+Final API-key contract regression: Gemini now supports assignment-facing `API_KEY` as fallback to `GEMINI_API_KEY`; Docker defaults to Gemini. The new test failed before the fix and the full 53-test Python suite passes afterward. Original 52-test CI evidence is retained as historical; the final alias/Docker delta requires its own CI result.

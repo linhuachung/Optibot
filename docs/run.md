@@ -79,3 +79,9 @@ Both servers bind to loopback. They are for local use, with no user authenticati
 - **PowerShell cannot find Python:** use the explicit virtual-environment or workspace portable-runtime path above.
 - **Port already in use:** stop the prior server using its terminal. Do not start a second server on the same port.
 - **Fresh clone has no `.runtime` or `data`:** expected; install Python, install requirements and generate/restore the corpus. Do not commit runtime data or credentials to make a clone runnable.
+
+## After a cloud corpus update
+
+The local demo reads local provider state; it does not automatically download cloud artifacts. If the daily cloud job replaces/adds documents, stop the backend and restore the latest trusted artifact's matching `manifest.json` and `gemini-state.json` together before restarting. Keep a backup and do not restore an older bootstrap over newer state. Do not run a competing local uploader to repair a read-only UI while cloud ingestion is active. Unknown/stale citation mappings fail visibly rather than producing a falsely attributed answer. The cloud cron is deployed; this local UI is not a hosted service.
+
+Gemini accepts `GEMINI_API_KEY` with `API_KEY` as a fallback alias; an explicit Gemini key wins over a legacy OpenAI alias. The Docker image defaults to `AI_PROVIDER=gemini`; set `AI_PROVIDER=openai` explicitly for rollback.

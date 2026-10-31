@@ -107,3 +107,12 @@ class GeminiTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 ingest_gemini(self.root, client=self.client, limit=limit)
         self.client.file_search_stores.create.assert_not_called()
+
+    def test_assignment_api_key_alias_is_supported_for_gemini(self):
+        import os
+        from unittest.mock import patch
+        from optibot.gemini import gemini_client
+        with patch.dict(os.environ, {"API_KEY": "test-alias"}, clear=True), \
+             patch("optibot.gemini.load_dotenv"), patch("optibot.gemini.genai.Client") as factory:
+            gemini_client()
+            self.assertEqual(factory.call_args.kwargs["api_key"], "test-alias")

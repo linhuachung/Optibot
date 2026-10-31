@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "store": {
+    "name": "fileSearchStores/harborgemininotes-8a71bwmdswjz",
+    "displayName": "harbor-gemini-notes",
+    "createTime": "2026-10-31T14:55:24.585738Z",
+    "updateTime": "2026-10-31T14:55:24.585738Z",
+    "activeDocumentsCount": "31",
+    "sizeBytes": "106800",
+    "embeddingModel": "models/gemini-embedding-001"
+  },
+  "document_returned_fields": [
+    "name",
+    "displayName",
+    "customMetadata",
+    "updateTime",
+    "createTime",
+    "state",
+    "sizeBytes",
+    "mimeType"
+  ],
+  "embedded_chunks": null,
+  "note": "No exact chunk total returned in inspected store or document metadata. Active document count is not chunk count."
+}

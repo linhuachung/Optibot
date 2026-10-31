@@ -1,9 +1,11 @@
-# Scope and incomplete evidence
+# Scope and remaining submission gates
 
-- Part 1 uses a curated 30-article seed plus daily discovery; historical bulk ingestion, authentication and multiple clouds are omitted. A local backend/frontend was subsequently added at the user's request; it is optional to the assignment and is not publicly hosted.
-- Managed default chunking is retained. Actual embedded-chunk totals are unavailable in the inspected API, so reports explicitly say unavailable; this assignment requirement is unresolved.
-- A cited generated answer needs API credits. The last generation check returned exhausted credits; no provider-UI screenshot is claimed.
-- GitHub Actions replaced Railway at the user's request. Docker build passed CI; two manually triggered cloud containers and persisted-state restoration passed. The first automatic cron trigger is not yet observed.
-- Part 2 Brief A now has a proposed scope, architecture, milestones, acceptance criteria and an eight-week staffing-based estimate. Live trial observations and candidate review remain outstanding; the draft is not submission-ready.
+Updated 2026-10-31.
 
-- Repository naming remains a risk: `Optibot` was selected by the user and is not cryptic. Actual take-home hours are not recorded; planned budgets must not be presented as measured time spent.
+- Gemini is the current provider. 31 articles are API-indexed; real local/cloud reruns skip unchanged articles. Historical bulk ingestion, authentication, multiple clouds and automatic source-deletion propagation remain out of scope.
+- The optional floating widget was added at the user's request. It is local only and does not replace the required Google AI Studio answer screenshot, which remains missing.
+- Gemini white-space chunking is configured at 400 tokens with 80 overlap. The inspected API exposes no exact embedded-chunk total; that requirement remains unresolved rather than fabricated.
+- Real YouTube/schedule generated answers and unsupported-weather refusal pass. The old OpenAI exhausted-credit blocker is historical; OpenAI state/code is retained for rollback.
+- Daily GitHub Actions was explicitly selected by the user. A real scheduled OpenAI event passed on October 31; Gemini cloud execution evidence is tracked separately in the checklist.
+- Brief A covers all four required domains with proposed architecture, delivery order, estimates and acceptance criteria. Actual OptiBot/SCIO trial observations and candidate review/rehearsal remain outstanding.
+- User-selected repository name `Optibot` is not cryptic; a naming decision remains open. Actual take-home time spent is unknown until the candidate records it. Planned budgets are not measured hours.

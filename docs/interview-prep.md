@@ -51,3 +51,7 @@ Send manually only if needed; this review does not send email:
 “The assignment names the retired OpenAI Assistants workflow. Is Responses with the current provider UI and the same API-loaded vector store acceptable? Managed vector-store metadata does not expose an exact embedded-chunk total; what chunk-count evidence would you accept?”
 
 If no answer is available before the time budget expires, disclose the exact unmet requirements and actual cuts instead of representing them as accepted exceptions.
+
+## Current provider/deployment update - 2026-10-31
+
+Explain the current Gemini native File Search path, separate provider state and generation-backed source lookup (which uses quota). Actual YouTube/schedule answers and weather refusal are verified; only provider UI/chunk evidence remains open in Step2. A real scheduled OpenAI run was observed on October31 (added1/updated2/skipped28), superseding earlier pending-cron notes. Preserve historical OpenAI recovery evidence, and distinguish it from subsequent Gemini cloud runs. Candidate trial observations, actual hours and rehearsal must still come from you.
