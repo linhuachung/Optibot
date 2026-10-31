@@ -1,19 +1,26 @@
 # SCIO product observation record
 
-Status updated 2026-10-31: the user created a trial and supplied a dashboard screenshot. This confirms dashboard access, not completion of the functional study. Native computer-use initialization fails; an isolated browser fallback reaches SCIO sign-in and is awaiting the user's own authentication. Help Center research is still separate from firsthand product observations.
+Status updated 2026-10-31: the candidate has completed a meaningful guided live study across Assets, Playlists, Schedules and Screens. Evidence consists of screenshots supplied in this conversation plus explicitly labeled candidate reports. The candidate requested stopping further cases. The isolated agent browser was not authenticated; do not claim these were agent-operated UI tests.
 
-Record the date, trial plan, portal version/interface and device/platform used. For each item below, record the exact action, observed outcome, evidence location and any limit that prevented the check. Redact account details and pairing codes from shared evidence.
+## Current accepted observations
 
-- [ ] Assets: upload an image, video and document; inspect search, preview, download, duplicate, replacement, deletion, folders and settings. Record size/storage limits visible in the trial.
-- [ ] References: place a file in content already assigned to a screen, replace it and observe propagation. Try deleting a referenced file and record the actual warning/outcome.
-- [ ] Playlists: create, reorder, change durations, preview and assign; inspect folders/settings, nesting and item scheduling even if excluded from the proposed first release.
-- [ ] Schedules: create file and playlist events, recurrence, overlaps and fallback; inspect timezone and live/expiry controls. Record the actual winning event rather than assuming the proposed policy matches SCIO.
-- [ ] Screens: pair a real test player if possible; assign an asset, playlist and schedule; inspect folders, orientation, timezone, online status and unpairing. If simulated or unavailable, say so.
-- [ ] End to end: upload → playlist → schedule → paired-screen playback. Record failures, confusing steps and elapsed propagation time.
+- [x] Trial/dashboard: a14-day trial and all four domain tabs are screenshot-supported.
+- [x] Assets: PNG, MP4 and two-page PDF upload/listing/thumbnails and folder membership are screenshot-supported; move/open success is candidate-reported.
+- [x] Playlist: three items, image duration20s->5s and total64s->49s with Changes Saved are screenshot-supported.
+- [x] PDF correction: candidate states portal preview stops on page1 and requires manual Next for page2. Earlier automatic-loop confirmation is superseded. No automatic PDF/page-loop behavior is established.
+- [x] Schedule: playlist binding, one-off date/time fields, recurrence choices/custom endings, future calendar instances and default-content choices are screenshot-supported. This does not prove Player execution/timezone/precedence.
+- [x] Screens: pairing form and content/operational/advanced settings are screenshot-supported; actual installed Player video/blue image/PDF rendering is explicitly candidate-confirmed, not independently agent-observed.
+- [x] Incorporate these findings into the Brief A plan with proposed policies separately labeled.
 
-Before final submission, turn these notes into concrete observations in `scio-slice-plan.md`, revise proposed choices where necessary and rehearse questions about features beyond the planned MVP.
+## Study limits accepted at the candidate's request
 
-## Guided trial session
+Further cases were skipped, not passed: replacement propagation and referenced deletion; exhaustive asset search/download/duplicate/settings/plan-limit checks; reorder/nesting/folder variants; overlap/DST/timezone/series-edit semantics; fallback and schedule-driven Player execution; offline behavior; Linux playback; hands-off PDF page progression and complete looping. They remain interview/implementation risks. Each is not a separately mandated submission artifact in the assignment. Do not generalize portal preview limitations to every Player platform.
+
+The original in-product OptiBot warm-up chat is not established by a visible widget or this portal study. Candidate ownership of the final scope/estimates and actual hours remain to be confirmed.
+
+## Historical guided trial session (reference only; no further exercises requested)
+
+
 
 Reserve the planned 2.5-hour study block, including note-taking. Open [the product](https://app.optisigns.com/) and sign up or sign in to a free trial yourself. Do not share your password or payment information in chat.
 
@@ -41,7 +48,7 @@ Prepared nonsensitive local fixtures in the ignored `.runtime/scio-study-assets/
 - `study-document-two-pages.pdf`: original two-page document, for preview/page-duration checks.
 - `fixture-manifest.json`: sizes and hashes for traceability.
 
-Planned study resources will use a dedicated Takehome Study folder and names so replacement/deletion checks target only newly created test content. No live customer screen will be reassigned or unpaired as part of this study. Actual results must be filled after the corresponding UI actions occur; fixtures and onboarding screenshots alone do not complete Step7.
+Planned study resources will use a dedicated Takehome Study folder and names so replacement/deletion checks target only newly created test content. No live customer screen will be reassigned or unpaired as part of this study. Actual results must be filled after the corresponding UI actions occur; fixtures and onboarding screenshots alone do not complete Step 7.
 
 ## Observed asset upload - 2026-10-31
 

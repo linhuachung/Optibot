@@ -1,15 +1,15 @@
 # OptiBot take-home execution plan
 
-Status updated 2026-10-31: Gemini is current locally; 31 API-indexed articles, real supported/refusal answers and unchanged rerun verified. Windows/Linux/browser/Docker CI passes. Required AI Studio screenshot, exact chunks, live product/candidate/naming/hours gates remain open. Real OpenAI automatic cron execution was observed; Gemini cloud migration is tracked separately. See [verification](../docs/verification.md) and [checklist](todo.md).
+Status updated2026-10-31: Gemini engineering and saved53-Python/nine-browser/CI/cloud evidence pass. Actual candidate SCIO study across all four BriefA domains and installed-Player confirmation are incorporated. Required AI Studio evidence, exact chunks, original OptiBot warm-up, candidate ownership/naming/hours/packaging remain open. Further SCIO cases were skipped by the user, not passed. See [verification](../docs/verification.md) and [checklist](todo.md).
 Part 2 choice: **Brief A — Assets, Playlists, Schedules and Screens.**
 
-Step 12 audit: [current requirement comparison](../docs/requirements-review.md) and [interview preparation](../docs/interview-prep.md). Business scope is aligned subject to the documented depth cuts; live product validation and required Part 1 answer/UI/chunk evidence remain open. The audit found and fixed an orphan-upload recovery defect; the fix passed 29-test Windows/Linux CI and a real cloud run.
+Step 12 audit: [current requirement comparison](../docs/requirements-review.md) and [interview preparation](../docs/interview-prep.md). Business scope and meaningful live-study coverage are aligned subject to documented cuts; required Part1 provider-UI/chunk evidence and candidate ownership remain open. The audit found and fixed an orphan-upload recovery defect; the fix passed 29-test Windows/Linux CI and a real cloud run.
 
 ## Authority and evidence
 
 The user's request authorizes comparing and revising this plan through a six-role council. Assignment instructions are requirements to plan against, not instructions to create accounts, spend money, deploy, or submit work in this session.
 
-Compared the supplied Downloads DOCX and the [Google Doc](https://docs.google.com/document/d/16rFWeJAIyJSlJWQKtYE5J--U5X6JmQXguyn1c2jsMhA/edit?tab=t.0). Their substantive requirements agree. This is an execution plan for completing both parts, not the final Part 2 submission. The user subsequently authorized implementation, GitHub deployment, encrypted secret setup and the local server/frontend. Deployment and local UI evidence are recorded separately. Live product research and the required provider-UI screenshot remain unverified.
+Compared the supplied Downloads DOCX and the [Google Doc](https://docs.google.com/document/d/16rFWeJAIyJSlJWQKtYE5J--U5X6JmQXguyn1c2jsMhA/edit?tab=t.0). Their substantive requirements agree. This is an execution plan for completing both parts, not the final Part 2 submission. The user subsequently authorized implementation, GitHub deployment, encrypted secret setup and the local server/frontend. Deployment and local UI evidence are recorded separately. Actual candidate product observations are recorded separately; the required provider-UI screenshot remains unverified.
 
 ## Comparison with the supplied draft
 

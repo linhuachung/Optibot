@@ -2,7 +2,7 @@ Brief A — Assets, Playlists, Schedules and Screens
 
 # Proposed team delivery plan
 
-Status: proposed design and estimate, prepared 2026-10-30. Product-trial observations and the candidate's scope/estimate review remain required before submission. This document proposes a new implementation; it does not describe OptiSigns' internal architecture.
+Status updated 2026-10-31: proposed design/estimate with actual candidate SCIO trial observations incorporated. The candidate chose to stop further cases; untested policies remain explicit. Candidate ownership of scope/estimates is still necessary. This proposes a new implementation, not OptiSigns' internal architecture.
 
 ## Outcome and delivery assumptions
 
@@ -14,16 +14,18 @@ Baseline effort is 48 engineering-days, with 12 additional days of contingency: 
 
 Initial capacity assumption: one region, up to 100 customer workspaces, 1,000 paired players and 10,000 uploaded files. This bounds testing and infrastructure sizing; it is not a measured demand forecast. The customer must validate it before committing to a production target.
 
-## Product evidence and decisions still requiring observation
+## Product evidence and implications for this proposal
 
-Documentation reviewed supports the following behavior:
+The candidate used a real14-day trial. Screenshots in this conversation and explicit candidate reports are summarized in [the observation record](scio-product-observations.md); they are distinct from the proposed architecture and future acceptance tests below.
 
-- The [asset guide](https://support.optisigns.com/hc/en-us/articles/360016247974) describes uploading, searching, previewing, downloading, duplicating, replacing and deleting uploaded files.
-- The [playlist guide](https://support.optisigns.com/hc/en-us/articles/28295104605843) describes ordered content and editable item durations. This slice limits content to uploaded files even though the product supports more content types.
-- The [pairing guide](https://support.optisigns.com/hc/en-us/articles/360016374813) describes entering a player-displayed pairing code in the portal. The [assignment guide](https://support.optisigns.com/hc/en-us/articles/360016375153) describes selecting an asset, playlist or schedule for a screen.
-- The [schedule guide](https://support.optisigns.com/hc/en-us/articles/360016981853) describes recurrence, screen-local time zones, one-time-event precedence, updated recurring-event precedence and fallback content.
+- **Assets:** original PNG, MP4 and two-page PDF files are listed with thumbnails and present inside Takehome Study. Folder move/open success is candidate-reported. This supports the uploaded-file vertical slice; the proposal still includes other operations and quotas whose live outcomes were not exercised.
+- **Playlists:** screenshot-backed composition is video4s/image20s/PDF2pages40s, total64s. Editing the image to5s produces total49s and Changes Saved. The candidate corrected the initial preview report: PDF page2 required manual Next, so automatic page advance/full looping is not claimed. Do not turn the displayed durations into universal default/rounding rules. The new system's explicit per-page playback policy is a proposed design decision.
+- **Schedules:** event details bind Takehome Study Playlist to10/31/2026 10:48PM-11:18PM. The candidate inspected daily/weekly/monthly/weekday/weekend/custom choices and Custom's Daily/Weekly/Monthly/Yearly, interval and Never/On/After endings. Subsequent calendar screenshots show recurring instances on Nov1/2 at the same times. The displayed default-content selection is Use Account Default; choices include None, Asset and Playlist. This supports calendar authoring and demonstrates why the proposed one-off/weekly initial scope is a deliberate depth cut. No timezone, overlap or runtime precedence is inferred from the screenshots.
+- **Screens:** screenshots show code-based pairing, Asset/Playlist/Schedule guidance, Landscape, a separate Operational Schedule and advanced preload/download/offline/sync/mute controls. The candidate explicitly confirmed video, blue image and PDF in the installed Player, separately from portal Preview. This supports the direct upload->playlist->screen path by candidate report, not independently observed scheduled execution or Linux playback. Keep content schedules distinct from operational scheduling.
 
-These are Help Center findings, not claims of having used the live product. Before finalizing, record the trial version/plan, exact actions and outcomes in [product observations](scio-product-observations.md). In particular, verify replacement propagation, deletion of referenced files, document-page durations, folder behavior, schedule conflicts, default settings and device playback. Do not turn an untested assumption into a description of current SCIO behavior.
+The candidate requested skipping further cases. Replacement/deletion propagation, exhaustive operations/limits/settings, nesting/folders, DST/overlap, scheduled/fallback execution, offline behavior, Linux execution and automatic PDF looping remain untested. They are risks to address in the proposed Milestone 0 and acceptance plan, not claims that current SCIO failed those behaviors. No more trial exercises are required by this internal review; the candidate must still be ready to discuss product depth in the interview.
+
+Help Center corroboration remains separate: [asset operations](https://support.optisigns.com/hc/en-us/articles/360016247974), [playlists](https://support.optisigns.com/hc/en-us/articles/28295104605843), [pairing](https://support.optisigns.com/hc/en-us/articles/360016374813), [assignment](https://support.optisigns.com/hc/en-us/articles/360016375153) and [schedules](https://support.optisigns.com/hc/en-us/articles/360016981853). Documentation-derived precedence/timezone descriptions must not be relabeled as candidate-observed outcomes.
 
 ## Scope
 
@@ -33,7 +35,7 @@ These are Help Center findings, not claims of having used the live product. Befo
 
 **Schedules:** calendar events targeting one uploaded file or playlist, start/end times, one-off and weekly recurrence, folders, screen-local timezone evaluation, conflict warnings and configurable fallback content. Defer arbitrary monthly/custom recurrence rules, exceptions and temporary takeover to a later phase. State these cuts explicitly in the handoff.
 
-**Screens:** expiring pairing code, name, folder, direct asset/playlist/schedule assignment, timezone, orientation/fit, fallback selection, online/last-seen status, unpairing and one Linux Chromium kiosk player. Include real playback on the paired device. Android/Fire TV/iOS/Windows-native apps, remote OS management and fleet software updates are excluded from this first release.
+**Screens:** expiring pairing code, name, folder, direct asset/playlist/schedule assignment, timezone, orientation/fit, fallback selection, online/last-seen status, unpairing and one Linux Chromium kiosk player. Include real playback on the paired device. Android/Fire TV/iOS/Windows-native apps, remote OS management and fleet software updates are excluded from this first release. A standardized Linux kiosk limits the initial player/platform matrix; this is a proposed implementation cut, not a claim that the candidate tested Linux. Validate it in Milestone 0 before committing to delivery.
 
 Integrate a managed identity provider for portal sign-in and enforce workspace boundaries in every server operation. This assumes a third-party identity product, not an existing SCIO backend: the selected slice is still built from scratch. This is the minimum security foundation for Brief A, not a separate custom-role/folder-sharing project from Brief B. Billing, app content, web pages, templates, social feeds and complex multi-zone screen layouts are excluded.
 
@@ -78,7 +80,7 @@ flowchart LR
 
 ### Proposed edge-case policy
 
-These choices are for the new implementation and must be compared with trial observations:
+These choices are for the new implementation. Compare them with the observed subset above; untested current-product behavior remains unknown:
 
 - Replacing a file preserves its asset ID; publication uses the new ready version only after validation completes. Previously cached versions remain usable until the new manifest is complete.
 - Duplicating a file creates independent asset metadata; the immutable underlying blob may be shared. Subsequent replacement of either copy does not change the other asset.
@@ -90,7 +92,7 @@ These choices are for the new implementation and must be compared with trial obs
 
 ### Business acceptance and failure policies
 
-These are explicit requirements for the proposed implementation, not verified current SCIO behavior. Reconcile them with the trial findings before final scope approval.
+These are explicit requirements for the proposed implementation, not verified current SCIO behavior. They incorporate the limited trial findings above; candidate approval and future feasibility checks remain necessary.
 
 - **All four resource types:** Assets, Playlists, Schedules and Screens each support creating a folder, renaming it, moving a resource, reparenting a folder and deleting an empty folder. Reject cycles, nonempty-folder deletion and cross-workspace moves. Each resource editor exposes its declared settings; folder support is not limited to Assets.
 - **Upload and quota races:** reserve storage during upload initiation, enforce the actual received size/type, and reconcile reservations after failure or expiry. Duplicate completion notifications must create one asset version and charge quota once. Concurrent pairing attempts must enforce the screen limit transactionally.
@@ -169,28 +171,4 @@ Pilot with a small workspace and a few screens before widening access. Watch con
 
 Cut extra player platforms, native cloud-drive integrations, playlist nesting/transitions, rich recurrence, video transcoding breadth and fleet OS controls before compromising the basic file-to-screen path. Re-estimate if the customer requires any of those in the initial release. Do not omit one of the four Brief A domains to make the estimate smaller.
 
-Final review must confirm the candidate can explain the staffing/capacity arithmetic, why player and conversion probes come first, how file replacement propagates, how schedule conflicts resolve and what happens offline. Product-trial observations, hardware availability, exact trial limits and the candidate's acceptance of these proposed choices remain open. This document must not be labelled submission-ready until those checks are complete.
-
-## Partial live-study evidence supplied by the candidate - 2026-10-31
-
-Screenshots and candidate reports now support a limited current-product comparison. The candidate uploaded the original PNG, MP4 and two-page PDF fixtures, moved them into Takehome Study and assembled a three-item playlist. A screenshot shows durations video4s/image20s/PDF40s with2pages, total64s. After an image-duration edit, another screenshot shows video4s/image5s/PDF40s, total49s and Changes Saved. The candidate later corrected the initial preview confirmation: PDF remains on page1 and requires manual Next to show page2. Automatic page progression/full looping is not confirmed.
-
-These observations support a saved ordered playlist with displayed per-item durations and editable image duration; they do not establish hands-off playback across all PDF pages. They do not establish a universal PDF-per-page timing or video rounding rule, nor schedule precedence/timezones or actual paired-player behavior. Keep proposed player/scheduling/replacement/failure policies labeled as design decisions until tested. See the detailed observation record; the live study is only partially complete.
-
-Candidate schedule-study update: a screenshot shows Takehome Study Schedule created and a visible30-minute event labeled10:48-11:18 Takehome Study Playlist on Saturday31. This supports calendar-event creation, but event details, recurrence/timezone, fallback/overlap and real-screen execution still require observation. No proposed scheduling policy is relabeled as observed behavior from this screenshot alone.
-
-The candidate's event-detail screenshot confirms Playlist selection, Takehome Study Playlist binding, a one-off interval10/31/2026 10:48PM-11:18PM and Repeat=Does not repeat. Asset is also offered as a selectable type. No timezone field is visible in that dialog; proposed timezone/recurrence/overlap rules remain design assumptions until tested.
-
-Candidate recurrence-study update: the October31 Repeat menu visibly offers daily, weeklySaturday, month-end/lastSaturday/day31 variants, weekdays, weekend and Custom, in addition to no repeat. This corroborates that the proposed one-off/weekly first-release scope is a deliberate depth cut relative to current SCIO UI. Only option availability is observed; short-month, timezone and execution semantics are not yet tested.
-
-The candidate inspected Custom Recurrence: Daily/Weekly/Monthly/Yearly frequencies, an editable Every interval, Never/On-date/After-count endings and a textual preview. This supports the documented deliberate recurrence-depth cuts; it does not establish saved series expansion, short-month handling or device execution.
-
-Candidate recurrence result: the next-week calendar shows recurring-icon events on Nov1 and Nov2 at10:48-11:18, with no instance visible on Nov3 at that interval, consistent with the intended three-day series startingOct31. This is observed portal expansion only, not proof of player execution or timezone behavior.
-
-Candidate fallback-study update: the schedule Default Content dialog explicitly describes filling time gaps and offers None, Use Account Default, Asset and Playlist. The displayed choice is Use Account Default. This validates the existence of configurable gap-fill choices in current SCIO UI, but not their player execution, the account-level target or the meaning of None on a physical player. The plan's proposed fallback/continuity policy remains a design choice until those outcomes are tested.
-
-Candidate screen-study update: Add Screen visibly requires the code shown by a player app and offers Windows/Mac laptop installation links; no pairing has yet occurred. The proposed Linux player remains a declared implementation-platform choice, not a claim that a Linux player was tested in this candidate session.
-
-Candidate screen-settings observation: the Screen1 edit UI exposes Asset/Playlist/Schedule content selection, Landscape orientation, a separately labeled Operational Schedule, and advanced preload/download/offline/sync/mute settings. These labels and trial states are observed; runtime effects and content delivery are not yet proven. Keep operational scheduling distinct from content schedules in the proposed model and interview discussion.
-
-Candidate end-to-end observation: after the screen/playlist assignment exercise, the candidate explicitly confirmed video, blue image and PDF rendering in the installed OptiSigns Player (not portal Preview). This supports the direct upload-to-playlist-to-screen path in the product study. It does not prove schedule execution, offline behavior, PDF auto-advance or Linux-player behavior; the proposed Linux/platform and reliability policies remain design choices.
+Final review must confirm the candidate can explain the staffing/capacity arithmetic, why player and conversion probes come first, how file replacement propagates, how schedule conflicts resolve and what happens offline. The candidate has supplied meaningful live-product observations and actual installed-Player confirmation. Exact plan limits and skipped behaviors remain explicit unknowns; the Linux player still needs the proposed feasibility spike. Candidate acceptance of these proposed choices and final combined assignment evidence remain open. Do not treat skipped cases as passes or claim submission readiness before the explicit missing deliverables are resolved/disclosed.
