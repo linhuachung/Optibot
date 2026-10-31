@@ -269,3 +269,7 @@ Raw Gemini store/document metadata was checked directly in addition to SDK inspe
 - [x] Observe Edit Event binding to Takehome Study Playlist, start10/31/2026 10:48PM/end11:18PM, Repeat=Does not repeat; Asset alternative and save/delete/color controls visible. Timezone and other recurrence outcomes remain unverified.
 
 - [x] Observe Repeat menu choices: none, daily, weeklySaturday, month-end, lastSaturday, day31, weekdays, weekend and Custom in an unsaved Add Event dialog. Actual recurrence execution and short-month/timezone behavior remain unverified.
+
+- [x] Observe Custom Recurrence frequencies Daily/Weekly/Monthly/Yearly, Every interval and Never/On-date/After-count termination choices, plus Daily-for1-occurrence preview. Saved recurring instances/execution remain unverified.
+
+- [x] Observe future recurring-icon instances on Nov1 and Nov2 at10:48-11:18 in the Nov1-7 Week calendar after the daily recurrence exercise. No player-execution or timezone conclusion is inferred.

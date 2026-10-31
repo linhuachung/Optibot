@@ -182,3 +182,7 @@ Candidate schedule-study update: a screenshot shows Takehome Study Schedule crea
 The candidate's event-detail screenshot confirms Playlist selection, Takehome Study Playlist binding, a one-off interval10/31/2026 10:48PM-11:18PM and Repeat=Does not repeat. Asset is also offered as a selectable type. No timezone field is visible in that dialog; proposed timezone/recurrence/overlap rules remain design assumptions until tested.
 
 Candidate recurrence-study update: the October31 Repeat menu visibly offers daily, weeklySaturday, month-end/lastSaturday/day31 variants, weekdays, weekend and Custom, in addition to no repeat. This corroborates that the proposed one-off/weekly first-release scope is a deliberate depth cut relative to current SCIO UI. Only option availability is observed; short-month, timezone and execution semantics are not yet tested.
+
+The candidate inspected Custom Recurrence: Daily/Weekly/Monthly/Yearly frequencies, an editable Every interval, Never/On-date/After-count endings and a textual preview. This supports the documented deliberate recurrence-depth cuts; it does not establish saved series expansion, short-month handling or device execution.
+
+Candidate recurrence result: the next-week calendar shows recurring-icon events on Nov1 and Nov2 at10:48-11:18, with no instance visible on Nov3 at that interval, consistent with the intended three-day series startingOct31. This is observed portal expansion only, not proof of player execution or timezone behavior.
