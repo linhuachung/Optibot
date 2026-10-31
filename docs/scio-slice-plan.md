@@ -170,3 +170,9 @@ Pilot with a small workspace and a few screens before widening access. Watch con
 Cut extra player platforms, native cloud-drive integrations, playlist nesting/transitions, rich recurrence, video transcoding breadth and fleet OS controls before compromising the basic file-to-screen path. Re-estimate if the customer requires any of those in the initial release. Do not omit one of the four Brief A domains to make the estimate smaller.
 
 Final review must confirm the candidate can explain the staffing/capacity arithmetic, why player and conversion probes come first, how file replacement propagates, how schedule conflicts resolve and what happens offline. Product-trial observations, hardware availability, exact trial limits and the candidate's acceptance of these proposed choices remain open. This document must not be labelled submission-ready until those checks are complete.
+
+## Partial live-study evidence supplied by the candidate - 2026-10-31
+
+Screenshots and candidate reports now support a limited current-product comparison. The candidate uploaded the original PNG, MP4 and two-page PDF fixtures, moved them into Takehome Study and assembled a three-item playlist. A screenshot shows durations video4s/image20s/PDF40s with2pages, total64s. After an image-duration edit, another screenshot shows video4s/image5s/PDF40s, total49s and Changes Saved. The candidate then confirms preview automatically progresses through video, image and both PDF pages and returns to video.
+
+These observations support ordered, timed uploaded-file playback in portal preview and editable image duration. They do not establish a universal PDF-per-page timing or video rounding rule, nor schedule precedence/timezones or actual paired-player behavior. Keep proposed player/scheduling/replacement/failure policies labeled as design decisions until tested. See the detailed observation record; the live study is only partially complete.

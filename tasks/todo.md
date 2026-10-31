@@ -249,3 +249,14 @@ Raw Gemini store/document metadata was checked directly in addition to SDK inspe
 - [x] Open a separate SCIO browser at the actual sign-in form for the user's own login; no password or verification code is requested in chat.
 - [x] Prepare original nonsensitive image/replacement, short MP4 and two-page PDF fixtures plus hashes in `.runtime/scio-study-assets/`.
 - [ ] Complete authenticated functional study and record action/outcome/evidence for all four domains. Session preparation does not satisfy the existing Step7 acceptance checkboxes.
+
+- [x] Observe user-created Takehome Study folder and uploaded PNG/MP4/PDF test cards with thumbnails in the Files/Assets Home view (user screenshot). Full preview/playback, folder membership and other Assets actions remain unverified.
+
+- [x] Record user-reported fixture move/open success and screenshot-corroborated membership in Takehome Study.
+- [x] Observe saved three-item Takehome Study Playlist: video4s, image20s, PDF2pages/40s, total64s. Duration editing, reordering, preview/loop and screen assignment remain unverified.
+
+- [x] Observe image duration edited from20s to5s, Changes Saved and playlist total recalculated from64s to49s; video4s and PDF40s remain unchanged (user screenshot). Preview/playback remains unverified.
+
+- [x] Record user-reported playlist preview opened with video visible. Automatic progression, both PDF pages, looping and paired-screen playback remain unverified.
+
+- [x] Record user confirmation of automatic portal-preview sequence: video -> blue image -> PDF pages1and2 -> video loop. Timing was not independently measured; physical-screen playback remains unverified.

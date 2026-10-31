@@ -42,3 +42,29 @@ Prepared nonsensitive local fixtures in the ignored `.runtime/scio-study-assets/
 - `fixture-manifest.json`: sizes and hashes for traceability.
 
 Planned study resources will use a dedicated Takehome Study folder and names so replacement/deletion checks target only newly created test content. No live customer screen will be reassigned or unpaired as part of this study. Actual results must be filled after the corresponding UI actions occur; fixtures and onboarding screenshots alone do not complete Step7.
+
+## Observed asset upload - 2026-10-31
+
+Evidence source: a new user-provided screenshot in this conversation after the guided upload. The Files/Assets Home view shows one folder named Takehome Study and 13 asset cards. Three cards have the exact test fixture names: study-video-3s.mp4, study-document-two-pages.pdf and study-image-blue.png. Their thumbnails visibly show the generated video frame, document page and blue image. The three test files appear in Home, not inside the study folder; folder membership/move behavior has not yet been tested.
+
+This verifies that the user created a folder and the three file types are listed with generated thumbnails. It does not yet verify full video playback, both PDF pages, conversion completion details, search/download/duplicate/replace/delete/settings, limits or screen propagation. Next check: inspect the PDF preview and page controls, then the short video and image settings. Existing sample assets are not study targets.
+
+## User-confirmed folder move/open and observed playlist - 2026-10-31
+
+The user reports moving the uploaded fixtures into Takehome Study and opening them successfully. This is user-reported success; the statement does not independently establish complete video playback or inspection of both PDF pages.
+
+A subsequent user-provided playlist screenshot directly shows Takehome Study Playlist with Changes Saved, 3 items, 99.5 KB and total duration 1m 4s. Its ordered rows are study-video-3s.mp4 (4 sec), study-image-blue.png (20 sec), and study-document-two-pages.pdf (2 pages, 40 sec). The right asset browser is inside Home > Takehome Study and lists the same three fixtures, corroborating folder membership. The displayed arithmetic is consistent: 4+20+40=64 seconds.
+
+Observed controls include undo/redo, a monitor-shaped preview control, settings and Push to Screens. Their outcomes have not been tested. The screenshot does not prove reordering, duration edits, looping, preview playback or assignment. It also does not establish a universal 20-second-per-PDF-page rule. Although the fixture filename says 3s, SCIO displays 4 sec; whether this is rounding or another duration rule remains unverified. Next targeted check: change only the image duration to 5 sec and inspect the new total, then preview the playlist and check both PDF pages.
+
+## Observed playlist duration edit - 2026-10-31
+
+A subsequent user screenshot shows Changes Saved and a total of 49s. The image row now displays 5 sec, while the video remains 4 sec and the two-page PDF remains 40 sec. This directly verifies editing the image duration, saving it and recalculating the displayed total (4+5+40=49). The sidebar still uses a coarse 1m label; no exact rounding rule is inferred. Preview playback, looping, reorder behavior and actual screen assignment remain untested in the evidence supplied so far.
+
+## User-reported preview opened - 2026-10-31
+
+After locating the monitor-shaped preview control, the user reports opening it and seeing the video. This is user-reported preview/video visibility, not independently captured evidence of motion, automatic transitions, both PDF pages or a completed loop. It also does not establish playback on a paired physical screen. Next observation requested: whether preview advances from video to the blue image and through both PDF pages.
+
+## User-confirmed complete preview sequence - 2026-10-31
+
+In response to the explicit check of video -> blue image approximately5 seconds -> PDF page1 -> page2 -> back to video, the user confirmed yes. Record this as user-observed automatic progression, both PDF pages and looping in portal preview. Timing was not independently measured and this is not evidence of a paired physical player's playback. Combined evidence now covers fixture upload, folder membership, saved playlist composition, image-duration editing, displayed total recalculation and the user-confirmed preview sequence. Schedules, physical pairing/assignment and further asset/settings/failure checks remain open.
