@@ -242,3 +242,10 @@ Raw Gemini store/document metadata was checked directly in addition to SDK inspe
 - [x] Preserve assignment-facing Gemini `API_KEY` alias (explicit `GEMINI_API_KEY` wins), with failing-then-passing regression; Docker defaults to the selected Gemini provider. Full Python suite now has 53 passing tests.
 
 - [x] Final API_KEY/Docker delta passed Windows/Linux, browser and Docker CI run 41213997518. Fresh npm/Python dependency audits report zero known vulnerabilities; credential-pattern and whitespace scans pass.
+
+## Step 7 session preparation - 2026-10-31
+
+- [x] Confirm trial/dashboard access from the user's screenshot; record only visible onboarding/navigation facts.
+- [x] Open a separate SCIO browser at the actual sign-in form for the user's own login; no password or verification code is requested in chat.
+- [x] Prepare original nonsensitive image/replacement, short MP4 and two-page PDF fixtures plus hashes in `.runtime/scio-study-assets/`.
+- [ ] Complete authenticated functional study and record action/outcome/evidence for all four domains. Session preparation does not satisfy the existing Step7 acceptance checkboxes.

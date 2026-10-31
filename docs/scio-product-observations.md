@@ -1,6 +1,6 @@
 # SCIO product observation record
 
-Status: on 2026-10-30, the user confirmed they have not explored SCIO yet. Browser automation also fails to initialize in this environment. Help Center research appears in the Brief A plan; it is not a substitute for this record. Never mark these checks complete based only on documentation.
+Status updated 2026-10-31: the user created a trial and supplied a dashboard screenshot. This confirms dashboard access, not completion of the functional study. Native computer-use initialization fails; an isolated browser fallback reaches SCIO sign-in and is awaiting the user's own authentication. Help Center research is still separate from firsthand product observations.
 
 Record the date, trial plan, portal version/interface and device/platform used. For each item below, record the exact action, observed outcome, evidence location and any limit that prevented the check. Redact account details and pairing codes from shared evidence.
 
@@ -26,3 +26,19 @@ Reserve the planned 2.5-hour study block, including note-taking. Open [the produ
 7. Write a few factual notes for each domain: action taken, result, unexpected behavior and evidence location. Include what you could not test. Then compare those notes with the proposal's replacement, deletion, schedule and player policies.
 
 The final plan should incorporate your actual findings and revise its assumptions. A checkbox or Help Center summary alone is not evidence that the live workflow was tested.
+
+## Session preparation and observed prerequisites - 2026-10-31
+
+Evidence source: user-provided dashboard screenshot in this conversation. It shows a 14-day trial banner, Screens selected, navigation to Files/Assets, Playlists and Schedules, Add Screen and New Folder controls, and first-screen onboarding. These are visible UI facts only. The onboarding instructs installing a player and pairing with its code; actual pairing/playback has not been observed.
+
+Direct browser observation: the isolated study browser reaches the real SCIO sign-in and registration pages. Registration offers Continue with Google, Continue with Microsoft and Continue with email. User authentication is performed by the user, not by storing passwords or reading browser credentials. No study asset has been uploaded and no existing account content modified yet.
+
+Prepared nonsensitive local fixtures in the ignored `.runtime/scio-study-assets/` directory:
+
+- `study-image-blue.png`: 640x360 blue image.
+- `study-image-replacement-orange.png`: same-size orange replacement for visual propagation checks.
+- `study-video-3s.mp4`: original three-second H.264 video generated in an independent test browser.
+- `study-document-two-pages.pdf`: original two-page document, for preview/page-duration checks.
+- `fixture-manifest.json`: sizes and hashes for traceability.
+
+Planned study resources will use a dedicated Takehome Study folder and names so replacement/deletion checks target only newly created test content. No live customer screen will be reassigned or unpaired as part of this study. Actual results must be filled after the corresponding UI actions occur; fixtures and onboarding screenshots alone do not complete Step7.
