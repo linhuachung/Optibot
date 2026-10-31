@@ -82,3 +82,11 @@ A user-provided screenshot shows Takehome Study Schedule in the Schedules area w
 ## Observed calendar event - 2026-10-31
 
 A further user screenshot shows a blue event in the Saturday31 column of Takehome Study Schedule. Its visible label is 10:48 - 11:18 Takehome Study Playlist, a30-minute interval as displayed. This verifies that an event bearing the study playlist name is visible in the calendar. The event detail dialog has not been supplied, so the underlying selected content, AM/PM representation, timezone, repeat rule and any priority/fallback behavior are not independently confirmed. The calendar image does not prove screen assignment or playback during the interval. Next check: open this existing event and inspect its content/time/recurrence settings.
+
+## Observed event binding and one-off interval - 2026-10-31
+
+The user supplied the Edit Event dialog. Playlist is the selected content type, and its selector shows Takehome Study Playlist. Start is10/31/2026 10:48 PM and End is10/31/2026 11:18 PM. Repeat currently reads Does not repeat. The dialog also exposes an alternative Asset content type, Event Color, Cancel, Delete and Save. This confirms actual playlist binding, explicit date/time fields and the current non-repeating setting. No timezone field is visible in this dialog, so the event's timezone is not inferred from the candidate's machine timezone. Other recurrence options and actual recurrence behavior are not yet observed.
+
+## Observed recurrence options - 2026-10-31
+
+The user screenshot shows Add Event (not the previous Edit Event), with Asset selected, No asset selected, start10/31/2026 11:00PM and end11:30PM. The expanded Repeat menu offers: Does not repeat; Daily; Weekly on Saturday; Monthly on end of month; Monthly on the last Saturday; Monthly on the31st; Every weekday (Monday to Friday); Every Weekend; Custom.... These are observed choices for the displayed October31 date. Their date-dependent labeling does not establish recurrence behavior in short months or other dates. No new asset event is saved in this evidence and no recurring execution has been observed. Next check: inspect Custom without saving an unconfigured event.

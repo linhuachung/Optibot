@@ -265,3 +265,7 @@ Raw Gemini store/document metadata was checked directly in addition to SDK inspe
 - [x] Observe Takehome Study Schedule created successfully and shown as an empty Week calendar with Add Event available (user screenshot). Event/timezone/recurrence/assignment behavior remains unverified.
 
 - [x] Observe a calendar event labeled10:48-11:18 Takehome Study Playlist on Saturday31. Event details/content binding, recurrence/timezone and actual player execution remain unverified.
+
+- [x] Observe Edit Event binding to Takehome Study Playlist, start10/31/2026 10:48PM/end11:18PM, Repeat=Does not repeat; Asset alternative and save/delete/color controls visible. Timezone and other recurrence outcomes remain unverified.
+
+- [x] Observe Repeat menu choices: none, daily, weeklySaturday, month-end, lastSaturday, day31, weekdays, weekend and Custom in an unsaved Add Event dialog. Actual recurrence execution and short-month/timezone behavior remain unverified.
