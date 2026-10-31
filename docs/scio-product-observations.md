@@ -74,3 +74,11 @@ In response to the explicit check of video -> blue image approximately5 seconds 
 The candidate explicitly corrected the earlier yes/no confirmation: PDF preview showed page1 and stopped; the candidate had to press Next manually to see page2. This supersedes any earlier claim of confirmed automatic PDF page progression or a complete automatic loop. The later acknowledgement did not explicitly report the outcome of the proposed hands-off40-second check, so that check remains unverified. This observation applies to the portal preview only; neither automatic nor manual physical-player page behavior has been tested.
 
 Current accepted facts: saved three-item playlist, editable image duration and correct displayed49-second total; preview opens with video visible; PDF page2 can be reached manually. Automatic PDF page progression and full automatic looping remain open. Continue the independent Schedules study without treating this preview limitation as a proven physical-player defect.
+
+## Observed schedule creation - 2026-10-31
+
+A user-provided screenshot shows Takehome Study Schedule in the Schedules area with a Schedule created confirmation. It is displayed as an empty weekly calendar for Oct25-31,2026, with Today, week/date navigation, Add Event, Push To Screens and settings controls. This verifies creation and visible calendar controls only. No event/content selection, recurrence, overlap, timezone, fallback or screen assignment has yet been observed.
+
+## Observed calendar event - 2026-10-31
+
+A further user screenshot shows a blue event in the Saturday31 column of Takehome Study Schedule. Its visible label is 10:48 - 11:18 Takehome Study Playlist, a30-minute interval as displayed. This verifies that an event bearing the study playlist name is visible in the calendar. The event detail dialog has not been supplied, so the underlying selected content, AM/PM representation, timezone, repeat rule and any priority/fallback behavior are not independently confirmed. The calendar image does not prove screen assignment or playback during the interval. Next check: open this existing event and inspect its content/time/recurrence settings.

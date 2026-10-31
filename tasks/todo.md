@@ -261,3 +261,7 @@ Raw Gemini store/document metadata was checked directly in addition to SDK inspe
 
 - [x] Record corrected portal-preview observation: candidate says PDF stops at page1 and requires manual Next for page2; earlier automatic-loop claim is superseded.
 - [ ] Verify hands-off PDF page progression/full automatic preview loop; no timed result has been supplied. Physical-player behavior is separately unverified.
+
+- [x] Observe Takehome Study Schedule created successfully and shown as an empty Week calendar with Add Event available (user screenshot). Event/timezone/recurrence/assignment behavior remains unverified.
+
+- [x] Observe a calendar event labeled10:48-11:18 Takehome Study Playlist on Saturday31. Event details/content binding, recurrence/timezone and actual player execution remain unverified.
