@@ -76,7 +76,7 @@ BA reviewed requirements and Brief A business coverage; QA independently reran t
 
 ## Current full retest and Gemini migration - 2026-10-31
 
-The native Gemini integration passed 52 Python tests and nine browser tests, independently rerun by QA. [CI run 41213997518](https://github.com/linhuachung/Optibot/actions/runs/41213125085) passed Windows/Linux, browser checks and Docker build with the new dependencies. The dependency audit found no known vulnerabilities; `pip check`, compilation and source credential-pattern/whitespace checks passed.
+The native Gemini integration passed 52 Python tests and nine browser tests, independently rerun by QA. [CI run 41213997518](https://github.com/linhuachung/Optibot/actions/runs/41213997518) passed Windows/Linux, browser checks and Docker build with the new dependencies. The dependency audit found no known vulnerabilities; `pip check`, compilation and source credential-pattern/whitespace checks passed.
 
 31 articles were API-indexed with zero pending operations. The separate actual rerun skipped all 31 with no uploads or failures. Gemini YouTube and schedule answers each contain five bullets and one correct support URL; unsupported weather is refused. These are API acceptance checks, not a Google AI Studio screenshot. [YouTube](evidence/gemini-youtube-answer.json), [schedule](evidence/gemini-schedule-answer.json), [refusal](evidence/gemini-unsupported-answer.json), [index status](evidence/gemini-index-status.json), [rerun](evidence/gemini-local-rerun.json).
 
