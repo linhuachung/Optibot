@@ -259,4 +259,5 @@ Raw Gemini store/document metadata was checked directly in addition to SDK inspe
 
 - [x] Record user-reported playlist preview opened with video visible. Automatic progression, both PDF pages, looping and paired-screen playback remain unverified.
 
-- [x] Record user confirmation of automatic portal-preview sequence: video -> blue image -> PDF pages1and2 -> video loop. Timing was not independently measured; physical-screen playback remains unverified.
+- [x] Record corrected portal-preview observation: candidate says PDF stops at page1 and requires manual Next for page2; earlier automatic-loop claim is superseded.
+- [ ] Verify hands-off PDF page progression/full automatic preview loop; no timed result has been supplied. Physical-player behavior is separately unverified.

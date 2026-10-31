@@ -65,6 +65,12 @@ A subsequent user screenshot shows Changes Saved and a total of 49s. The image r
 
 After locating the monitor-shaped preview control, the user reports opening it and seeing the video. This is user-reported preview/video visibility, not independently captured evidence of motion, automatic transitions, both PDF pages or a completed loop. It also does not establish playback on a paired physical screen. Next observation requested: whether preview advances from video to the blue image and through both PDF pages.
 
-## User-confirmed complete preview sequence - 2026-10-31
+## Earlier preview confirmation - superseded by the correction below
 
 In response to the explicit check of video -> blue image approximately5 seconds -> PDF page1 -> page2 -> back to video, the user confirmed yes. Record this as user-observed automatic progression, both PDF pages and looping in portal preview. Timing was not independently measured and this is not evidence of a paired physical player's playback. Combined evidence now covers fixture upload, folder membership, saved playlist composition, image-duration editing, displayed total recalculation and the user-confirmed preview sequence. Schedules, physical pairing/assignment and further asset/settings/failure checks remain open.
+
+## Corrected PDF preview observation - 2026-10-31
+
+The candidate explicitly corrected the earlier yes/no confirmation: PDF preview showed page1 and stopped; the candidate had to press Next manually to see page2. This supersedes any earlier claim of confirmed automatic PDF page progression or a complete automatic loop. The later acknowledgement did not explicitly report the outcome of the proposed hands-off40-second check, so that check remains unverified. This observation applies to the portal preview only; neither automatic nor manual physical-player page behavior has been tested.
+
+Current accepted facts: saved three-item playlist, editable image duration and correct displayed49-second total; preview opens with video visible; PDF page2 can be reached manually. Automatic PDF page progression and full automatic looping remain open. Continue the independent Schedules study without treating this preview limitation as a proven physical-player defect.
